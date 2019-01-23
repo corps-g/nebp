@@ -184,6 +184,10 @@ def nebp_flux(par, flux_type, erg_struct, cos_struct, power):
         flux = np.sum(flux, axis=0)
         error = np.sqrt(np.sum(error**2, axis=0))
 
+        # for spectrum object, remove bottom values
+        flux = flux[1:]
+        error = error[1:]
+
         return Spectrum(erg_struct, flux, error)
 
     # if cosine type
@@ -193,7 +197,12 @@ def nebp_flux(par, flux_type, erg_struct, cos_struct, power):
         flux = np.sum(flux, axis=1)
         error = np.sqrt(np.sum(error**2, axis=1))
 
-        return Spectrum(cos_struct, flux, error)
+        # for spectrum object, add a bottom value
+        new_cos_struct = np.empty(len(cos_struct) + 1)
+        new_cos_struct[0] = -1
+        new_cos_struct[1:] = cos_struct
+
+        return Spectrum(new_cos_struct, flux, error)
 
     # total type
     elif flux_type in ('tot', 'total'):
@@ -234,7 +243,11 @@ def test_nebp_flux():
     # cosine bins
     cos_struct = np.array([90, 10, 5, 0])
 
-    nebp_flux('n', 'cos', 'scale252', cos_struct, 1)
+    spec = nebp_flux('n', 'erg', 'wims69', cos_struct, 1)
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.plot(spec.step_x, spec.step_y, 'k')
+    plt.errorbar(spec.midpoints, spec.normalized_values, spec.error, ls='None', c='k')
 
     return
 
