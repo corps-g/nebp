@@ -243,11 +243,11 @@ def test_nebp_flux():
     # cosine bins
     cos_struct = np.array([90, 10, 5, 0])
 
-    spec = nebp_flux('n', 'erg', 'wims69', cos_struct, 1)
+    spec = nebp_flux('n', 'erg', 'scale56', cos_struct, 1)
     plt.xscale('log')
     plt.yscale('log')
-    plt.plot(spec.step_x, spec.step_y, 'k')
-    plt.errorbar(spec.midpoints, spec.normalized_values, spec.error, ls='None', c='k')
+    plt.plot(*spec.plot('plot', 'diff'), 'k')
+    plt.errorbar(*spec.plot('errorbar', 'diff'), ls='None', c='k')
 
     return
 
