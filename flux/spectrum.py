@@ -71,6 +71,30 @@ class Spectrum(object):
 
         return
 
+    def __add__(self):
+        raise NotImplementedError
+
+    def __radd__(self):
+        raise NotImplementedError
+
+    def __sub__(self):
+        raise NotImplementedError
+
+    def __rsub__(self):
+        raise NotImplementedError
+
+    def __mul__(self):
+        raise NotImplementedError
+
+    def __rmul__(self):
+        raise NotImplementedError
+
+    def __div__(self):
+        raise NotImplementedError
+
+    def __rdiv__(self):
+        raise NotImplementedError
+
     def plot(self, plot_type, form):
         """This function will return the arguments necessary for plotting
         the data with both plt.plot and plt.errorbar in both integral and
