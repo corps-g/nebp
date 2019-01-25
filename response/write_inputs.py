@@ -52,10 +52,12 @@ def source_writer():
 
     # add distribution
     shift = 4
-    dist_nums = np.array(range(shift, len(flux_spectrum.xedges) + shift)).astype(int)
+    dist_nums = np.array(range(shift, len(flux_spectrum.yedges) - 1 + shift)).astype(int)
     source += card_writer('DS3 S', dist_nums, 5)
+    print(source)
 
     for i in dist_nums:
+        i -= 4
         source += card_writer('SI{} H'.format(i), flux_spectrum.xedges[1:], 4)
         dist = np.concatenate((np.array([0]), flux_spectrum.int[1:, i]))
         source += card_writer('SP{} D'.format(i), dist, 4)
