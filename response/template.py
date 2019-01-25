@@ -10,7 +10,7 @@ c                          -----Beam Port------
 3 6 -1.300  11 -12  22 -23     IMP:N=1             $ Borated Poly Wrapping
 4 0         12 -13  22 -23     IMP:N=1             $ Borated Poly Missing
 5 0       (-11) : (11 -13 23)  IMP:N=0             $ Coreside and Radial Graveyard
-6 0         13                 IMP:N=0  {}     $ Mouthside Graveyard
+6 0         13                 IMP:N=1  {}     $ Mouthside Graveyard
 c
 c
 c                          -----Bonner Sphere------
@@ -35,7 +35,7 @@ c                          -----Bonner Sphere------
                 (101 -199 126  117 -119):
                 (101 -199  119):
                 (101 -199 -111)         U=1  IMP:N=1        $ Air Around Sphere
-199 0                 199               U=1  IMP:N=1        $ Graveyard
+199 0                 199               U=1  IMP:N=0        $ Graveyard
 
 c ******************************************************************************
 c                               SURFACE CARDS
@@ -87,7 +87,7 @@ c  -----------------------------------------------------------------------------
 c                                                     SOURCE SPECIFICATIONS
 c  -----------------------------------------------------------------------------
 SDEF    PAR=1
-        POS=1 0 0
+        POS=40 0 0
         AXS=1 0 0
         EXT=0
         VEC=1 0 0
@@ -195,7 +195,7 @@ c
 c                               -----tally multiplier
 c     Constant of proportionality | material  | 105 is (n,t) reaction of Li-6
 FM114: 1 11 105
-c
+{}c
 c  -----------------------------------------------------------------------------
 c  TALLY 124:      Light Creation within Li in Lithium Crystal
 c  -----------------------------------------------------------------------------

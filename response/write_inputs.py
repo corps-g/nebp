@@ -1,8 +1,10 @@
 import numpy as np
 from template import mcnp_template
 import sys
-sys.path.insert(0, '../flux')
+sys.path.insert(0, '../')
+import paths
 from nebp_flux import nebp_flux
+from energy_groups import energy_groups
 
 
 def card_writer(card, data, elements):
@@ -28,7 +30,7 @@ def card_writer(card, data, elements):
     return s
 
 
-def source_writer():
+def source_writer(erg_struct):
     """Writes the triga nebp mcnp source."""
 
     # first, match the cosine bin structure of the original mcnp
@@ -37,7 +39,7 @@ def source_writer():
                            9.993908e-01, 9.998477e-01, 9.999619e-01, 1.000000e+00])
 
     # this is the energy dependent flux spectrum for the first distribution
-    erg_flux_spectrum = nebp_flux('n', 'erg', 'scale56', cos_struct, 1)
+    erg_flux_spectrum = nebp_flux('n', 'erg', erg_struct, cos_struct, 1)
 
     # add the erg dependent distribution
     source = card_writer('SI2 H', erg_flux_spectrum.edges[1:], 4)
@@ -48,19 +50,17 @@ def source_writer():
     source += card_writer('SP2 D', dist, 4)
 
     # add dependent distribution
-    flux_spectrum = nebp_flux('n', 'cos_erg', 'scale56', cos_struct, 1)
+    flux_spectrum = nebp_flux('n', 'cos_erg', erg_struct, cos_struct, 1)
 
     # add distribution
     shift = 4
-    dist_nums = np.array(range(shift, len(flux_spectrum.yedges) - 1 + shift)).astype(int)
-    source += card_writer('DS3 S', dist_nums, 5)
-    print(source)
+    dist_nums = np.array(range(len(flux_spectrum.yedges) - 2)).astype(int)
+    source += card_writer('DS3 S', dist_nums + shift, 5)
 
     for i in dist_nums:
-        i -= 4
-        source += card_writer('SI{} H'.format(i), flux_spectrum.xedges[1:], 4)
-        dist = np.concatenate((np.array([0]), flux_spectrum.int[1:, i]))
-        source += card_writer('SP{} D'.format(i), dist, 4)
+        source += card_writer('SI{} H'.format(i + shift), flux_spectrum.xedges[1:], 4)
+        dist = np.concatenate((np.array([0]), flux_spectrum.int[1:, i + 1]))
+        source += card_writer('SP{} D'.format(i + shift), dist, 4)
 
     return source
 
@@ -73,6 +73,9 @@ def write_input(det, bonner_size=12):
     message = "Detector must be of type 'empty', 'bs, 'ft' or 'wt'."
     assert det in ('empty', 'bs', 'ft', 'wt'), message
 
+    # choose erg bin structure
+    erg_struct = 'scale252'
+
     # first, grab the empty bp geometry template
     mcnp_input = mcnp_template
 
@@ -84,17 +87,21 @@ def write_input(det, bonner_size=12):
     if det == 'empty':
         fill = ('      ', '      ')
     elif det == 'bs':
-        fill = ('FILL=1', 'FILL=1')
+        fill = ('      ', 'FILL=1')
     elif det == 'ft':
         raise NotImplementedError
     elif det == 'wt':
         raise NotImplementedError
 
     # grab the source term
-    source = source_writer()
+    source = source_writer(erg_struct)
+
+    # grab tally erg bins
+    erg_bins = energy_groups(erg_struct)
+    tally = card_writer('E114', erg_bins, 4)
 
     # format the mcnp
-    mcnp_input = mcnp_input.format(*fill, bonner_size, source)
+    mcnp_input = mcnp_input.format(*fill, bonner_size, source, tally)
 
     # write to file
     with open(det + '.i', 'w+') as F:
