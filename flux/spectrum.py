@@ -45,7 +45,7 @@ class Spectrum(object):
 
         # special handling for different size edges
         if len(edges) == len(values):
-            edges = np.concatenate(np.array([floor]), np.array(edges))
+            edges = np.concatenate((np.array([floor]), np.array(edges)))
         elif len(edges) == len(values) + 1:
             edges = np.array(edges)
 

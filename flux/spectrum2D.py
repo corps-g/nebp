@@ -55,13 +55,13 @@ class Spectrum2D(object):
 
         # special handling for different size edges
         if len(xedges) == values.shape[0]:
-            xedges = np.concatenate(np.array([floor[0]]), np.array(xedges))
+            xedges = np.concatenate((np.array([floor[0]]), np.array(xedges)))
         elif len(xedges) == len(values) + 1:
             xedges = np.array(xedges)
 
         # do the same for y edges
         if len(yedges) == values.shape[1]:
-            yedges = np.concatenate(np.array([floor[1]]), np.array(yedges))
+            yedges = np.concatenate((np.array([floor[1]]), np.array(yedges)))
         elif len(yedges) == len(values) + 1:
             yedges = np.array(yedges)
 

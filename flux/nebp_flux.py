@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from energy_groups import energy_groups
 from spectrum import Spectrum
+from spectrum2D import Spectrum2D
 
 
 def extract_mcnp(par):
@@ -218,7 +219,9 @@ def nebp_flux(par, flux_type, erg_struct, cos_struct, power):
     elif flux_type == 'cos_erg':
 
         # this isn't implemented yet
-        raise NotImplementedError
+        flux = flux[:, 1:]
+        error = error[:, 1:]
+        return Spectrum2D(cos_struct, erg_struct, flux, error, floor=(-1, 1e-11))
 
     return
 
@@ -242,12 +245,16 @@ def test_nebp_flux():
 
     # cosine bins
     cos_struct = np.array([90, 10, 5, 0])
-
+    '''
     spec = nebp_flux('n', 'erg', 'scale56', cos_struct, 1)
     plt.xscale('log')
     plt.yscale('log')
     plt.plot(*spec.plot('plot', 'diff'), 'k')
     plt.errorbar(*spec.plot('errorbar', 'diff'), ls='None', c='k')
+    '''
+
+    # cos_erg
+    spec = nebp_flux('n', 'cos_erg', 'scale56', cos_struct, 1)
 
     return
 
