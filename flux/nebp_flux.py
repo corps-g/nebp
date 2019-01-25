@@ -2,6 +2,8 @@ import re
 import numpy as np
 import matplotlib.pyplot as plt
 from energy_groups import energy_groups
+import sys
+sys.path.insert(0, '../utils')
 from spectrum import Spectrum, Spectrum2D
 
 
@@ -239,13 +241,12 @@ def test_nebp_flux():
 
     # cosine bins
     cos_struct = np.array([90, 10, 5, 0])
-    '''
+
     spec = nebp_flux('n', 'erg', 'scale56', cos_struct, 1)
     plt.xscale('log')
     plt.yscale('log')
     plt.plot(*spec.plot('plot', 'diff'), 'k')
     plt.errorbar(*spec.plot('errorbar', 'diff'), ls='None', c='k')
-    '''
 
     # cos_erg
     spec = nebp_flux('n', 'cos_erg', 'scale56', cos_struct, 1)
