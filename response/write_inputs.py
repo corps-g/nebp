@@ -1,4 +1,66 @@
+import numpy as np
 from template import mcnp_template
+import sys
+sys.path.insert(0, '../flux')
+from nebp_flux import nebp_flux
+
+
+def card_writer(card, data, elements):
+    """This will write multiline cards for SI and SP distributions for mcnp inputs.
+
+    Input Data:
+        card - name and number of the card
+        data array - a numpy array containing the data you'd like placed in the card.
+        Outputs:
+            a string that can be copied and pasted into an mcnp input file"""
+    s = '{}   '.format(card)
+    empty_card = '   ' + ' ' * len(card)
+    elements_per_row = elements
+    row_counter = 0
+    element = '{:6}  ' if data.dtype in ['int32', 'int64'] else '{:14.6e}  '
+    for i, d in enumerate(data):
+        s += element.format(d)
+        row_counter += 1
+        if row_counter == elements_per_row and i + 1 != len(data):
+            row_counter = 0
+            s += '\n{}'.format(empty_card)
+    s += '\n'
+    return s
+
+
+def source_writer():
+    """Writes the triga nebp mcnp source."""
+
+    # first, match the cosine bin structure of the original mcnp
+    cos_struct = np.array([0.000000e+00, 1.736482e-01, 3.420201e-01, 5.000000e-01, 6.427876e-01,
+                           7.660444e-01, 8.660254e-01, 9.396926e-01, 9.848078e-01, 9.961947e-01,
+                           9.993908e-01, 9.998477e-01, 9.999619e-01, 1.000000e+00])
+
+    # this is the energy dependent flux spectrum for the first distribution
+    erg_flux_spectrum = nebp_flux('n', 'erg', 'scale56', cos_struct, 1)
+
+    # add the erg dependent distribution
+    source = card_writer('SI2 H', erg_flux_spectrum.edges[1:], 4)
+
+    # mcnp requires the first bin in a distribution be zero
+    dist = np.zeros(len(erg_flux_spectrum.int))
+    dist[1:] = erg_flux_spectrum.int[1:]
+    source += card_writer('SP2 D', dist, 4)
+
+    # add dependent distribution
+    flux_spectrum = nebp_flux('n', 'cos_erg', 'scale56', cos_struct, 1)
+
+    # add distribution
+    shift = 4
+    dist_nums = np.array(range(shift, len(flux_spectrum.xedges) + shift)).astype(int)
+    source += card_writer('DS3 S', dist_nums, 5)
+
+    for i in dist_nums:
+        source += card_writer('SI{} H'.format(i), flux_spectrum.xedges[1:], 4)
+        dist = np.concatenate((np.array([0]), flux_spectrum.int[1:, i]))
+        source += card_writer('SP{} D'.format(i), dist, 4)
+
+    return source
 
 
 def write_input(det, bonner_size=12):
@@ -26,8 +88,11 @@ def write_input(det, bonner_size=12):
     elif det == 'wt':
         raise NotImplementedError
 
+    # grab the source term
+    source = source_writer()
+
     # format the mcnp
-    mcnp_input = mcnp_input.format(*fill, bonner_size)
+    mcnp_input = mcnp_input.format(*fill, bonner_size, source)
 
     # write to file
     with open(det + '.i', 'w+') as F:

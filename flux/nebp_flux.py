@@ -3,7 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from energy_groups import energy_groups
 import sys
-sys.path.insert(0, '../utils')
+sys.path.insert(0, '../')
+import paths
 from spectrum import Spectrum, Spectrum2D
 
 
@@ -37,7 +38,7 @@ def extract_mcnp(par):
                                9.993908e-01, 9.998477e-01, 9.999619e-01, 1.000000e+00])
 
         # open file w/ neutron data
-        with open('mcnp/triga_finale_n.o') as F:
+        with open(paths.main_path + '/flux/mcnp/triga_finale_n.o') as F:
             mcnp_file = F.read()
 
         # split tally region from file
@@ -186,10 +187,6 @@ def nebp_flux(par, flux_type, erg_struct, cos_struct, power):
         flux = np.sum(flux, axis=0)
         error = np.sqrt(np.sum(error**2, axis=0))
 
-        # for spectrum object, remove bottom values
-        flux = flux[1:]
-        error = error[1:]
-
         return Spectrum(erg_struct, flux, error)
 
     # if cosine type
@@ -214,9 +211,6 @@ def nebp_flux(par, flux_type, erg_struct, cos_struct, power):
     # if anyone really ever wanted this
     elif flux_type == 'cos_erg':
 
-        # this isn't implemented yet
-        flux = flux[:, 1:]
-        error = error[:, 1:]
         return Spectrum2D(cos_struct, erg_struct, flux, error, floor=(-1, 1e-11))
 
     return
