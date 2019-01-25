@@ -2,8 +2,7 @@ import re
 import numpy as np
 import matplotlib.pyplot as plt
 from energy_groups import energy_groups
-from spectrum import Spectrum
-from spectrum2D import Spectrum2D
+from spectrum import Spectrum, Spectrum2D
 
 
 def extract_mcnp(par):
@@ -198,12 +197,7 @@ def nebp_flux(par, flux_type, erg_struct, cos_struct, power):
         flux = np.sum(flux, axis=1)
         error = np.sqrt(np.sum(error**2, axis=1))
 
-        # for spectrum object, add a bottom value
-        new_cos_struct = np.empty(len(cos_struct) + 1)
-        new_cos_struct[0] = -1
-        new_cos_struct[1:] = cos_struct
-
-        return Spectrum(new_cos_struct, flux, error)
+        return Spectrum(cos_struct, flux, error, floor=-1)
 
     # total type
     elif flux_type in ('tot', 'total'):
