@@ -88,9 +88,9 @@ c
 c
 c
 c                          -----Foil Tube------
-201 2 CX  0.51               $ tube inner rad
-202 2 CX  0.61               $ tube outer rad
-203 2 CX  0.10               $ foil chamber rad
+201 2 CX  0.8525               $ tube inner rad
+202 2 CX  0.9524               $ tube outer rad
+203 2 CX  0.2500               $ foil chamber rad
 c
 {}c
 c

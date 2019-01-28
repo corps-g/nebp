@@ -65,7 +65,54 @@ def source_writer(erg_struct):
     return source
 
 
-def write_input(det, foil_type='in', bonner_size=12):
+def foil_tube_geometry(foil_type, foil_mass, erg_bins):
+    """Writes the cells, surfs and tallies for the foil tube."""
+
+    # create bonner tube cells and surfs
+    ft_cells = ''
+    ft_surfs = ''
+    ft_tally = ''
+
+    # foil mat
+    foil_mat = {'in': '5 -7.310', 'au': '9 -19.30'}
+
+    # calculate foil thickness (convert to mg)
+    rho = float(foil_mat[foil_type].split()[1][1:])
+    radius = 0.25
+    foil_thickness = (foil_mass * 0.001) / (rho * np.pi * radius**2)
+    print(foil_thickness)
+
+    # loop through each section of the foil tube
+    for l in np.linspace(0, 11, 12).astype(int):
+
+        # foil tube cells
+        p1, p2, p3, p4 = 211 + l, 231 + l, 251 + l, 212 + l
+        ft_cells += '{} 2 -1.300  ({} -{} -201):({} -{} 203 -201)  U=2 IMP:N=1\n'.format(p1, p1, p2, p2, p4)
+        ft_cells += '{} {}  ({} -{} -203)                      U=2 IMP:N=1\n'.format(p2, foil_mat[foil_type], p2, p3)
+        ft_cells += '{} 0         ({} -{} -203)                      U=2 IMP:N=1\n'.format(p3, p3, p4)
+
+        # foil tube surfaces
+        ft_surfs += '{} 2  PX  {}\n'.format(p1, l * 2.54)
+        ft_surfs += '{} 2  PX  {}\n'.format(p2, (l * 2.54) + 2.44)
+        ft_surfs += '{} 2  PX  {}\n'.format(p3, (l * 2.54) + 2.44 + foil_thickness)
+
+        # foil tube tallies
+        ft_tally += 'F{}4:N {}\n'.format(13 + l, p2)
+        ft_tally += 'FM{}4: 1 {} 102\n'.format(13 + l, foil_mat[foil_type][0])
+        ft_tally += card_writer('E{}4'.format(13 + l), erg_bins, 4)
+
+        # scx tally for foil tube
+        ft_tally += 'F{}4:N {}\n'.format(25 + l, p2)
+        ft_tally += 'FM{}4: 1 {} 102\n'.format(25 + l, foil_mat[foil_type][0])
+        ft_tally += 'FT{}4  SCX 2\n'.format(25 + l)
+
+    # add a final surf
+    ft_surfs += '{} 2  PX  {}\n'.format(223, 12 * 2.54)
+
+    return ft_cells, ft_surfs, ft_tally
+
+
+def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
     """Utility that writes two mcnp inputs (response function and
     integrated response) given a detector type."""
 
@@ -90,47 +137,19 @@ def write_input(det, foil_type='in', bonner_size=12):
     # select mcnp fill
     if det == 'empty':
         fill = ('      ', '      ')
+        fname = 'empty.i'
     elif det == 'bs':
         fill = ('      ', 'FILL=1')
+        fname = 'bs.i'
     elif det == 'ft':
         fill = ('FILL=2', 'FILL=4')
+        fname = 'ft_{}.i'.format(foil_type)
     elif det == 'wt':
         fill = ('FILL=3', 'FILL=4')
+        fname = 'wt.i'
 
-    # create bonner tube cells and surfs
-    ft_cells = ''
-    ft_surfs = ''
-    ft_tally = ''
-
-    # foil mat
-    foil_mat = {'in': '5 -7.310', 'au': '9 -19.30'}
-
-    # loop through each section of the foil tube
-    for l in np.linspace(0, 11, 12).astype(int):
-
-        # foil tube cells
-        p1, p2, p3, p4 = 211 + l, 231 + l, 251 + l, 212 + l
-        ft_cells += '{} 2 -1.300  ({} -{} -201):({} -{} 203 -201)  U=2 IMP:N=1\n'.format(p1, p1, p2, p2, p4)
-        ft_cells += '{} {}  ({} -{} -203)                      U=2 IMP:N=1\n'.format(p2, foil_mat[foil_type], p2, p3)
-        ft_cells += '{} 0         ({} -{} -203)                      U=2 IMP:N=1\n'.format(p3, p3, p4)
-
-        # foil tube surfaces
-        ft_surfs += '{} 2  PX  {}\n'.format(p1, l * 2.54)
-        ft_surfs += '{} 2  PX  {}\n'.format(p2, (l * 2.54) + 2.44)
-        ft_surfs += '{} 2  PX  {}\n'.format(p3, (l * 2.54) + 2.49)
-
-        # foil tube tallies
-        ft_tally += 'F{}4:N {}\n'.format(13 + l, p2)
-        ft_tally += 'FM{}4: 1 {} 102\n'.format(13 + l, foil_mat[foil_type][0])
-        ft_tally += card_writer('E{}4'.format(13 + l), erg_bins, 4)
-
-        # scx tally for foil tube
-        ft_tally += 'F{}4:N {}\n'.format(25 + l, p2)
-        ft_tally += 'FM{}4: 1 {} 102\n'.format(25 + l, foil_mat[foil_type][0])
-        ft_tally += 'FT{}4  SCX 2\n'.format(25 + l)
-
-    # add a final surf
-    ft_surfs += '{} 2  PX  {}\n'.format(223, 12 * 2.54)
+    # produce foil tube geometry
+    ft_cells, ft_surfs, ft_tally = foil_tube_geometry(foil_type, foil_mass, erg_bins)
 
     # grab the source term
     source = source_writer(erg_struct)
@@ -142,7 +161,7 @@ def write_input(det, foil_type='in', bonner_size=12):
     mcnp_input = mcnp_input.format(*fill, ft_cells, bonner_size, ft_surfs, source, tally, ft_tally)
 
     # write to file
-    with open('mcnp/' + det + '.i', 'w+') as F:
+    with open('mcnp/' + fname, 'w+') as F:
         F.write(mcnp_input)
 
     return
@@ -152,9 +171,10 @@ def test_write_input():
     """A small utility used to test write_input()."""
 
     # test empty case
-    #write_input('empty')
-    #write_input('bs')
-    write_input('ft')
+    write_input('empty')
+    write_input('bs')
+    write_input('ft', 'in', 20.0)
+    write_input('ft', 'au', 45.0)
 
 
 if __name__ == '__main__':
