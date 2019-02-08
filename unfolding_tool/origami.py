@@ -70,12 +70,18 @@ def Gravel(N, sigma2, R, f_def, params):
     return f
 
 
+def STAYSL():
+    """The least-squares algorithm implemented in the STAY'SL unfolding code."""
+
+    pass
+
+
 def unfold(N, sigma2, R, f_def, method='MAXED', params={}):
     """A utility that deconvolutes (unfolds) neutron spectral data given
     typical inputs and a selection of unfolding algorithm."""
 
     # check input
-    available_methods = ('MAXED', 'Gravel')
+    available_methods = ('MAXED', 'Gravel', 'STAYSL')
     assert method in available_methods, 'method must by literal in {}'.format(available_methods)
     assert len(N) == len(sigma2), 'N and sigma2 must be the same length.'
     assert R.shape == (len(N), len(f_def)), 'Shape of R must be consistent with other inputs.'
@@ -87,5 +93,9 @@ def unfold(N, sigma2, R, f_def, method='MAXED', params={}):
     # unfold with Gravel
     elif method == 'Gravel':
         return Gravel(N, sigma2, R, f_def, params)
+
+    # unfold with STAY'SL
+    elif method == 'STAYSL':
+        return STAYSL(N, sigma2, R, f_def, params)
 
     return
