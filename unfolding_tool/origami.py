@@ -70,10 +70,30 @@ def Gravel(N, sigma2, R, f_def, params):
     return f
 
 
-def STAYSL():
+def STAYSL(N, sigma2, R, f_def, params):
     """The least-squares algorithm implemented in the STAY'SL unfolding code."""
 
-    pass
+    # pull out algorithm-specific parameters and values
+    f_def_err = params['f_def_err']
+
+    # if not calculated, the relative covariance matrices are computed
+    M_No = np.diag(sigma2 / N)
+    M_f_def = np.diag(f_def_err / f_def)
+
+    # compute covariance matrix N_Ao
+    N_No = N.dot(M_No.dot(N))
+
+    # compute 'c' matrix
+    c = f_def * R
+
+    # compute u matrix
+    u = c * 0
+    for i in range(len(N)):
+        for j in range(len(f_def)):
+            u[i, j] = np.sum(M_f_def[j] * c[i])
+
+    # compute A vector
+    A = np.sum(c, axis=1)
 
 
 def unfold(N, sigma2, R, f_def, method='MAXED', params={}):
