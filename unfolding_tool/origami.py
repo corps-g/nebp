@@ -75,10 +75,12 @@ def STAYSL(N, sigma2, R, f_def, params):
 
     # pull out algorithm-specific parameters and values
     f_def_err = params['f_def_err']
+    R_err = params['R_err']
 
     # if not calculated, the relative covariance matrices are computed
     M_No = np.diag(sigma2 / N)
     M_f_def = np.diag(f_def_err / f_def)
+    M_R = np.diag(R_err / R)
 
     # compute covariance matrix N_Ao
     N_No = N.dot(M_No.dot(N))
@@ -95,13 +97,22 @@ def STAYSL(N, sigma2, R, f_def, params):
     # compute A vector
     A = np.sum(c, axis=1)
 
+    # compute covariance matrix N_f_A
+    N_f_A = c * 0
+    for i in range(len(N)):
+        for j in range(len(f_def)):
+            N_f_A[i, j] = np.sum(c[i] * u[j])
+
+    # compute covariance matrix N_R_A
+    pass
+
 
 def unfold(N, sigma2, R, f_def, method='MAXED', params={}):
     """A utility that deconvolutes (unfolds) neutron spectral data given
     typical inputs and a selection of unfolding algorithm."""
 
     # check input
-    available_methods = ('MAXED', 'Gravel', 'STAYSL')
+    available_methods = ('MAXED', 'Gravel')
     assert method in available_methods, 'method must by literal in {}'.format(available_methods)
     assert len(N) == len(sigma2), 'N and sigma2 must be the same length.'
     assert R.shape == (len(N), len(f_def)), 'Shape of R must be consistent with other inputs.'
