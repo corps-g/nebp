@@ -54,6 +54,10 @@ class Fuel_Element(object):
         self.rr_ax = np.sum(self.rr_abs, axis=1)
         self.rr_rad = np.sum(self.rr_abs, axis=0)
 
+        # do the same for reaction rate density
+        self.rr_density_ax = np.sum(self.rr_density, axis=1)
+        self.rr_density_rad = np.sum(self.rr_density, axis=0)
+
 
 class Triga_Core(object):
 
@@ -172,7 +176,7 @@ def plot_fission_rates():
         # set up plotting environment
         fig0 = plt.figure(i, figsize=(3, 10))
         ax0 = fig0.add_subplot(111)
-        fig1 = plt.figure(i + 10, figsize=(10, 3))
+        fig1 = plt.figure(i + 10, figsize=(8, 6))
         ax1 = fig1.add_subplot(111)
 
         # axial plot
@@ -182,8 +186,8 @@ def plot_fission_rates():
             element = core.fuel[element_id]
 
             # plot the axial reaction rate
-            ax0.plot(element.rr_ax, element.ax_mps, label=element_id)
-            ax1.plot(element.rad_mps, element.rr_rad, label=element_id)
+            ax0.plot(element.rr_density_ax, element.ax_mps, label=element_id)
+            ax1.plot(element.rad_mps, element.rr_density_rad, label=element_id)
 
         # save the figure
         ax0.legend()
