@@ -4,9 +4,17 @@ import matplotlib.pyplot as plt
 
 class Fuel_Element(object):
 
-    """Stores and calculates relevent fuel element fission rate data."""
+    """Stores and calculates individual fuel element fission rate data."""
 
     def __init__(self, name, rr_abs, rr_rel_error, n_ax, n_rad, ax_dims, rad_dims):
+        """Initialize with the following parameters:
+            name - the identifying name of the fuel element (str)
+            rr_abs - the absolute reaction rate in each cell (40x5 numpy array)
+            rr_rel_error - the relative errors associated with rr_abs (40x5 numpy array)
+            n_ax - the number of axial divisions (int)
+            n_rad - the number of radial divisions (int)
+            ax_dims - the highest and lowest dimension of the fuel (len 2 tuple of floats)
+            rad_dims - the inner and outer diameter of the fuel (len 2 tuple of floats)"""
         self.name = name
         self.rr_abs = rr_abs
         self.rr_rel_error = rr_rel_error
@@ -20,7 +28,9 @@ class Fuel_Element(object):
         self.calc_integrated_values()
 
     def calc_geometric_values(self):
-        """Calculate some geometrically significant parameters."""
+        """Will calculate and store the location of the geometric divisions, the
+        midpoints within those divisions, the difference values between those
+        divisions, and the volume of each cell in the fuel element."""
 
         # compute radial and axial plane locations
         self.ax_divs = np.linspace(*self.ax_dims, self.n_ax + 1)
@@ -65,6 +75,7 @@ class Triga_Core(object):
     the fuel elements in the core."""
 
     def __init__(self, fuel_data):
+        """Initialize the object with a dictionary of Fuel_Element objects."""
         self.fuel = fuel_data
         self.calc_extrema()
 
@@ -75,7 +86,8 @@ class Triga_Core(object):
 
 
 def extract_fission_data():
-    """This function pulls the fission data from the ksu_triga fuel."""
+    """Utility that takes the ksu-triga mcnp output file, parses the fission
+    tally data and stores it within the Fuel_Element and Triga_Core containers."""
 
     # initialize container
     cell_data = {}
@@ -132,12 +144,19 @@ def mirror_element(rr_density):
     """Given a fission rate density map, creates a symmetric mirror with an empty
     middle channel to more closely resemble an actual element."""
 
+    # grab the shape of the matrix
     n_ax, n_rad = rr_density.shape
+
+    # create an new, appropriately sized matrix
     new_map = np.zeros((n_ax, n_rad * 2 + 1))
 
+    # flip the existing data onto the 'left' side of the new matrix
     new_map[:, 0:n_rad] = rr_density[:, ::-1]
+
+    # fill the 'right' side of the new matrix with the existing data
     new_map[:, n_rad + 1:] = rr_density[:, ]
 
+    # return this new matrix, noting the 'hole' of zeros in the center column
     return new_map
 
 
@@ -147,7 +166,7 @@ def plot_fission_rates():
     # grab data
     core = extract_fission_data()
 
-    # ---------------------------------- plot the heatmaps of the in-element fission rate densities
+    # ---------------------------------- plot a heatmap of the in-element fission rate densities
     # initalize plotting environment
     fig = plt.figure(0, figsize=(2, 10))
 
@@ -179,17 +198,17 @@ def plot_fission_rates():
         fig1 = plt.figure(i + 10, figsize=(8, 6))
         ax1 = fig1.add_subplot(111)
 
-        # axial plot
+        # now loop through the elements in a given ring
         for element_id in ring_elements:
 
             # grab the individual element
             element = core.fuel[element_id]
 
-            # plot the axial reaction rate
+            # plot the axial and radial reaction rate
             ax0.plot(element.rr_density_ax, element.ax_mps, label=element_id)
             ax1.plot(element.rad_mps, element.rr_density_rad, label=element_id)
 
-        # save the figure
+        # add a legend and save the figure
         ax0.legend()
         ax1.legend()
         fig0.savefig('plot/axial_rr_density_{}'.format(i), dpi=300)
