@@ -1,0 +1,14 @@
+Manual changes to ksu.inp
+
+______________________________________
+Removal of binning structure
++
+- E0   6.25e-07 20.0 NT
+______________________________________
+Addition of fission tally multiplier
++ FM4  1 12010000 -6
+-
+______________________________________
+Increasing number of particles
++ kcode 100000 1.000000 10 4400
+- kcode 100000 1.000000 10 110
