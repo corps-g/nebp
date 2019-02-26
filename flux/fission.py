@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from energy_groups import energy_groups
 
 
 class Fuel_Element(object):
@@ -273,17 +274,21 @@ def write_fission_sdef():
     del locations[0]
     del coord['101']
 
+    # create nps and turn off additional fissions
+    s = 'NPS 1E8\n'
+    s += 'NONU\n'
+
     # create sdef
-    s = 'SDEF ERG=D1 RAD=D2  AXS=0 0 1  POS=D3  EXT=FPOS=D4 \n'
+    s += 'SDEF ERG=D1 RAD=D2  AXS=0 0 1  POS=D3  EXT=FPOS=D4 \n'
 
     # write energy distribution (watt spectrum)
     s += 'SP1  -3\n'
 
-    # write axial dependence
+    # write radial dependence
     s += card_writer('SI2   ', core.fuel['201'].rad_divs, 3)
     s += card_writer('SP2   ', np.insert(core.rad_avg, 0, 0), 3)
 
-    #
+    # loop through locations and if it's occupied by an element, store its absolute position and integrated fission rate
     pos_card = []
     mag_card = []
     dist_card = []
@@ -293,30 +298,58 @@ def write_fission_sdef():
             pos_card += [*coord[loc], 0]
             mag_card += [core.fuel[loc].total_fission_rate]
 
-    #
+    # write those positions and fission rates into mcnp cards
     s += card_writer('SI3  L', np.array(pos_card), 3)
     s += card_writer('SP3   ', np.array(mag_card), 4)
 
-    #
+    # write distributed source distribution numbers
     s += card_writer('DS4  S', np.array(dist_card), 8)
 
-    #
+    # for each position, write the axial distribution cards
     for loc in dist_card:
         s += card_writer('SI{}  H'.format(loc), core.fuel[str(loc)].ax_divs, 4)
         s += card_writer('SP{}  D'.format(loc), np.insert(core.fuel[str(loc)].rr_ax, 0, 0), 4)
 
-    # create fission turn-off and nps
-    s += 'NPS 2.5E11\n'
-    s += 'NONU\n'
+    # write the tally cards
+    cos_struct = np.array([0.000000e+00, 1.736482e-01, 3.420201e-01, 5.000000e-01, 6.427876e-01,
+                           7.660444e-01, 8.660254e-01, 9.396926e-01, 9.848078e-01, 9.961947e-01,
+                           9.993908e-01, 9.998477e-01, 9.999619e-01, 1.000000e+00])
 
-    # import template, update, save
+    # store surface numbers
+    surface_outer = 40000000 + 15
+    surface_inner = 40000000 + 13
+    surface_radius = 40000000 + 10
+
+    # fine energy resolution
+    t = 'F11:N {}\n'.format(surface_outer)
+    t += 'FS11  {}\n'.format(surface_radius)
+    t += card_writer('E11  ', energy_groups('scale252'), 4)
+
+    # course energy resolution w/ cosine bins
+    t += 'F21:N {}\n'.format(surface_outer)
+    t += 'FS21  {}\n'.format(surface_radius)
+    t += card_writer('E21  ', energy_groups('hr6'), 4)
+    t += card_writer('C21  ', cos_struct, 4)
+
+    # identical tallys within beam port
+    t += 'F111:N {}\n'.format(surface_inner)
+    t += 'FS111  {}\n'.format(surface_radius)
+    t += card_writer('E111  ', energy_groups('scale252'), 4)
+
+    # copy
+    t += 'F121:N {}\n'.format(surface_inner)
+    t += 'FS121  {}\n'.format(surface_radius)
+    t += card_writer('E121  ', energy_groups('hr6'), 4)
+    t += card_writer('C121  ', cos_struct, 4)
+
+    # import template
     with open('mcnp/template.inp', 'r') as F:
         template = F.read()
 
-    #
-    ksun = template.replace('*FLAG*', s)
+    # replace the flag in the template with the new source term
+    ksun = template.replace('*SOURCE_FLAG*', s).replace('*TALLY_FLAG*', t)
 
-    #
+    # write the new neutron input to a file
     with open('mcnp/ksun.inp', 'w+') as F:
         F.write(ksun)
 

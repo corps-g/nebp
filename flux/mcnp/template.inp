@@ -3351,7 +3351,8 @@ mt16300000  h/zr.10t zr/h.10t
 c
 c *** Problem Specification
 mode  n
-*FLAG*c
+*SOURCE_FLAG*c
+*TALLY_FLAG*c
 c
 c *** Importances
 imp:n 0 1 657R
