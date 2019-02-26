@@ -32,11 +32,11 @@ class Fuel_Element(object):
         midpoints within those divisions, the difference values between those
         divisions, and the volume of each cell in the fuel element."""
 
-        # compute radial and axial plane locations
+        # compute radial and axial bounding plane locations
         self.ax_divs = np.linspace(*self.ax_dims, self.n_ax + 1)
         self.rad_divs = np.linspace(*self.rad_dims, self.n_rad + 1)
 
-        # compute radial and axial plane locations
+        # compute radial and axial mid-plane locations
         self.ax_mps = (self.ax_divs[1:] + self.ax_divs[:-1]) / 2
         self.rad_mps = (self.rad_divs[1:] + self.rad_divs[:-1]) / 2
 
@@ -78,11 +78,20 @@ class Triga_Core(object):
         """Initialize the object with a dictionary of Fuel_Element objects."""
         self.fuel = fuel_data
         self.calc_extrema()
+        self.calc_core_averages()
 
     def calc_extrema(self):
         """Calculates the min and max rr densities"""
         self.max_rr_density = np.max([np.max(element.rr_density) for element in self.fuel.values()])
         self.min_rr_density = np.min([np.min(element.rr_density) for element in self.fuel.values()])
+
+    def calc_core_averages(self):
+        """Calculates the core average for axial and radial distrubtions."""
+        self.ax_avg = np.zeros(self.fuel['201'].n_ax)
+        self.rad_avg = np.zeros(self.fuel['201'].n_rad)
+        for i, element in enumerate(self.fuel.values()):
+            self.ax_avg += (element.rr_ax / (np.sum(element.rr_ax) * len(element.rr_ax)))
+            self.rad_avg += (element.rr_rad / (np.sum(element.rr_rad) * len(element.rr_rad)))
 
 
 def extract_fission_data():
@@ -219,5 +228,100 @@ def plot_fission_rates():
     return
 
 
+def card_writer(card, data, elements):
+    """This will write multiline cards for SI and SP distributions for mcnp inputs
+
+    Input Data:
+        card - name and number of the card
+        data array - a numpy array containing the data you'd like placed in the card.
+        Outputs:
+            a string that can be copied and pasted into an mcnp input file"""
+    s = '{}   '.format(card)
+    empty_card = '   ' + ' ' * len(card)
+    elements_per_row = elements
+    row_counter = 0
+    element = '{:6}  ' if data.dtype in ['int32', 'int64'] else '{:14.6e}  '
+    for i, d in enumerate(data):
+        s += element.format(d)
+        row_counter += 1
+        if row_counter == elements_per_row and i + 1 != len(data):
+            row_counter = 0
+            s += '\n{}'.format(empty_card)
+    s += '\n'
+    return s
+
+
+def write_fission_sdef():
+    """Writes the SDEF cards (and a few others) for the ksu-triga nebp
+    transport problem."""
+
+    # grab data
+    core = extract_fission_data()
+
+    # dealing with locations
+    radii = np.array([0, 3.192, 6.284, 9.406, 12.532, 15.660]) * 2.54
+    rotationAngle = 50 * (np.pi / 180)
+    locations = ['{}{:02d}'.format(p[1], int(n)) for p in enumerate('123456') for n in range(1, max(2, 1 + 6 * p[0]))]
+
+    coord = []
+    for ring in range(len(radii)):
+        for theta in np.linspace(0, 2 * np.pi, max(1, 6 * ring), endpoint=False):
+            coord.append((radii[ring] * np.sin(theta + rotationAngle), radii[ring] * np.cos(theta + rotationAngle)))
+
+    # Create the dictionary by combining locations and coordinates
+    coord = dict(zip(locations, coord))
+    del locations[0]
+    del coord['101']
+
+    # create sdef
+    s = 'SDEF ERG=D1 RAD=D2  AXS=0 0 1  POS=D3  EXT=FPOS=D4 \n'
+
+    # write energy distribution (watt spectrum)
+    s += 'SP1  -3\n'
+
+    # write axial dependence
+    s += card_writer('SI2   ', core.fuel['201'].rad_divs, 3)
+    s += card_writer('SP2   ', np.insert(core.rad_avg, 0, 0), 3)
+
+    #
+    pos_card = []
+    mag_card = []
+    dist_card = []
+    for loc in locations:
+        if loc in core.fuel:
+            dist_card += [int(loc)]
+            pos_card += [*coord[loc], 0]
+            mag_card += [core.fuel[loc].total_fission_rate]
+
+    #
+    s += card_writer('SI3  L', np.array(pos_card), 3)
+    s += card_writer('SP3   ', np.array(mag_card), 4)
+
+    #
+    s += card_writer('DS4  S', np.array(dist_card), 8)
+
+    #
+    for loc in dist_card:
+        s += card_writer('SI{}  H'.format(loc), core.fuel[str(loc)].ax_divs, 4)
+        s += card_writer('SP{}  D'.format(loc), np.insert(core.fuel[str(loc)].rr_ax, 0, 0), 4)
+
+    # create fission turn-off and nps
+    s += 'NPS 2.5E11\n'
+    s += 'NONU\n'
+
+    # import template, update, save
+    with open('mcnp/template.inp', 'r') as F:
+        template = F.read()
+
+    #
+    ksun = template.replace('*FLAG*', s)
+
+    #
+    with open('mcnp/ksun.inp', 'w+') as F:
+        F.write(ksun)
+
+    return
+
+
 if __name__ == '__main__':
-    plot_fission_rates()
+    write_fission_sdef()
