@@ -1,0 +1,19 @@
+model                      mcnp
+method                     cadis
+outputs                    mcnp
+mcnp_input                 ksun.inp
+mcnp_tallies               11
+mesh_refinement            mcnp
+mesh_x                     -55 -22 22 184 368
+mesh_y                     -55 -22 -12 -2 2 12 22 55
+mesh_z                     -35 -16 -11 -5 0 35
+mesh_x_ints                17 25 25 25
+mesh_y_ints                75 14 17 22 17 14 17
+mesh_z_ints                17 14 35 14 17
+anisn_library              bplus
+denovo_pn_order            4
+denovo_quad_num_azi        15
+denovo_quad_num_polar      12
+denovo_x_blocks            8
+denovo_y_blocks            8
+denovo_z_blocks            1
