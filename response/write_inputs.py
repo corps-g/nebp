@@ -60,6 +60,11 @@ def source_writer(erg_struct):
     for i in dist_nums:
         source += card_writer('SI{} H'.format(i + shift), flux_spectrum.xedges[1:], 4)
         dist = np.concatenate((np.array([0]), flux_spectrum.int[1:, i + 1]))
+
+        # fix distribution if zero to avoid mcnp fatal error
+        if np.all(dist == 0):
+            dist[-1] = 1
+
         source += card_writer('SP{} D'.format(i + shift), dist, 4)
 
     return source
@@ -80,7 +85,6 @@ def foil_tube_geometry(foil_type, foil_mass, erg_bins):
     rho = float(foil_mat[foil_type].split()[1][1:])
     radius = 0.25
     foil_thickness = (foil_mass * 0.001) / (rho * np.pi * radius**2)
-    print(foil_thickness)
 
     # loop through each section of the foil tube
     for l in np.linspace(0, 11, 12).astype(int):
@@ -137,16 +141,16 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
     # select mcnp fill
     if det == 'empty':
         fill = ('      ', '      ')
-        fname = 'empty.i'
+        fname = 'empty.inp'
     elif det == 'bs':
         fill = ('      ', 'FILL=1')
-        fname = 'bs.i'
+        fname = 'bs.inp'
     elif det == 'ft':
         fill = ('FILL=2', 'FILL=4')
-        fname = 'ft_{}.i'.format(foil_type)
+        fname = 'ft_{}.inp'.format(foil_type)
     elif det == 'wt':
         fill = ('FILL=3', 'FILL=4')
-        fname = 'wt.i'
+        fname = 'wt.inp'
 
     # produce foil tube geometry
     ft_cells, ft_surfs, ft_tally = foil_tube_geometry(foil_type, foil_mass, erg_bins)
@@ -171,9 +175,9 @@ def test_write_input():
     """A small utility used to test write_input()."""
 
     # test empty case
-    write_input('empty')
-    write_input('bs')
-    write_input('ft', 'in', 20.0)
+    #write_input('empty')
+    #write_input('bs')
+    #write_input('ft', 'in', 20.0)
     write_input('ft', 'au', 45.0)
 
 
