@@ -18,38 +18,30 @@ def extract_mcnp(par):
     if par == 'n':
 
         # number of erg and cos groups
-        data_shape = (14, 57)
+        erg_struct_hi = energy_groups('scale252')
 
-        erg_struct = np.array([1.000000e-11, 4.000000e-09, 1.000000e-08, 2.530000e-08, 4.000000e-08,
-                               5.000000e-08, 6.000000e-08, 8.000000e-08, 1.000000e-07, 1.500000e-07,
-                               2.000000e-07, 2.500000e-07, 3.250000e-07, 3.500000e-07, 3.750000e-07,
-                               4.500000e-07, 6.250000e-07, 1.010000e-06, 1.080000e-06, 1.130000e-06,
-                               5.000000e-06, 6.250000e-06, 6.500000e-06, 6.880000e-06, 7.000000e-06,
-                               2.050000e-05, 2.120000e-05, 2.180000e-05, 3.600000e-05, 3.710000e-05,
-                               6.500000e-05, 6.750000e-05, 1.010000e-04, 1.050000e-04, 1.160000e-04,
-                               1.180000e-04, 1.880000e-04, 1.920000e-04, 2.250000e-03, 3.740000e-03,
-                               1.700000e-02, 2.000000e-02, 5.000000e-02, 2.000000e-01, 2.700000e-01,
-                               3.300000e-01, 4.700000e-01, 6.000000e-01, 7.500000e-01, 8.610000e-01,
-                               1.200000e+00, 1.500000e+00, 1.850000e+00, 3.000000e+00, 4.300000e+00,
-                               6.430000e+00, 2.000000e+01])
+        erg_struct_lo = energy_groups('hr6')
 
         cos_struct = np.array([0.000000e+00, 1.736482e-01, 3.420201e-01, 5.000000e-01, 6.427876e-01,
                                7.660444e-01, 8.660254e-01, 9.396926e-01, 9.848078e-01, 9.961947e-01,
                                9.993908e-01, 9.998477e-01, 9.999619e-01, 1.000000e+00])
 
+        data_shape_hi = (len(cos_struct), len(erg_struct_hi))
+        data_shape_lo = (len(cos_struct), len(erg_struct_lo))
+
         # open file w/ neutron data
-        with open(paths.main_path + '/flux/mcnp/triga_finale_n.o') as F:
+        with open(paths.main_path + '/flux/mcnp/ksuna.out') as F:
             mcnp_file = F.read()
 
-        # split tally region from file
-        mcnp_file = mcnp_file.split('1tally       21')[1].split('1tally       31')[0]
+        # split hi res tally
+        mcnp_tally = mcnp_file.split('1tally       11')[1].split('1tally       21')[0]
 
         # use regular expression to grab all data
         pattern = re.compile(r'    \d.\d\d\d\dE[+-]\d\d   \d.\d\d\d\d\dE[+-]\d\d \d.\d\d\d\d')
-        results = re.findall(pattern, mcnp_file)
+        results = re.findall(pattern, mcnp_tally)
 
         # create empty array to house data
-        data = np.empty((len(results), 2))
+        data_hi = np.empty((len(results), 2))
 
         # loop through
         for i, line in enumerate(results):
@@ -58,19 +50,73 @@ def extract_mcnp(par):
             line = line.split()
 
             # put data into numpy array
-            data[i] = float(line[1]), float(line[2])
+            data_hi[i] = float(line[1]), float(line[2])
 
         # get rid of totals and all the zeros
-        data = data[:-data_shape[1]][data_shape[1]:]
-        data = data[len(data) // 2:]
+        data_hi = data_hi[len(data_hi) // 2:]
 
         # convert error to absolute
-        data[:, 1] = data[:, 0] * data[:, 1]
+        data_hi[:, 1] = data_hi[:, 0] * data_hi[:, 1]
+
+        # now extract low res stuff
+        # split tally region from file
+        mcnp_tally = mcnp_file.split('1tally       21')[1].split('1tally      111')[0]
+
+        # use regular expression to grab all data
+        pattern = re.compile(r'    \d.\d\d\d\dE[+-]\d\d   \d.\d\d\d\d\dE[+-]\d\d \d.\d\d\d\d')
+        results = re.findall(pattern, mcnp_tally)
+
+        # create empty array to house data
+        data_lo = np.empty((len(results), 2))
+
+        # loop through
+        for i, line in enumerate(results):
+
+            # break line at spaces
+            line = line.split()
+
+            # put data into numpy array
+            data_lo[i] = float(line[1]), float(line[2])
+
+        # get rid of the positive component of data
+        data_lo = data_lo[len(data_lo) // 2:]
+
+        # convert error to absolute
+        data_lo[:, 1] = data_lo[:, 0] * data_lo[:, 1]
 
         # reshape to follow bin structure
-        data = data.reshape((*data_shape, 2))
+        data_lo = data_lo.reshape((*data_shape_lo, 2))
 
-        return data, erg_struct, cos_struct
+        # convert rows to pdfs and change error accordingly
+        for i in range(data_shape_lo[1]):
+            row_mag = np.sum(data_lo[:, i, 0])
+            data_lo[:, i, :] = data_lo[:, i, :] / row_mag if row_mag else data_lo[:, i, :] * 0
+
+        # collect index matches for energy groups
+        indices = []
+        for edge in erg_struct_lo:
+            indices.append(np.where(erg_struct_hi == edge)[0][0])
+        indices = np.array(indices).astype(int)
+
+        # create final data structure
+        data = np.empty((*data_shape_hi, 2))
+
+        # extend pdfs to fill data structure
+        for i in range(data_shape_hi[1]):
+            data[:, i, :] = data_lo[:, indices.searchsorted(i), :]
+
+        # calculate relative errors by root sum square each of the relative errors
+        data[:, :, 1] = np.sqrt((data[:, :, 1] / data[:, :, 0])**2 + (data_hi[:, 1] / data_hi[:, 0])**2)
+
+        # calculate the data
+        data[:, :, 0] = data[:, :, 0] * data_hi[:, 0]
+
+        # convert to absolute error
+        data[:, :, 1] = data[:, :, 0] * data[:, :, 1]
+
+        data[np.isnan(data)] = 0
+
+        return data, erg_struct_hi, cos_struct
 
     # gammas not currently implemented
     elif par == 'g':
@@ -236,7 +282,8 @@ def test_nebp_flux():
     # cosine bins
     cos_struct = np.array([90, 10, 5, 0])
 
-    spec = nebp_flux('n', 'erg', 'scale56', cos_struct, 1)
+    spec = nebp_flux('n', 'erg', 'scale252', cos_struct, 1)
+    plt.figure(figsize=(10, 10))
     plt.xscale('log')
     plt.yscale('log')
     plt.plot(*spec.plot('plot', 'diff'), 'k')
