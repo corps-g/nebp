@@ -9,19 +9,6 @@ from spectrum import Spectrum
 from nebp_flux import nebp_flux
 
 
-class Response(object):
-
-    """This houses the data on a particular detector - both the
-    response function, as well as the integral response."""
-
-    def __init__(self, name, rf, ir):
-        """Initializes the object with a response function and
-        integral response."""
-        self.name = name
-        self.rf = rf
-        self.ir = ir
-        return
-
 
 def grab_tally(filename):
     """Produces a dictionary of all of the tally data from one of the
@@ -46,14 +33,14 @@ def grab_tally(filename):
 
         # use regular expression to grab all data
         pattern = re.compile(r'\d.\d\d\d\d\dE[+-]\d\d \d.\d\d\d\d')
-        results = re.findall(pattern, tally_txt)[:253]
+        results = re.findall(pattern, tally_txt)[:252]
 
         for i, result in enumerate(results):
 
             result = result.split()
             val, err = float(result[0]), float(result[0]) * float(result[1])
 
-            tally[tally_number][i] = np.array([val, err])
+            tally[tally_number][i + 1] = np.array([val, err])
 
     return tally
 
@@ -74,28 +61,47 @@ def response_data():
     erg_flux_spectrum = nebp_flux('n', 'erg', erg_struct, cos_struct, 1)
 
     # the gold foil tube ------------------------------------------------------
-    gold_tallys = grab_tally('ft_au.inpo')
+    gold_tallys = grab_tally('ft_au.out')
 
     # loop through the gold tally
     for name, tally in gold_tallys.items():
 
-        # skip the bonner stuff
-        if name in (114, 124):
-            continue
-
         # grab integral responses
-        if 134 <= name <= 244:
+        if 134 <= name:
 
             # convert to name
             new_name = 'ft_au' + str(((name - 4) // 10) - 13)
 
             response_data[new_name] = Spectrum(erg_flux_spectrum.edges, tally[:, 0], tally[:, 1])
 
-        # grab integral responses
-        elif 244 < name:
+    # the indium foil tube ------------------------------------------------------
+    indium_tallys = grab_tally('ft_in.out')
 
-            # skip for now
-            continue
+    # loop through the indium tally
+    for name, tally in indium_tallys.items():
+
+        # grab integral responses
+        if 134 <= name:
+
+            # convert to name
+            new_name = 'ft_in' + str(((name - 4) // 10) - 13)
+
+            response_data[new_name] = Spectrum(erg_flux_spectrum.edges, tally[:, 0], tally[:, 1])
+
+    # the bonner spheres ------------------------------------------------------
+    for sphere_size in [0, 2, 3, 5, 8, 10, 12]:
+        bs_tallys = grab_tally('bs{}.out'.format(str(sphere_size)))
+
+        # loop through the bs tally
+        for name, tally in bs_tallys.items():
+
+            # grab integral responses
+            if name == 124:
+
+                # convert to name
+                new_name = 'bs{}'.format(str(sphere_size)) + str(((name - 4) // 10) - 13)
+
+                response_data[new_name] = Spectrum(erg_flux_spectrum.edges, tally[:, 0], tally[:, 1])
 
     return response_data
 
@@ -106,20 +112,30 @@ def plot_response_data():
     # get the data
     responses = response_data()
 
-    # plot integral responses -------------------------------------------------
-    fig = plt.figure(0)
+    # plot response functions -------------------------------------------------
+    fig = plt.figure(0, figsize=(10, 8))
     ax = fig.add_subplot(111)
     ax.set_xscale('log')
     ax.set_yscale('log')
 
+    # establish colormap
+    color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
+
     # loop through integral responses
-    for name, response in responses.items():
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
 
         # plot the integral response
-        ax.plot(*response.plot('plot', 'diff'), label=name)
+        ax.plot(*response.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+        #ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
 
-    # add legend
-    ax.legend()
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/ft_au.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
 
     return
 

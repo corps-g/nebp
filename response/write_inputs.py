@@ -46,7 +46,7 @@ def source_writer(erg_struct):
 
     # mcnp requires the first bin in a distribution be zero
     dist = np.zeros(len(erg_flux_spectrum.int))
-    dist[1:] = erg_flux_spectrum.int[1:]
+    dist[1:] = np.ones(len(erg_flux_spectrum.int[1:]))
     source += card_writer('SP2 D', dist, 4)
 
     # add dependent distribution
@@ -100,15 +100,10 @@ def foil_tube_geometry(foil_type, foil_mass, erg_bins):
         ft_surfs += '{} 2  PX  {}\n'.format(p2, (l * 2.54) + 2.44)
         ft_surfs += '{} 2  PX  {}\n'.format(p3, (l * 2.54) + 2.44 + foil_thickness)
 
-        # foil tube tallies
+        # scx tally for foil tube
         ft_tally += 'F{}4:N {}\n'.format(13 + l, p2)
         ft_tally += 'FM{}4: 1 {} 102\n'.format(13 + l, foil_mat[foil_type][0])
-        ft_tally += card_writer('E{}4'.format(13 + l), erg_bins, 4)
-
-        # scx tally for foil tube
-        ft_tally += 'F{}4:N {}\n'.format(25 + l, p2)
-        ft_tally += 'FM{}4: 1 {} 102\n'.format(25 + l, foil_mat[foil_type][0])
-        ft_tally += 'FT{}4  SCX 2\n'.format(25 + l)
+        ft_tally += 'FT{}4  SCX 2\n'.format(13 + l)
 
     # add a final surf
     ft_surfs += '{} 2  PX  {}\n'.format(223, 12 * 2.54)
@@ -134,23 +129,23 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
     # first, grab the empty bp geometry template
     mcnp_input = mcnp_template
 
-    # calculate some things
-    # convert bonner size from diameter in inches to radius in cm
-    bonner_size = (bonner_size / 2) * 2.54
-
     # select mcnp fill
     if det == 'empty':
         fill = ('      ', '      ')
         fname = 'empty.inp'
     elif det == 'bs':
         fill = ('      ', 'FILL=1')
-        fname = 'bs.inp'
+        fname = 'bs{}.inp'.format(str(int(bonner_size)))
     elif det == 'ft':
-        fill = ('FILL=2', 'FILL=4')
+        fill = ('FILL=2', 'FILL=2')
         fname = 'ft_{}.inp'.format(foil_type)
     elif det == 'wt':
         fill = ('FILL=3', 'FILL=4')
         fname = 'wt.inp'
+
+    # calculate some things
+    # convert bonner size from diameter in inches to radius in cm
+    bonner_size = (bonner_size / 2) * 2.54
 
     # produce foil tube geometry
     ft_cells, ft_surfs, ft_tally = foil_tube_geometry(foil_type, foil_mass, erg_bins)
@@ -158,11 +153,8 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
     # grab the source term
     source = source_writer(erg_struct)
 
-    # grab tally erg bins
-    tally = card_writer('E114', erg_bins, 4)
-
     # format the mcnp
-    mcnp_input = mcnp_input.format(*fill, ft_cells, bonner_size, ft_surfs, source, tally, ft_tally)
+    mcnp_input = mcnp_input.format(*fill, ft_cells, bonner_size, ft_surfs, source, ft_tally)
 
     # write to file
     with open('mcnp/' + fname, 'w+') as F:
@@ -171,15 +163,14 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
     return
 
 
-def test_write_input():
+def write_all_inputs():
     """A small utility used to test write_input()."""
 
-    # test empty case
-    #write_input('empty')
-    #write_input('bs')
-    #write_input('ft', 'in', 20.0)
+    for bonner_size in [0, 2, 3, 5, 8, 10, 12]:
+        write_input('bs', bonner_size=bonner_size)
+    write_input('ft', 'in', 20.0)
     write_input('ft', 'au', 45.0)
 
 
 if __name__ == '__main__':
-    test_write_input()
+    write_all_inputs()
