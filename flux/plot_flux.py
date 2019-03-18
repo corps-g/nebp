@@ -12,7 +12,7 @@ def plot_raw_data():
     """Used for plotting raw, extracted data, to study error, etc."""
 
     # first, grab the data
-    flux_data = extract_mcnp('n')
+    flux_data = extract_mcnp('n', 1e3)
 
     # split into values and error
     flux = flux_data[:, :, :, 0]

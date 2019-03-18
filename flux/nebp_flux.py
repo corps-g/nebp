@@ -7,7 +7,7 @@ sys.path.insert(0, '../')
 import paths
 
 
-def extract_mcnp(par):
+def extract_mcnp(par, power):
     """Utility that grabs the flux data from an mcnp output file."""
 
     # open file w/ neutron data
@@ -26,5 +26,9 @@ def extract_mcnp(par):
 
     # reshape to fit data structure
     results = results.reshape(8, -1, 253, 2)
+
+    # scale
+    scaling_constant = (2.54 * power) / (200 * 1.60218e-13)
+    results *= scaling_constant
 
     return results
