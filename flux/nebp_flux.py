@@ -1,7 +1,7 @@
 import re
 import numpy as np
 import matplotlib.pyplot as plt
-from energy_groups import energy_groups
+from group_structures import energy_groups
 import sys
 sys.path.insert(0, '../')
 import paths
@@ -27,17 +27,4 @@ def extract_mcnp(par):
     # reshape to fit data structure
     results = results.reshape(8, -1, 253, 2)
 
-    return
-
-
-
-def test_nebp_flux():
-    """A small utility that tests nebp_flux()."""
-
-    nebp = extract_mcnp('n')
-
-    return
-
-
-if __name__ == '__main__':
-    test_nebp_flux()
+    return results
