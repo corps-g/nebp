@@ -67,7 +67,7 @@ class Spectrum(object):
             self.diff = values
             self.diff_error = error
             self.int = self.diff * self.widths
-            self.int_error = self.int_error * self.widths
+            self.int_error = self.diff_error * self.widths
 
         return
 
