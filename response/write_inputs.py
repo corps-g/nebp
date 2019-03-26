@@ -3,8 +3,8 @@ from template import mcnp_template
 import sys
 sys.path.insert(0, '../')
 import paths
-from nebp_flux import nebp_flux
-from energy_groups import energy_groups
+from nebp_flux import extract_mcnp
+from group_structures import energy_groups, cosine_groups, radial_groups
 
 
 def card_writer(card, data, elements):
@@ -30,36 +30,34 @@ def card_writer(card, data, elements):
     return s
 
 
-def source_writer(erg_struct):
+def source_writer(erg_struct, source_region, source_bounds):
     """Writes the triga nebp mcnp source."""
 
     # first, match the cosine bin structure of the original mcnp
-    cos_struct = np.array([0.000000e+00, 1.736482e-01, 3.420201e-01, 5.000000e-01, 6.427876e-01,
-                           7.660444e-01, 8.660254e-01, 9.396926e-01, 9.848078e-01, 9.961947e-01,
-                           9.993908e-01, 9.998477e-01, 9.999619e-01, 1.000000e+00])
+    cos_struct = cosine_groups('fine')
+    erg_struct = energy_groups(erg_struct)
 
     # this is the energy dependent flux spectrum for the first distribution
-    erg_flux_spectrum = nebp_flux('n', 'erg', erg_struct, cos_struct, 1)
 
     # add the erg dependent distribution
-    source = card_writer('SI2 H', erg_flux_spectrum.edges[1:], 4)
+    source = card_writer('SI2 H', erg_struct, 4)
 
     # mcnp requires the first bin in a distribution be zero
-    dist = np.zeros(len(erg_flux_spectrum.int))
-    dist[1:] = np.ones(len(erg_flux_spectrum.int[1:]))
+    dist = np.ones(len(erg_struct))
+    dist[0] = 0
     source += card_writer('SP2 D', dist, 4)
 
     # add dependent distribution
-    flux_spectrum = nebp_flux('n', 'cos_erg', erg_struct, cos_struct, 1)
+    flux = extract_mcnp('n', 1)[source_region]
 
     # add distribution
     shift = 4
-    dist_nums = np.array(range(len(flux_spectrum.yedges) - 2)).astype(int)
+    dist_nums = np.array(range(len(erg_struct) - 1)).astype(int)
     source += card_writer('DS3 S', dist_nums + shift, 5)
 
     for i in dist_nums:
-        source += card_writer('SI{} H'.format(i + shift), flux_spectrum.xedges[1:], 4)
-        dist = np.concatenate((np.array([0]), flux_spectrum.int[1:, i + 1]))
+        source += card_writer('SI{} H'.format(i + shift), cos_struct[1:], 4)
+        dist = np.concatenate((np.array([0]), flux[1:, i + 1, 0]))
 
         # fix distribution if zero to avoid mcnp fatal error
         if np.all(dist == 0):
@@ -122,43 +120,48 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
     message = "Foil type must be literal 'in' or 'au'."
     assert foil_type in ('in', 'au'), message
 
-    # choose erg bin structure
-    erg_struct = 'scale252'
-    erg_bins = energy_groups(erg_struct)
+    # make one for each source region
+    source_regions = zip(radial_groups('nebp')[1:], radial_groups('nebp')[:-1])
 
-    # first, grab the empty bp geometry template
-    mcnp_input = mcnp_template
+    for i, source_bounds in enumerate(source_regions):
 
-    # select mcnp fill
-    if det == 'empty':
-        fill = ('      ', '      ')
-        fname = 'empty.inp'
-    elif det == 'bs':
-        fill = ('      ', 'FILL=1')
+        # choose erg bin structure
+        erg_struct = 'scale252'
+        erg_bins = energy_groups(erg_struct)
+
+        # first, grab the empty bp geometry template
+        mcnp_input = mcnp_template
+
+        # select mcnp fill
+        if det == 'empty':
+            fill = ('      ', '      ')
+            fname = 'empty{}.inp'.format(i)
+        elif det == 'bs':
+            fill = ('      ', 'FILL=1')
         fname = 'bs{}.inp'.format(str(int(bonner_size)))
-    elif det == 'ft':
+        elif det == 'ft':
         fill = ('FILL=2', 'FILL=2')
-        fname = 'ft_{}.inp'.format(foil_type)
-    elif det == 'wt':
-        fill = ('FILL=3', 'FILL=4')
-        fname = 'wt.inp'
+            fname = 'ft_{}{}.inp'.format(foil_type, i)
+        elif det == 'wt':
+            fill = ('FILL=3', 'FILL=4')
+            fname = 'wt{}.inp'.format(i)
 
     # calculate some things
     # convert bonner size from diameter in inches to radius in cm
     bonner_size = (bonner_size / 2) * 2.54
 
-    # produce foil tube geometry
-    ft_cells, ft_surfs, ft_tally = foil_tube_geometry(foil_type, foil_mass, erg_bins)
+        # produce foil tube geometry
+        ft_cells, ft_surfs, ft_tally = foil_tube_geometry(foil_type, foil_mass, erg_bins)
 
-    # grab the source term
-    source = source_writer(erg_struct)
+        # grab the source term
+        source = source_writer(erg_struct, i, source_bounds)
 
-    # format the mcnp
+        # format the mcnp
     mcnp_input = mcnp_input.format(*fill, ft_cells, bonner_size, ft_surfs, source, ft_tally)
 
-    # write to file
-    with open('mcnp/' + fname, 'w+') as F:
-        F.write(mcnp_input)
+        # write to file
+        with open('mcnp/' + fname, 'w+') as F:
+            F.write(mcnp_input)
 
     return
 

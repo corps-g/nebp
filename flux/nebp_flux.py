@@ -1,7 +1,5 @@
 import re
 import numpy as np
-import matplotlib.pyplot as plt
-from group_structures import energy_groups
 import sys
 sys.path.insert(0, '../')
 import paths
