@@ -138,17 +138,13 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
             fname = 'empty{}.inp'.format(i)
         elif det == 'bs':
             fill = ('      ', 'FILL=1')
-        fname = 'bs{}.inp'.format(str(int(bonner_size)))
+            fname = 'bs{}_{}.inp'.format(str(int(bonner_size)), i)
         elif det == 'ft':
-        fill = ('FILL=2', 'FILL=2')
+            fill = ('FILL=2', 'FILL=2')
             fname = 'ft_{}{}.inp'.format(foil_type, i)
         elif det == 'wt':
             fill = ('FILL=3', 'FILL=4')
             fname = 'wt{}.inp'.format(i)
-
-    # calculate some things
-    # convert bonner size from diameter in inches to radius in cm
-    bonner_size = (bonner_size / 2) * 2.54
 
         # produce foil tube geometry
         ft_cells, ft_surfs, ft_tally = foil_tube_geometry(foil_type, foil_mass, erg_bins)
@@ -157,7 +153,7 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
         source = source_writer(erg_struct, i, source_bounds)
 
         # format the mcnp
-    mcnp_input = mcnp_input.format(*fill, ft_cells, bonner_size, ft_surfs, source, ft_tally)
+        mcnp_input = mcnp_input.format(*fill, ft_cells, (bonner_size / 2) * 2.54, ft_surfs, *source_bounds[::-1], source, ft_tally)
 
         # write to file
         with open('mcnp/' + fname, 'w+') as F:
@@ -171,6 +167,7 @@ def write_all_inputs():
 
     for bonner_size in [0, 2, 3, 5, 8, 10, 12]:
         write_input('bs', bonner_size=bonner_size)
+        pass
     write_input('ft', 'in', 20.0)
     write_input('ft', 'au', 45.0)
 
