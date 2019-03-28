@@ -37,8 +37,6 @@ def source_writer(erg_struct, source_region, source_bounds):
     cos_struct = cosine_groups('fine')
     erg_struct = energy_groups(erg_struct)
 
-    # this is the energy dependent flux spectrum for the first distribution
-
     # add the erg dependent distribution
     source = card_writer('SI2 H', erg_struct, 4)
 
@@ -50,6 +48,9 @@ def source_writer(erg_struct, source_region, source_bounds):
     # add dependent distribution
     flux = extract_mcnp('n', 1)[source_region]
 
+    # TODO: remove this ultimately
+    cos_dist = np.sum(flux[1:, :, 0], axis=(1))
+
     # add distribution
     shift = 4
     dist_nums = np.array(range(len(erg_struct) - 1)).astype(int)
@@ -57,7 +58,7 @@ def source_writer(erg_struct, source_region, source_bounds):
 
     for i in dist_nums:
         source += card_writer('SI{} H'.format(i + shift), cos_struct[1:], 4)
-        dist = np.concatenate((np.array([0]), flux[1:, i + 1, 0]))
+        dist = np.concatenate((np.array([0]), cos_dist))
 
         # fix distribution if zero to avoid mcnp fatal error
         if np.all(dist == 0):
