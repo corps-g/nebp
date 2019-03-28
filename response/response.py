@@ -1,5 +1,6 @@
 import re
 import numpy as np
+from scipy.constants import N_A
 import matplotlib.pyplot as plt
 import sys
 sys.path.insert(0, '../')
@@ -9,7 +10,7 @@ from group_structures import energy_groups, cosine_groups, radial_groups
 from nebp_flux import extract_mcnp
 
 
-def grab_tally(name):
+def grab_tally(name, scaling_factor):
     """Produces a dictionary of all of the tally data from one of the
     responses used in the analysis."""
 
@@ -60,8 +61,8 @@ def grab_tally(name):
                 val, err = float(result[0]), float(result[0]) * float(result[1])
 
                 #
-                val = val * regional_pdf[i]
-                err = (err * regional_pdf[i])**2
+                val = val * regional_pdf[i] * scaling_factor
+                err = (err * regional_pdf[i] * scaling_factor)**2
 
                 tally[tally_number][j + 1] += np.array([val, err])
 
@@ -85,7 +86,8 @@ def response_data():
     erg_struct = energy_groups('scale252')
 
     # the gold foil tube ------------------------------------------------------
-    gold_tallys = grab_tally('ft_au')
+    scaling_factor = (19.32 * N_A * 1E-24 * 252) / (197 * 45)
+    gold_tallys = grab_tally('ft_au', scaling_factor)
 
     # loop through the gold tally
     for name, tally in gold_tallys.items():
@@ -99,7 +101,8 @@ def response_data():
             response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
 
     # the indium foil tube ------------------------------------------------------
-    indium_tallys = grab_tally('ft_in')
+    scaling_factor = (7.31 * N_A * 1E-24 * 252) / (115 * 20)
+    indium_tallys = grab_tally('ft_in', scaling_factor)
 
     # loop through the indium tally
     for name, tally in indium_tallys.items():
@@ -113,8 +116,9 @@ def response_data():
             response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
 
     # the bonner spheres ------------------------------------------------------
+    scaling_factor = 1  # TODO: needs updating
     for sphere_size in [0, 2, 3, 5, 8, 10, 12]:
-        bs_tallys = grab_tally('bs{}_'.format(str(sphere_size)))
+        bs_tallys = grab_tally('bs{}_'.format(str(sphere_size)), scaling_factor)
 
         # loop through the bs tally
         for name, tally in bs_tallys.items():
