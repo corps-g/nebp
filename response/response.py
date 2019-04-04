@@ -227,5 +227,92 @@ def plot_response_data():
     return
 
 
+def plot_response_pdfs():
+    """plot_response_pdfs"""
+
+    # get the data
+    responses = response_data()
+
+    for j, detector in enumerate(('ft_au', 'bs')):
+        # plot response functions -------------------------------------------------
+        fig = plt.figure(j + 3, figsize=(10, 6))
+        ax = fig.add_subplot(111)
+        ax.set_xscale('log')
+        ax.set_yscale('log')
+        ax.set_xlabel('Energy $MeV$')
+        ax.set_ylabel('pdf')
+
+        # establish colormap
+        color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
+
+        # loop through integral responses
+        for i, item in enumerate(responses.items()):
+
+            # parse out name and response
+            name, response = item
+
+            if detector not in name:
+                continue
+
+            # normalize responses
+            response_pdf = Spectrum(response.edges, response.int / np.sum(response.int), response.int_error / np.sum(response.int))
+
+            # plot the integral response
+            ax.plot(*response_pdf.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+            ax.errorbar(*response_pdf.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
+
+        # add legend and save
+        leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                        framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+        fig.savefig('plot/{}_pdf.png'.format(detector), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+        fig.clear()
+
+    return
+
+
+def plot_response_cdfs():
+    """plot_response_pdfs"""
+
+    # get the data
+    responses = response_data()
+    flux_data = extract_mcnp('n', 1)
+    flux = flux_data[:, :, :, 0]
+    flux_erg = np.sum(flux, axis=(0, 1))
+
+    # plot response functions -------------------------------------------------
+    fig = plt.figure(3, figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    ax.set_xlabel('Energy $MeV$')
+    ax.set_ylabel('cdf')
+
+    # establish colormap
+    color = plt.cm.rainbow(np.linspace(0, 1, 11))
+
+    # loop through integral responses
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
+
+        if 'ft_au' not in name:
+            continue
+
+        # normalize responses
+        folded = response.int * flux_erg
+        folded_response = Spectrum(response.edges, np.cumsum(folded) / np.sum(folded), 0)
+
+        # plot the integral response
+        ax.plot(*folded_response.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/ft_au_cdf.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+
+
 if __name__ == '__main__':
-    rd = plot_response_data()
+    # plot_response_data()
+    plot_response_pdfs()
+    plot_response_cdfs()

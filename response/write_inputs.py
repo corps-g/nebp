@@ -37,8 +37,6 @@ def source_writer(erg_struct, source_region, source_bounds):
     cos_struct = cosine_groups('fine')
     erg_struct = energy_groups(erg_struct)
 
-    # this is the energy dependent flux spectrum for the first distribution
-
     # add the erg dependent distribution
     source = card_writer('SI2 H', erg_struct, 4)
 
@@ -50,6 +48,9 @@ def source_writer(erg_struct, source_region, source_bounds):
     # add dependent distribution
     flux = extract_mcnp('n', 1)[source_region]
 
+    # TODO: remove this ultimately
+    cos_dist = np.sum(flux[1:, :, 0], axis=(1))
+
     # add distribution
     shift = 4
     dist_nums = np.array(range(len(erg_struct) - 1)).astype(int)
@@ -57,7 +58,7 @@ def source_writer(erg_struct, source_region, source_bounds):
 
     for i in dist_nums:
         source += card_writer('SI{} H'.format(i + shift), cos_struct[1:], 4)
-        dist = np.concatenate((np.array([0]), flux[1:, i + 1, 0]))
+        dist = np.concatenate((np.array([0]), cos_dist))
 
         # fix distribution if zero to avoid mcnp fatal error
         if np.all(dist == 0):
@@ -89,14 +90,14 @@ def foil_tube_geometry(foil_type, foil_mass, erg_bins):
 
         # foil tube cells
         p1, p2, p3, p4 = 211 + l, 231 + l, 251 + l, 212 + l
-        ft_cells += '{} 2 -1.300  ({} -{} -201):({} -{} 203 -201)  U=2 IMP:N=1\n'.format(p1, p1, p2, p2, p4)
-        ft_cells += '{} {}  ({} -{} -203)                      U=2 IMP:N=1\n'.format(p2, foil_mat[foil_type], p2, p3)
-        ft_cells += '{} 0         ({} -{} -203)                      U=2 IMP:N=1\n'.format(p3, p3, p4)
+        ft_cells += '{} 2 -1.300  ({} -{} -201):({} -{} 203 -201)  U=2 IMP:N={}\n'.format(p1, p3, p4, p1, p3, (l + 1)**2)
+        ft_cells += '{} {}  ({} -{} -203)                      U=2 IMP:N={}\n'.format(p2, foil_mat[foil_type], p2, p3, (l + 1)**2)
+        ft_cells += '{} 0         ({} -{} -203)                      U=2 IMP:N={}\n'.format(p3, p1, p2, (l + 1)**2)
 
         # foil tube surfaces
         ft_surfs += '{} 2  PX  {}\n'.format(p1, l * 2.54)
-        ft_surfs += '{} 2  PX  {}\n'.format(p2, (l * 2.54) + 2.44)
-        ft_surfs += '{} 2  PX  {}\n'.format(p3, (l * 2.54) + 2.44 + foil_thickness)
+        ft_surfs += '{} 2  PX  {}\n'.format(p2, (l * 2.54) + (0.1 - foil_thickness))
+        ft_surfs += '{} 2  PX  {}\n'.format(p3, (l * 2.54) + 0.1)
 
         # scx tally for foil tube
         ft_tally += 'F{}4:N {}\n'.format(13 + l, p2)
@@ -167,9 +168,7 @@ def write_all_inputs():
 
     for bonner_size in [0, 2, 3, 5, 8, 10, 12]:
         write_input('bs', bonner_size=bonner_size)
-        pass
-    write_input('ft', 'in', 20.0)
-    write_input('ft', 'au', 45.0)
+    write_input('ft', 'au', 32.0)
 
 
 if __name__ == '__main__':
