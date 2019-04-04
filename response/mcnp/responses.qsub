@@ -1,0 +1,134 @@
+#!/bin/sh
+#PBS -l nodes=compute-0-0:ppn=64+compute-0-1:ppn=64+compute-0-2:ppn=64+compute-0-3:ppn=32+compute-0-4:ppn=32+compute-0-5:ppn=32+compute-0-6:ppn=32+compute-0-7:ppn=32
+cd $PBS_O_WORKDIR
+cat $PBS_NODEFILE > nodes
+NO_OF_CORES=`cat $PBS_NODEFILE | egrep -v '^#'\|'^$' | wc -l | awk '{print $1}'`
+echo $NO_OF_CORES
+NODE_LIST=`cat $PBS_NODEFILE`
+echo $NODE_LIST
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs0_0.inp o=bs0_0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs0_1.inp o=bs0_1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs0_2.inp o=bs0_2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs0_3.inp o=bs0_3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs0_4.inp o=bs0_4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs0_5.inp o=bs0_5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs0_6.inp o=bs0_6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs10_0.inp o=bs10_0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs10_1.inp o=bs10_1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs10_2.inp o=bs10_2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs10_3.inp o=bs10_3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs10_4.inp o=bs10_4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs10_5.inp o=bs10_5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs10_6.inp o=bs10_6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs12_0.inp o=bs12_0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs12_1.inp o=bs12_1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs12_2.inp o=bs12_2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs12_3.inp o=bs12_3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs12_4.inp o=bs12_4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs12_5.inp o=bs12_5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs12_6.inp o=bs12_6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs2_0.inp o=bs2_0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs2_1.inp o=bs2_1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs2_2.inp o=bs2_2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs2_3.inp o=bs2_3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs2_4.inp o=bs2_4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs2_5.inp o=bs2_5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs2_6.inp o=bs2_6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs3_0.inp o=bs3_0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs3_1.inp o=bs3_1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs3_2.inp o=bs3_2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs3_3.inp o=bs3_3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs3_4.inp o=bs3_4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs3_5.inp o=bs3_5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs3_6.inp o=bs3_6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs5_0.inp o=bs5_0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs5_1.inp o=bs5_1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs5_2.inp o=bs5_2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs5_3.inp o=bs5_3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs5_4.inp o=bs5_4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs5_5.inp o=bs5_5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs5_6.inp o=bs5_6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs8_0.inp o=bs8_0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs8_1.inp o=bs8_1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs8_2.inp o=bs8_2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs8_3.inp o=bs8_3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs8_4.inp o=bs8_4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs8_5.inp o=bs8_5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=bs8_6.inp o=bs8_6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_au0.inp o=ft_au0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_au1.inp o=ft_au1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_au2.inp o=ft_au2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_au3.inp o=ft_au3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_au4.inp o=ft_au4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_au5.inp o=ft_au5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_au6.inp o=ft_au6.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_in0.inp o=ft_in0.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_in1.inp o=ft_in1.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_in2.inp o=ft_in2.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_in3.inp o=ft_in3.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_in4.inp o=ft_in4.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_in5.inp o=ft_in5.out
+ rm runtp*
+mpirun -np $NO_OF_CORES -machinefile nodes mcnp6.mpi i=ft_in6.inp o=ft_in6.out
+ rm runtp*
