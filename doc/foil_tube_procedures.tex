@@ -10,6 +10,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx} 
 \usepackage[export]{adjustbox}
+\usepackage[section]{placeins}
 % needed to include these graphics
 %\graphicspath{{./Pictures/}}      % only in case you want to keep the pictures in a separate
                                   % subdirectory; also see the appropriate line below
@@ -80,27 +81,49 @@ John Boyington
 
 %-------------------------------------------------------------------------------
 
-\section*{1. Device Description}
+\section{Device Description}
 \bigskip
 
 The device used in the experiment is a simple assembly consisting of gold foils embedded in HDPE sections contained within an aluminum tube.
+Each 1 in. section of HDPE has a small hole drilled into one side where a 5 mm OD disk of gold foil is inserted.
+Eleven of these sections are assembled and contained within the aluminum tubing (0.75" OD).
+The device is inserted such that the first foil illuminated by the beam is not covered.
+Below are images of the response functions associated with the device.
 
-\begin{figure}[h!]
-\includegraphics[width=0.6\linewidth]{img/exploded.jpg}
-\caption{Hello}
+\begin{figure}[!htb]
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/exploded.jpg}
+  \caption{An exploded look at the device.}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{img/section0.jpg}
+  \caption{One section of HDPE with foil inserted.}
+\end{subfigure}
 \end{figure}
 
-\begin{figure}[h!]
-\includegraphics[width=0.6\linewidth]{img/section0.jpg}
-\caption{Hello}
-\end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \includegraphics[width=0.6\linewidth]{img/assy0.jpg}
-\caption{Hello}
+\caption{A look at semi-assembled internals. Note: the full device will have only 11 sections, not the 12 depicted.}
 \end{figure}
 
-\section*{2. Experimental Procedures}
+\begin{figure}[!htb]
+\includegraphics[width=0.8\linewidth]{../response/plot/ft_au.png}
+\caption{Response functions associated with each foil.}
+\end{figure}
+
+\begin{figure}[!htb]
+\includegraphics[width=0.8\linewidth]{../response/plot/ft_au_cdf.png}
+\caption{Cumulative distribution function of each foil multiplied by the expected integral flux.}
+\end{figure}
+
+
+\clearpage
+
+\section{Experimental Procedures}
 \bigskip
 
 \noindent
@@ -130,8 +153,18 @@ NEBP: Northeast Beam Port \\
 \end{enumerate}
 
 
-\section*{3. Expected Results}
+\newpage
+\section{Expected Results}
 \bigskip
+
+The image below contains information on the expected responses of each foil.
+The largest predicted activity, the bare foil is 54.19 $\mu Ci$.
+The lowest predicted activity, the foil farthest from the beam is 0.0292 $\mu Ci$.
+
+\begin{figure}[!htb]
+\includegraphics[width=0.8\linewidth]{../response/plot/ft_au_theoretical_responses.png}
+\caption{The expected activites of each foil following the irradiation.}
+\end{figure}
 
 \end{document}
 

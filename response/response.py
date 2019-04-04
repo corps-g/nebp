@@ -313,6 +313,6 @@ def plot_response_cdfs():
 
 
 if __name__ == '__main__':
-    # plot_response_data()
+    plot_response_data()
     plot_response_pdfs()
     plot_response_cdfs()
