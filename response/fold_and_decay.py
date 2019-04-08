@@ -33,11 +33,11 @@ def fold_and_decay():
     sat_act = sat_act_mass * 37
 
     # irradiate for 3 hours, getting to ~3% of saturation activity
-    act = sat_act * (1 - np.exp(-(np.log(2) / (2.7 * 24 * 3600)) * 3600 * 3))
+    act = sat_act * (1 - np.exp(-(np.log(2) / (2.7 * 24 * 3600)) * 3600 * 2))
 
     # output the activities at irradiation cessation
     for a in act:
-        print('{:6.4f}'.format(a))
+        print('{:8.6f}'.format(a))
 
     # plotting environment
     fig = plt.figure(0)

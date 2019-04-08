@@ -86,7 +86,7 @@ def response_data():
     erg_struct = energy_groups('scale252')
 
     # the gold foil tube ------------------------------------------------------
-    scaling_factor = (19.32 * N_A * 1E-24 * 252) / (197 * 45)
+    scaling_factor = (19.32 * N_A * 1E-24 * 252 * 1.65803E-03) / (197 * 45)
     gold_tallys = grab_tally('ft_au', scaling_factor)
 
     # loop through the gold tally
