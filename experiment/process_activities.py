@@ -1,6 +1,8 @@
 import numpy as np
 import re
 import matplotlib.pyplot as plt
+from scipy.integrate import odeint
+from scipy.interpolate import interp1d
 
 
 class Au_Foil_Data(object):
@@ -25,6 +27,12 @@ class Au_Foil_Data(object):
 
         # get power profile information
         self.extract_power_profile()
+
+        # shift back times
+        self.shift_times()
+
+        # calculate the saturation activities
+        self.calc_a_sat()
 
         return
 
@@ -85,7 +93,9 @@ class Au_Foil_Data(object):
             # store data
             foil_activities[i] = act, err, live_time, t_c
 
-        return foil_activities
+        self.a_c, self.a_c_error, self.live, self.t_c = foil_activities.T
+
+        return
 
     def extract_power_profile(self):
         """Extract power profile."""
@@ -95,8 +105,8 @@ class Au_Foil_Data(object):
             lines = F.readlines()[:-2000]
 
         # open structures
-        times = np.empty(len(lines))
-        powers = np.empty(len(lines))
+        self.times = np.empty(len(lines))
+        self.powers = np.empty(len(lines))
 
         # loop and parse out times and power
         for i, line in enumerate(lines):
@@ -105,22 +115,60 @@ class Au_Foil_Data(object):
             line = re.split('[,;]', line)
 
             #
-            times[i] = self.convert_time(*line[:2], 'AM')
+            self.times[i] = self.convert_time(*line[:2], 'AM')
 
             # convert power from percent of a MW(th) to W(th)
-            powers[i] = float(line[6]) * 0.01 * 1E6
+            self.powers[i] = float(line[6]) * 0.01 * 1E6
 
         # convert all zero powers to the power before it
-        for i, power in enumerate(powers):
+        for i, power in enumerate(self.powers):
 
             #
             if not power:
 
                 #
-                powers[i] = powers[i - 1]
+                self.powers[i] = self.powers[i - 1]
 
-        
-        
+        #
+        self.power_profile = self.powers / self.P
+
+        return
+
+    def shift_times(self):
+        """Shifts the times."""
+
+        shift = self.times[0]
+
+        # shift every absolute temporal value
+        self.times -= shift
+        self.t_c -= shift
+
+        return
+
+    def calc_a_sat(self):
+        """Calculate the saturation activities."""
+
+        # get a callable function for the power level relative to max power
+        full_times = np.arange(0, self.t_c[-1] + 100)
+
+        #
+        P = interp1d(self.times, self.power_profile, bounds_error=False, fill_value=0)
+
+        # the differential form of the isotope production/decay balance
+        def N_prime(N, t):
+            return P(t) - self.decay_constant * N
+
+        # solve the differential equation
+        N_t = odeint(N_prime, y0=0, t=full_times)
+
+        # compute activity
+        self.activity_profile = N_t * self.decay_constant
+
+        # divide each foil by the saturation ratio
+        self.a_sat = np.array([self.a_c[i] / self.activity_profile[int(self.t_c[i])] for i in range(self.n)])
+
+        return
+
 
 if __name__ == '__main__':
     fa = Au_Foil_Data()
