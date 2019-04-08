@@ -1,0 +1,822 @@
+*************************************************************************
+*****        G A M M A   S P E C T R U M    A N A L Y S I S         *****
+*************************************************************************
+
+
+Filename: DSA1000A                                                     
+
+Report Generated On             : 4/5/2019   12:59:33 PM
+
+Sample Title                    : Sample title.                          
+Sample Description              :                                 
+Sample Identification           :                 
+Sample Type                     :                 
+Sample Geometry                 :                 
+
+Peak Locate Threshold           :  2.50
+Peak Locate Range (in channels) :     1 - 65535
+Peak Area Range (in channels)   :   100 -  8172
+Identification Energy Tolerance :    3.000 keV
+
+Sample Size                     :  1.000E+000 Unit    
+
+Sample Taken On                 :                       
+Acquisition Started             : 4/5/2019   12:49:39 PM
+
+Live Time                       :      112.1 seconds
+Real Time                       :      112.6 seconds
+
+Dead Time                       :   0.44 %
+
+
+              Energy Calibration Used Done On       : 6/23/2018 
+              Efficiency Calibration Used Done On   : 2/21/2019 
+              Efficiency ID                         :                        
+
+Peak Analysis Report             4/5/2019   12:59:33 PM            Page  2
+
+
+**************************************************************************
+*****           P E A K    A N A L Y S I S    R E P O R T            *****
+**************************************************************************
+
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+     Peak Analysis Performed on:  4/5/2019   12:59:33 PM
+               Peak Analysis From Channel:    290
+               Peak Analysis To Channel:     8192
+
+   Peak  ROI  ROI    Peak    Energy   FWHM  Net Peak  Net Area  Continuum 
+    No. start end  centroid   (keV)   (keV)  Area     Uncert.    Counts 
+
+    1   376-  384   379.16   103.19   0.31       -10.3   15.29   1.13E+002 
+    2   384-  395   388.93   105.86   0.42         2.0   19.65   1.53E+002 
+    3   395-  403   398.90   108.58   0.46        -9.3   16.10   1.25E+002 
+    4   403-  414   407.53   110.93   0.46        -5.9   19.12   1.44E+002 
+    5   416-  429   423.18   115.20   0.27        -2.2   20.89   1.58E+002 
+    6   536-  544   539.78   147.01   0.30        18.3   16.25   1.14E+002 
+ M  7   553-  569   557.95   151.97   0.44         2.8   11.53   7.16E+001 
+ m  8   553-  569   564.31   153.71   0.44         3.4   13.72   7.10E+001 
+    9   651-  667   662.46   180.48   0.27         3.2   27.14   2.34E+002 
+   10   724-  732   728.29   198.44   0.93         6.2   17.49   1.40E+002 
+   11   764-  779   771.40   210.20   0.27        -0.8   27.49   2.52E+002 
+   12   952-  960   956.74   260.77   0.27        -0.8   14.41   9.68E+001 
+   13   987-  994   990.48   269.97   0.72        -5.4   11.25   6.54E+001 
+   14  1050- 1057  1053.63   287.20   0.33        -1.2   10.54   5.52E+001 
+   15  1080- 1088  1083.53   295.36   0.27         6.0   10.52   4.80E+001 
+   16  1089- 1097  1093.80   298.16   0.56         7.9   10.51   4.81E+001 
+   17  1120- 1128  1124.78   306.62   0.42        15.8    9.90   3.83E+001 
+   18  1133- 1140  1136.58   309.83   0.28        -2.0    9.14   4.10E+001 
+   19  1169- 1179  1172.68   319.68   0.28        10.0   10.80   4.40E+001 
+   20  1254- 1263  1258.89   343.20   0.54         6.4    8.73   3.06E+001 
+   21  1466- 1473  1469.78   400.74   0.27         7.7    8.13   2.83E+001 
+   22  1500- 1518  1509.85   411.67   1.32      7888.7   89.94   5.83E+001 
+   23  1561- 1568  1564.20   426.50   0.81         7.4    4.71   6.57E+000 
+   24  1639- 1646  1642.88   447.96   0.47         2.8    3.51   4.21E+000 
+   25  1750- 1757  1753.29   478.09   0.38         4.3    3.16   2.71E+000 
+   26  1880- 1889  1884.96   514.01   0.86         5.1    3.82   3.94E+000 
+   27  1935- 1944  1939.83   528.98   0.47         4.7    2.83   1.29E+000 
+   28  2422- 2431  2426.08   661.64   0.61        12.5    4.26   2.50E+000 
+   29  2473- 2485  2477.89   675.78   0.87        49.0    7.00   0.00E+000 
+   30  5353- 5366  5358.97  1461.81   0.45        43.0    6.56   0.00E+000 
+
+M = First peak in a multiplet region
+m = Other peak in a multiplet region
+F = Fitted singlet
+
+Errors quoted at  1.000 sigma
+Nuclide Identification Report        4/5/2019   12:59:33 PM        Page  3
+
+
+No nuclide identification results available for reporting purposes
+*************************************************************************
+*****        G A M M A   S P E C T R U M    A N A L Y S I S         *****
+*************************************************************************
+
+
+Filename: DSA1000A                                                     
+
+Report Generated On             : 4/5/2019   12:59:34 PM
+
+Sample Title                    : Sample title.                          
+Sample Description              :                                 
+Sample Identification           :                 
+Sample Type                     :                 
+Sample Geometry                 :                 
+
+Peak Locate Threshold           :  2.50
+Peak Locate Range (in channels) :     1 - 65535
+Peak Area Range (in channels)   :   290 -  8192
+Identification Energy Tolerance :    3.000 keV
+
+Sample Size                     :  1.000E+000 Unit    
+
+Sample Taken On                 :                       
+Acquisition Started             : 4/5/2019   12:49:39 PM
+
+Live Time                       :      112.1 seconds
+Real Time                       :      112.6 seconds
+
+Dead Time                       :   0.44 %
+
+
+              Energy Calibration Used Done On       : 6/23/2018 
+              Efficiency Calibration Used Done On   : 2/21/2019 
+              Efficiency ID                         :                        
+
+Energy Calibration Report            4/5/2019   12:59:34 PM       Page  4
+
+
+**************************************************************************
+*****       E N E R G Y   C A L I B R A T I O N   R E P O R T        *****
+**************************************************************************
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+
+       *************  ENERGY CALIBRATION COEFFICIENTS  *************
+
+               Energy Calibrate Performed on:  6/23/2018  12:56:08 PM
+                       by:                       
+               Energy Calibrate Type:          POLY    
+
+   Energy(keV) =    -0.253 +     0.273*ch +  0.00E+000*ch^2 +  0.00E+000*ch^3
+
+       *************  SHAPE CALIBRATION COEFFICIENTS   *************
+
+               Shape Calibrate Performed on:  6/23/2018  12:56:08 PM
+                       by:                        
+
+               FWHM     =     0.795  +   0.026*E^1/2
+
+               LOW TAIL =   0.0E+000 +  0.0E+000*E
+
+****************     ENERGY CALIBRATION RESULTS TABLE     ****************
+
+                    Centroid      Centroid         Energy
+                    Channel       error            (keV )
+                      220.59        0.07             60.01
+                      317.99        0.02             86.54
+                      386.80        0.01            105.31
+                      451.84        0.03            122.06
+                     2426.14        0.01            661.66
+                     3062.96        0.38            834.83
+
+       *********     SHAPE CALIBRATION RESULTS TABLE      *********
+
+             Energy     FWHM       FWHM         TAIL        TAIL
+             (keV )     channels   error        channels    error
+               60.01      3.13      0.17           0.00      0.00
+               86.54      3.87      0.04           0.00      0.00
+              105.31      3.88      0.01           0.00      0.00
+              122.06      3.92      0.07           0.00      0.00
+              661.66      5.34      0.01           0.00      0.00
+              834.83      1.36      0.55           0.00      0.00
+Efficiency Calibration Report             4/5/2019   12:59:34 PM   Page  5
+
+
+**************************************************************************
+*****   E F F I C I E N C Y   C A L I B R A T I O N    R E P O R T   *****
+**************************************************************************
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+
+     Geometry Description:                 
+     Efficiency Calibration Performed on:  2/21/2019   3:50:31 PM
+                       by:                         
+     Geometry Type Used:   INTERPOL        
+
+                            Efficiency Triplets
+                            ===================
+
+                   Energy         Efficiency        Error
+
+                     60.01         1.99E-002      1.47E-003
+                     86.55         7.35E-002      3.68E-003
+                    105.31         9.20E-002      4.60E-003
+                    176.33         9.74E-002      4.89E-003
+                    427.89         4.81E-002      2.41E-003
+                    463.38         4.48E-002      2.26E-003
+                    600.56         3.53E-002      1.77E-003
+                    606.64         3.50E-002      1.78E-003
+                    635.90         3.41E-002      1.72E-003
+                    834.85         2.61E-002      1.38E-003
+                   1173.24         1.85E-002      9.27E-004
+                   1332.50         1.66E-002      8.32E-004
+
+                      DUAL Efficiency Calibration Equation
+                      ====================================
+
+         Single Equation Terms ->   Offset:     -594.233
+                                     Slope:      481.755
+                                 Quadratic:     -156.075
+                                     Cubic:       25.207
+                                 4th Order:       -2.032
+                                 5th Order:        0.065
+                                 6th Order:        0.000
+                                 7th Order:        0.000
+                                 8th Order:        0.000
+                                 9th Order:        0.000
+Efficiency Calibration Report             4/5/2019   12:59:34 PM   Page  6
+
+
+                      EMPIRICAL Efficiency Calibration Equation
+                      =========================================
+
+      Empirical Equation Terms ->  Scaling:      696.255
+                                    Offset:       -3.475
+                                     Slope:        0.951
+                                 Quadratic:       -0.096
+                                     Cubic:       -0.022
+                                 4th Order:        0.109
+                                 5th Order:       -0.065
+
+                      LINEAR Efficiency Calibration Equation
+                      ======================================
+
+         Linear Equation Terms ->   Offset:       -0.000
+                                     Slope:       -1.666
+                                 Quadratic:      257.368
+                                     Cubic:   -32179.611
+                                 4th Order:  1699257.375
+                                 5th Order:  -41984524.0
+                                 6th Order:        0.000
+                                 7th Order:        0.000
+                                 8th Order:        0.000
+                                 9th Order:        0.000
+Peak-to-Total Calibration Report          4/5/2019   12:59:34 PM   Page  7
+
+
+**************************************************************************
+**   P E A K - T O - T O T A L   C A L I B R A T I O N   R E P O R T   ***
+**************************************************************************
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+
+
+                  Peak-to-Total Calibration Equation
+                  =============================================
+
+                                 No Peak-to-Total Equation
+
+Peak Locate Analysis Report             4/5/2019   12:59:34 PM     Page  8
+
+**************************************************************************
+*****             P E A K    L O C A T E    R E P O R T              *****
+**************************************************************************
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+               Peak Locate Performed on:  4/5/2019   12:59:33 PM
+               Peak Locate From Channel:      1
+               Peak Locate To Channel:    65535
+               Peak Search Sensitivity:     2.50
+
+     Peak   Centroid    Centroid     Energy       Peak
+      No.    Channel   Uncertainty   (keV)    Significance
+
+       1      379.16      <NA>        103.19      <NA> 
+       2      388.93      <NA>        105.86      <NA> 
+       3      398.90      <NA>        108.58      <NA> 
+       4      407.53      <NA>        110.93      <NA> 
+       5      423.18      <NA>        115.20      <NA> 
+       6      539.78      <NA>        147.01      <NA> 
+       7      558.00      <NA>        151.97      <NA> 
+       8      562.56      <NA>        153.71      <NA> 
+       9      662.46      <NA>        180.48      <NA> 
+      10      728.29      <NA>        198.44      <NA> 
+      11      771.40      <NA>        210.20      <NA> 
+      12      956.74      <NA>        260.77      <NA> 
+      13      990.48      <NA>        269.97      <NA> 
+      14     1053.63      <NA>        287.20      <NA> 
+      15     1083.53      <NA>        295.36      <NA> 
+      16     1093.80      <NA>        298.16      <NA> 
+      17     1124.78      <NA>        306.62      <NA> 
+      18     1136.58      <NA>        309.83      <NA> 
+      19     1172.68      <NA>        319.68      <NA> 
+      20     1258.89      <NA>        343.20      <NA> 
+      21     1469.78      <NA>        400.74      <NA> 
+      22     1509.85      <NA>        411.67      <NA> 
+      23     1564.20      <NA>        426.50      <NA> 
+      24     1642.88      <NA>        447.96      <NA> 
+      25     1753.29      <NA>        478.09      <NA> 
+      26     1884.96      <NA>        514.01      <NA> 
+      27     1939.83      <NA>        528.98      <NA> 
+      28     2426.08      <NA>        661.64      <NA> 
+      29     2477.89      <NA>        675.78      <NA> 
+      30     5358.97      <NA>       1461.81      <NA> 
+
+? = Adjacent peak noted
+
+Errors quoted at  1.000 sigma
+Peak Analysis Report             4/5/2019   12:59:34 PM            Page  9
+
+
+**************************************************************************
+*****           P E A K    A N A L Y S I S    R E P O R T            *****
+**************************************************************************
+
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+     Peak Analysis Performed on:  4/5/2019   12:59:33 PM
+               Peak Analysis From Channel:    290
+               Peak Analysis To Channel:     8192
+
+   Peak  ROI  ROI    Peak    Energy   FWHM  Net Peak  Net Area  Continuum 
+    No. start end  centroid   (keV)   (keV)  Area     Uncert.    Counts 
+
+    1   376-  384   379.16   103.19   0.31       -10.3   15.29   1.13E+002 
+    2   384-  395   388.93   105.86   0.42         2.0   19.65   1.53E+002 
+    3   395-  403   398.90   108.58   0.46        -9.3   16.10   1.25E+002 
+    4   403-  414   407.53   110.93   0.46        -5.9   19.12   1.44E+002 
+    5   416-  429   423.18   115.20   0.27        -2.2   20.89   1.58E+002 
+    6   536-  544   539.78   147.01   0.30        18.3   16.25   1.14E+002 
+ M  7   553-  569   557.95   151.97   0.44         2.8   11.53   7.16E+001 
+ m  8   553-  569   564.31   153.71   0.44         3.4   13.72   7.10E+001 
+    9   651-  667   662.46   180.48   0.27         3.2   27.14   2.34E+002 
+   10   724-  732   728.29   198.44   0.93         6.2   17.49   1.40E+002 
+   11   764-  779   771.40   210.20   0.27        -0.8   27.49   2.52E+002 
+   12   952-  960   956.74   260.77   0.27        -0.8   14.41   9.68E+001 
+   13   987-  994   990.48   269.97   0.72        -5.4   11.25   6.54E+001 
+   14  1050- 1057  1053.63   287.20   0.33        -1.2   10.54   5.52E+001 
+   15  1080- 1088  1083.53   295.36   0.27         6.0   10.52   4.80E+001 
+   16  1089- 1097  1093.80   298.16   0.56         7.9   10.51   4.81E+001 
+   17  1120- 1128  1124.78   306.62   0.42        15.8    9.90   3.83E+001 
+   18  1133- 1140  1136.58   309.83   0.28        -2.0    9.14   4.10E+001 
+   19  1169- 1179  1172.68   319.68   0.28        10.0   10.80   4.40E+001 
+   20  1254- 1263  1258.89   343.20   0.54         6.4    8.73   3.06E+001 
+   21  1466- 1473  1469.78   400.74   0.27         7.7    8.13   2.83E+001 
+   22  1500- 1518  1509.85   411.67   1.32      7888.7   89.94   5.83E+001 
+   23  1561- 1568  1564.20   426.50   0.81         7.4    4.71   6.57E+000 
+   24  1639- 1646  1642.88   447.96   0.47         2.8    3.51   4.21E+000 
+   25  1750- 1757  1753.29   478.09   0.38         4.3    3.16   2.71E+000 
+   26  1880- 1889  1884.96   514.01   0.86         5.1    3.82   3.94E+000 
+   27  1935- 1944  1939.83   528.98   0.47         4.7    2.83   1.29E+000 
+   28  2422- 2431  2426.08   661.64   0.61        12.5    4.26   2.50E+000 
+   29  2473- 2485  2477.89   675.78   0.87        49.0    7.00   0.00E+000 
+   30  5353- 5366  5358.97  1461.81   0.45        43.0    6.56   0.00E+000 
+
+M = First peak in a multiplet region
+m = Other peak in a multiplet region
+F = Fitted singlet
+
+Errors quoted at  1.000 sigma
+Peak Analysis Report                    4/5/2019   12:59:34 PM          Page 10
+
+
+*******************************************************************************
+*****  S T A N D A R D   V M S   P E A K   A N A L Y S I S   R E P O R T  *****
+*******************************************************************************
+
+        Configuration Title:                                         
+        Spectrum Title:              Sample title.            
+        Peak Analysis Performed on:  4/5/19   12:59:33 PM
+        Peak Analysis From Channel:    290    To Channel:     8192
+        Peak Search Sensitivity:      2.50    Gaussian Sensitivity:  1.00
+        Max Iterations: 15  Fit Singlets: No  Critical Level Test: No 
+        Use Fixed FWHM: No  FWHM Reject:  No  FWHM Reject Ratio:  0.00 
+        Peak Fit Engine Name: PANOLIN1        Continuum Type: STEP   
+
+   Pk IT  Energy      Area   Bkgnd  FWHM Channel  Left  PW  Cts/Sec  %err   Fit
+
+    1  0   103.19      -10     113  0.31  379.16   376   9-9.2E-002 -147.   0.0
+    2  0   105.86        2     153  0.42  388.93   384  12 1.8E-002 982.3   0.0
+    3  0   108.58       -9     125  0.46  398.90   395   9-8.2E-002 -174.   0.0
+    4  0   110.93       -6     144  0.46  407.53   403  12-5.3E-002 -324.   0.0
+    5  0   115.20       -2     158  0.27  423.18   416  14-2.0E-002 -932.   0.0
+    6  0   147.01       18     114  0.30  539.78   536   9 1.6E-001  88.7   0.0
+ M  7 26   151.97        3      72  0.44  557.95   553  17 2.5E-002 408.4   0.9
+ m  8 26   153.71        3      71  0.44  564.31   553  17 3.0E-002 408.3   0.9
+    9  0   180.48        3     234  0.27  662.46   651  17 2.9E-002 839.9   0.0
+   10  0   198.44        6     140  0.93  728.29   724   9 5.6E-002 280.9   0.0
+   11  0   210.20       -1     252  0.27  771.40   764  16-7.2E-003 -3398   0.0
+   12  0   260.77       -1      97  0.27  956.74   952   9-6.7E-003 -1922   0.0
+   13  0   269.97       -5      65  0.72  990.48   987   8-4.9E-002 -206.   0.0
+   14  0   287.20       -1      55  0.33 1053.63  1050   8-1.0E-002 -896.   0.0
+   15  0   295.36        6      48  0.27 1083.53  1080   9 5.4E-002 174.6   0.0
+   16  0   298.16        8      48  0.56 1093.80  1089   9 7.1E-002 132.3   0.0
+   17  0   306.62       16      38  0.42 1124.78  1120   9 1.4E-001  62.8   0.0
+   18  0   309.83       -2      41  0.28 1136.58  1133   8-1.7E-002 -465.   0.0
+   19  0   319.68       10      44  0.28 1172.68  1169  11 8.9E-002 107.8   0.0
+   20  0   343.20        6      31  0.54 1258.89  1254  10 5.7E-002 137.3   0.0
+   21  0   400.74        8      28  0.27 1469.78  1466   8 6.8E-002 106.1   0.0
+   22  0   411.67     7889      58  1.32 1509.85  1500  19 7.0E+001   1.1   0.0
+   23  0   426.50        7       7  0.81 1564.20  1561   8 6.6E-002  63.4   0.0
+   24  0   447.96        3       4  0.47 1642.88  1639   8 2.5E-002 126.1   0.0
+   25  0   478.09        4       3  0.38 1753.29  1750   8 3.8E-002  73.6   0.0
+   26  0   514.01        5       4  0.86 1884.96  1880  10 4.5E-002  75.5   0.0
+   27  0   528.98        5       1  0.47 1939.83  1935  10 4.2E-002  60.1   0.0
+   28  0   661.64       13       3  0.61 2426.08  2422  10 1.1E-001  34.1   0.0
+   29  0   675.78       49       0  0.87 2477.89  2473  13 4.4E-001  14.3   0.0
+   30  0  1461.81       43       0  0.45 5358.97  5353  14 3.8E-001  15.2   0.0
+
+M = First peak in a multiplet region
+m = Other peak in a multiplet region
+F = Fitted singlet
+
+Errors quoted at  1.000 sigma
+Peak Analysis Report             4/5/2019   12:59:34 PM            Page 11
+
+
+**************************************************************************
+*****           P E A K    A N A L Y S I S    R E P O R T            *****
+**************************************************************************
+
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+     Peak Analysis Performed on:  4/5/2019   12:59:33 PM
+               Peak Analysis From Channel:    290
+               Peak Analysis To Channel:     8192
+
+   Peak  ROI  ROI   Energy   Net Peak Net Area  Continuum  Critical 
+    No. start end    (keV)     Area    Uncert.    Counts     Level
+
+    1   376-  384   103.19       -10.3   15.29   1.13E+002  2.57E+001 
+    2   384-  395   105.86         2.0   19.65   1.53E+002  3.22E+001 
+    3   395-  403   108.58        -9.3   16.10   1.25E+002  2.70E+001 
+    4   403-  414   110.93        -5.9   19.12   1.44E+002  3.17E+001 
+    5   416-  429   115.20        -2.2   20.89   1.58E+002  3.45E+001 
+    6   536-  544   147.01        18.3   16.25   1.14E+002  2.58E+001 
+ M  7   553-  569   151.97         2.8   11.53   7.16E+001  1.97E+001 
+ m  8   553-  569   153.71         3.4   13.72   7.10E+001  1.96E+001 
+    9   651-  667   180.48         3.2   27.14   2.34E+002  4.45E+001 
+   10   724-  732   198.44         6.2   17.49   1.40E+002  2.85E+001 
+   11   764-  779   210.20        -0.8   27.49   2.52E+002  4.52E+001 
+   12   952-  960   260.77        -0.8   14.41   9.68E+001  2.38E+001 
+   13   987-  994   269.97        -5.4   11.25   6.54E+001  1.89E+001 
+   14  1050- 1057   287.20        -1.2   10.54   5.52E+001  1.74E+001 
+   15  1080- 1088   295.36         6.0   10.52   4.80E+001  1.68E+001 
+   16  1089- 1097   298.16         7.9   10.51   4.81E+001  1.67E+001 
+   17  1120- 1128   306.62        15.8    9.90   3.83E+001  1.49E+001 
+   18  1133- 1140   309.83        -2.0    9.14   4.10E+001  1.52E+001 
+   19  1169- 1179   319.68        10.0   10.80   4.40E+001  1.70E+001 
+   20  1254- 1263   343.20         6.4    8.73   3.06E+001  1.37E+001 
+   21  1466- 1473   400.74         7.7    8.13   2.83E+001  1.26E+001 
+   22  1500- 1518   411.67      7888.7   89.94   5.83E+001  2.33E+001 
+   23  1561- 1568   426.50         7.4    4.71   6.57E+000  6.32E+000 
+   24  1639- 1646   447.96         2.8    3.51   4.21E+000  5.08E+000 
+   25  1750- 1757   478.09         4.3    3.16   2.71E+000  3.92E+000 
+   26  1880- 1889   514.01         5.1    3.82   3.94E+000  5.07E+000 
+   27  1935- 1944   528.98         4.7    2.83   1.29E+000  2.98E+000 
+   28  2422- 2431   661.64        12.5    4.26   2.50E+000  3.91E+000 
+   29  2473- 2485   675.78        49.0    7.00   0.00E+000  0.00E+000 
+   30  5353- 5366  1461.81        43.0    6.56   0.00E+000  0.00E+000 
+
+M = First peak in a multiplet region
+m = Other peak in a multiplet region
+F = Fitted singlet
+
+Errors quoted at  1.000 sigma
+Peak with NID Report             4/5/2019   12:59:34 PM            Page 12
+
+
+**************************************************************************
+*****           P E A K    W I T H   N I D    R E P O R T            *****
+**************************************************************************
+
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+     Peak Analysis Performed on:  4/5/2019   12:59:33 PM
+               Peak Analysis From Channel:    290
+               Peak Analysis To Channel:     8192
+     Tentative NID Library:   C:\GENIE2K\CAMFILES\NAA LIB LONG.NLB     
+     Peak Match Tolerance :    3.000 keV
+
+   Peak  ROI  ROI    Peak    Energy   Net Peak Net Area  Continuum  Tentative
+    No. Start End  Centroid   (keV)     Area    Uncert.    Counts    Nuclide 
+
+    1   376-  384   379.16   103.19 -1.03E+001   15.29   1.13E+002   GD-153   
+                                                                     SM-153   
+                                                                     TE-131x  
+                                                                     LU-177x  
+    2   384-  395   388.93   105.86  2.00E+000   19.65   1.53E+002   LU-177x  
+                                                                     GD-153   
+                                                                     SM-153   
+    3   395-  403   398.90   108.58 -9.25E+000   16.10   1.25E+002   YB-169   
+    4   403-  414   407.53   110.93 -5.89E+000   19.12   1.44E+002   YB-169   
+                                                                     LU-177   
+                                                                     LU-177x  
+    5   416-  429   423.18   115.20 -2.24E+000   20.89   1.58E+002   LU-177x  
+                                                                     LU-177   
+    6   536-  544   539.78   147.01  1.83E+001   16.25   1.14E+002   CE-141   
+                                                                     TE-131x  
+ M  7   553-  569   557.95   151.97  2.82E+000   11.53   7.16E+001   TA-182   
+                                                                     LU-177x  
+                                                                     PA-232   
+                                                                     TE-131x  
+ m  8   553-  569   564.31   153.71  3.36E+000   13.72   7.10E+001   LU-177x  
+                                                                     TA-182   
+                                                                     RE-188   
+    9   651-  667   662.46   180.48  3.23E+000   27.14   2.34E+002   AU-198m  
+                                                                     MO-99    
+   10   724-  732   728.29   198.44  6.23E+000   17.49   1.40E+002   YB-169   
+                                                                     TB-160   
+                                                                     XE-129m  
+                                                                     TE-131x  
+   11   764-  779   771.40   210.20 -8.09E-001   27.49   2.52E+002   GE-77    
+                                                                     LU-177x  
+                                                                     LU-177   
+                                                                     TE-121x  
+   12   952-  960   956.74   260.77 -7.50E-001   14.41   9.68E+001   .....    
+   13   987-  994   990.48   269.97 -5.45E+000   11.25   6.54E+001   .....    
+   14  1050- 1057  1053.63   287.20 -1.18E+000   10.54   5.52E+001   PM-149   
+   15  1080- 1088  1083.53   295.36  6.03E+000   10.52   4.80E+001   IR-192   
+                                                                     LU-177x  
+                                                                     CE-143   
+   16  1089- 1097  1093.80   298.16  7.95E+000   10.51   4.81E+001   TB-160   
+                                                                     LU-177x  
+                                                                     IR-192   
+Peak with NID Report             4/5/2019   12:59:34 PM            Page 13
+
+   17  1120- 1128  1124.78   306.62  1.58E+001    9.90   3.83E+001   RH-105   
+                                                                     YB-169   
+                                                                     IR-192   
+                                                                     BI-210x  
+                                                                     BI-210   
+   18  1133- 1140  1136.58   309.83 -1.96E+000    9.14   4.10E+001   IR-192   
+                                                                     YB-169   
+   19  1169- 1179  1172.68   319.68  1.00E+001   10.80   4.40E+001   CR-51    
+                                                                     LU-177x  
+                                                                     RH-105   
+   20  1254- 1263  1258.89   343.20  6.36E+000    8.73   3.06E+001   HF-175   
+                                                                     EU-152x  
+                                                                     HF-181   
+   21  1466- 1473  1469.78   400.74  7.67E+000    8.13   2.83E+001   SE-75    
+   22  1500- 1518  1509.85   411.67  7.89E+003   89.94   5.83E+001   AU-198   
+                                                                     HO-166   
+                                                                     LU-177x  
+   23  1561- 1568  1564.20   426.50  7.43E+000    4.71   6.57E+000   SB-125   
+   24  1639- 1646  1642.88   447.96  2.79E+000    3.51   4.21E+000   AG-110m  
+   25  1750- 1757  1753.29   478.09  4.29E+000    3.16   2.71E+000   W-187    
+   26  1880- 1889  1884.96   514.01  5.06E+000    3.82   3.94E+000   SR-85x   
+                                                                     PA-232   
+   27  1935- 1944  1939.83   528.98  4.71E+000    2.83   1.29E+000   HO-166   
+                                                                     CD-115   
+                                                                     ND-147   
+   28  2422- 2431  2426.08   661.64  1.25E+001    4.26   2.50E+000   CE-143   
+   29  2473- 2485  2477.89   675.78  4.90E+001    7.00   0.00E+000   AG-110m  
+   30  5353- 5366  5358.97  1461.81  4.30E+001    6.56   0.00E+000   .....    
+
+M = First peak in a multiplet region
+m = Other peak in a multiplet region
+F = Fitted singlet
+
+Errors quoted at  1.000 sigma
+Peak Efficiency Report             4/5/2019   12:59:34 PM          Page 14
+
+
+**************************************************************************
+*****         P E A K    E F F I C I E N C Y    R E P O R T          *****
+**************************************************************************
+
+     Detector Name:  DSA1000A                        
+     Sample Title:   Sample title.                                     
+     Peak Analysis Performed on:  4/5/2019   12:59:33 PM
+
+
+ Peak  Energy   Net Peak  Net Area       Peak     Efficiency
+ No.   (keV)      Area   Uncertainty  Efficiency  Uncertainty
+
+    1   103.19 -1.03E+001    15.29     8.99E-002    4.50E-003
+    2   105.86  2.00E+000    19.65     9.21E-002    4.61E-003
+    3   108.58 -9.25E+000    16.10     9.23E-002    4.62E-003
+    4   110.93 -5.89E+000    19.12     9.25E-002    4.63E-003
+    5   115.20 -2.24E+000    20.89     9.29E-002    4.65E-003
+    6   147.01  1.83E+001    16.25     9.55E-002    4.78E-003
+ M  7   151.97  2.82E+000    11.53     9.58E-002    4.80E-003
+ m  8   153.71  3.36E+000    13.72     9.59E-002    4.81E-003
+    9   180.48  3.23E+000    27.14     9.56E-002    4.80E-003
+   10   198.44  6.23E+000    17.49     8.87E-002    4.45E-003
+   11   210.20 -8.09E-001    27.49     8.47E-002    4.25E-003
+   12   260.77 -7.50E-001    14.41     7.14E-002    3.58E-003
+   13   269.97 -5.45E+000    11.25     6.94E-002    3.48E-003
+   14   287.20 -1.18E+000    10.54     6.61E-002    3.31E-003
+   15   295.36  6.03E+000    10.52     6.46E-002    3.24E-003
+   16   298.16  7.95E+000    10.51     6.41E-002    3.22E-003
+   17   306.62  1.58E+001     9.90     6.27E-002    3.14E-003
+   18   309.83 -1.96E+000     9.14     6.22E-002    3.12E-003
+   19   319.68  1.00E+001    10.80     6.07E-002    3.04E-003
+   20   343.20  6.36E+000     8.73     5.74E-002    2.87E-003
+   21   400.74  7.67E+000     8.13     5.07E-002    2.54E-003
+   22   411.67  7.89E+003    89.94     4.96E-002    2.49E-003
+   23   426.50  7.43E+000     4.71     4.83E-002    2.42E-003
+   24   447.96  2.79E+000     3.51     4.62E-002    2.32E-003
+   25   478.09  4.29E+000     3.16     4.35E-002    2.19E-003
+   26   514.01  5.06E+000     3.82     4.07E-002    2.05E-003
+   27   528.98  4.71E+000     2.83     3.97E-002    1.99E-003
+   28   661.64  1.25E+001     4.26     3.28E-002    1.67E-003
+   29   675.78  4.90E+001     7.00     3.21E-002    1.64E-003
+   30  1461.81  4.30E+001     6.56     1.66E-002    8.32E-004
+
+
+M = First peak in a multiplet region
+m = Other peak in a multiplet region
+F = Fitted singlet
+
+Errors quoted at  1.000 sigma
+Background Subtract Report             4/5/2019   12:59:34 PM      Page 15
+
+No background subtract performed on this spectrum.
+No area correction performed on this spectrum.
+Nuclide Identification Report        4/5/2019   12:59:34 PM        Page 16
+
+
+*************************************************************************
+*****   N U C L I D E   I D E N T I F I C A T I O N   R E P O R T   *****
+*************************************************************************
+
+     Sample Title:         Sample title.                           
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\MGS_2_Cal_and_Au_Act
+
+   ....................    IDENTIFIED NUCLIDES     ....................
+
+   Nuclide    Id       Energy   Yield     Activity     Activity
+   Name    Confidence  (keV)     (%)     (uCi/Unit)   Uncertainty
+
+   Eu-155    0.104     60.01     1.22
+                       86.55    30.70
+                      105.31*   21.10    2.481E-005   2.438E-004
+   AU-198    1.000    411.80*   95.58    4.009E-002   2.060E-003
+
+       * = Energy line found in the spectrum.
+       Energy Tolerance :    3.000 keV
+       Nuclide confidence index threshold =   0.05
+       Errors quoted at  1.000 sigma
+
+Nuclide Identification Report        4/5/2019   12:59:34 PM        Page 17
+
+
+   **********   U N I D E N T I F I E D   P E A K S   **********
+
+               Peak Locate Performed on:  4/5/2019   12:59:33 PM
+               Peak Locate From Channel:      1
+               Peak Locate To Channel:    65535
+
+       Peak   Energy           Peak Size in        Peak CPS
+        No.   (keV)          Counts per Second   % Uncertainty
+
+         1   103.19            -9.2256E-002        -147.78
+         3   108.58            -8.2494E-002        -174.05
+         4   110.93            -5.2540E-002        -324.47
+         5   115.20            -1.9980E-002        -932.55
+         6   147.01             1.6343E-001          88.66
+      M  7   151.97             2.5191E-002         408.36
+      m  8   153.71             2.9980E-002         408.26
+         9   180.48             2.8815E-002         839.87
+        10   198.44             5.5525E-002         280.93
+        11   210.20            -7.2127E-003        -3398.5
+        12   260.77            -6.6887E-003        -1921.9
+        13   269.97            -4.8604E-002        -206.43
+        14   287.20            -1.0487E-002        -896.29
+        15   295.36             5.3757E-002         174.59
+        16   298.16             7.0868E-002         132.28
+        17   306.62             1.4046E-001          62.83
+        18   309.83            -1.7493E-002        -465.74
+        19   319.68             8.9306E-002         107.82
+        20   343.20             5.6703E-002         137.27
+        21   400.74             6.8373E-002         106.07
+        23   426.50             6.6250E-002          63.42
+        24   447.96             2.4844E-002         126.07
+        25   478.09             3.8221E-002          73.62
+        26   514.01             4.5087E-002          75.47
+        27   528.98             4.1990E-002          60.07
+        28   661.64             1.1148E-001          34.07
+        29   675.78             4.3699E-001          14.29
+        30  1461.81             3.8348E-001          15.25
+
+       M = First peak in a multiplet region
+       m = Other peak in a multiplet region
+       F = Fitted singlet
+
+       Errors quoted at  1.000 sigma
+Interference Corrected Activity Report    4/5/2019   12:59:34 PM   Page 18
+
+
+*************************************************************************
+*****   N U C L I D E   I D E N T I F I C A T I O N   R E P O R T   *****
+*************************************************************************
+
+     Sample Title:         Sample title.                           
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\MGS_2_Cal_and_Au_Act
+
+   ....................    IDENTIFIED NUCLIDES     ....................
+
+   Nuclide    Id       Energy    Yield     Activity     Activity
+   Name    Confidence  (keV)      (%)     (uCi/Unit)   Uncertainty
+
+   Eu-155    0.104     60.01      1.22
+                       86.55     30.70
+                      105.31*    21.10   2.48145E-005  2.43764E-004
+   AU-198    1.000    411.80*    95.58   4.00866E-002  2.06004E-003
+
+       * = Energy line found in the spectrum.
+       @ = Energy line not used for Weighted Mean Activity
+       Energy Tolerance :    3.000 keV
+       Nuclide confidence index threshold =   0.05
+       Errors quoted at  1.000 sigma
+
+Interference Corrected Activity Report    4/5/2019   12:59:34 PM   Page 19
+
+
+*************************************************************************
+*****   I N T E R F E R E N C E   C O R R E C T E D   R E P O R T   *****
+*************************************************************************
+
+
+                 Nuclide       Wt mean         Wt mean
+       Nuclide     Id          Activity        Activity
+       Name     Confidence    (uCi/Unit)      Uncertainty
+
+       Eu-155     0.104      2.481446E-005   2.437642E-004
+       AU-198     1.000      4.008656E-002   2.060042E-003
+
+       ? = nuclide is part of an undetermined solution
+       X = nuclide rejected by the interference analysis
+       @ = nuclide contains energy lines not used in Weighted Mean Activity
+
+       Errors quoted at  1.000 sigma
+
+Interference Corrected Activity Report    4/5/2019   12:59:34 PM   Page 20
+
+
+   **********   U N I D E N T I F I E D   P E A K S   **********
+
+               Peak Locate Performed on:  4/5/2019   12:59:33 PM
+               Peak Locate From Channel:      1
+               Peak Locate To Channel:    65535
+
+       Peak   Energy           Peak Size in        Peak CPS
+        No.   (keV)          Counts per Second   % Uncertainty
+
+         1   103.19            -9.2256E-002        -147.78
+         3   108.58            -8.2494E-002        -174.05
+         4   110.93            -5.2540E-002        -324.47
+         5   115.20            -1.9980E-002        -932.55
+         6   147.01             1.6343E-001          88.66
+      M  7   151.97             2.5191E-002         408.36
+      m  8   153.71             2.9980E-002         408.26
+         9   180.48             2.8815E-002         839.87
+        10   198.44             5.5525E-002         280.93
+        11   210.20            -7.2127E-003        -3398.5
+        12   260.77            -6.6887E-003        -1921.9
+        13   269.97            -4.8604E-002        -206.43
+        14   287.20            -1.0487E-002        -896.29
+        15   295.36             5.3757E-002         174.59
+        16   298.16             7.0868E-002         132.28
+        17   306.62             1.4046E-001          62.83
+        18   309.83            -1.7493E-002        -465.74
+        19   319.68             8.9306E-002         107.82
+        20   343.20             5.6703E-002         137.27
+        21   400.74             6.8373E-002         106.07
+        23   426.50             6.6250E-002          63.42
+        24   447.96             2.4844E-002         126.07
+        25   478.09             3.8221E-002          73.62
+        26   514.01             4.5087E-002          75.47
+        27   528.98             4.1990E-002          60.07
+        28   661.64             1.1148E-001          34.07
+        29   675.78             4.3699E-001          14.29
+        30  1461.81             3.8348E-001          15.25
+
+       M = First peak in a multiplet region
+       m = Other peak in a multiplet region
+       F = Fitted singlet
+
+       Errors quoted at  1.000 sigma
+Nuclide MDA Report                      4/5/2019   12:59:34 PM     Page 21
+
+
+No MDA analysis results available for reporting purposes
+Nuclide MDA Report                      4/5/2019   12:59:34 PM     Page 22
+
+
+No MDA analysis results available for reporting purposes
+Action Level Summary Report             4/5/2019   12:59:34 PM     Page 23
+
+
+No Action Level results available for reporting purposes
+Auto Gain Adjust                     4/5/2019   12:59:34 PM       Page 24
+
+
+*************************************************************************
+*****                 A U T O  G A I N   A D J U S T                *****
+*************************************************************************
+
+Report Generated On:                               4/5/2019   12:59:34 PM
+
+
+Status:                                                                 
+No AGA results for reporting.
+
+
+This report is valid only if a Certificate was the source of the true values.
+
+
+Status:                                                                 
+No AGA results for reporting.
+
