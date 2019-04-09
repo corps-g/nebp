@@ -7,7 +7,9 @@ from scipy.interpolate import interp1d
 
 class Au_Foil_Data(object):
 
-    """ Au Foil Data """
+    """This object is responsible for handling the postprocessing and storage
+    of the gold foil activation data from the 4/5/19 irradiation in the ksu
+    triga mark ii northeast beam port."""
 
     def __init__(self):
         """This handles all of the post processing on the gold foil responses
@@ -44,8 +46,7 @@ class Au_Foil_Data(object):
         """A useful utility for taking date time info in dd/mm/yy hh:mm:ss
         AM/PM and converting into seconds. In this function, it is assumed that
         the month and year remain constant and that everything is shifted back
-        5 days, so the 5th is day zero.
-        """
+        5 days, so the 5th is day zero."""
 
         # parse out the day
         d = float(date.split('/')[1])
