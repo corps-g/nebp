@@ -25,8 +25,12 @@ def extract_mcnp(par, power):
     # reshape to fit data structure
     results = results.reshape(8, -1, 253, 2)
 
+    # the following values were manually pulled from the file used above
+    k_eff = 1.09946
+    nu_bar = 2.438
+
     # scale
-    scaling_constant = (2.54 * power) / (200 * 1.60218e-13)
+    scaling_constant = (nu_bar * power) / (200 * 1.60218e-13 * k_eff)
     results *= scaling_constant
 
     return results
