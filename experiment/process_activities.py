@@ -102,7 +102,7 @@ class Au_Foil_Data(object):
             results = re.findall(pattern, output)
 
             # convert those values to floats and store
-            act, err = [float(r) for r in results[0].split()[2:]]
+            act, err = [float(r) for r in results[-1].split()[2:]]
 
             # pull the detector live times
             pattern = re.compile(r'Live Time                       :\s+\d+.\d seconds')
@@ -198,7 +198,7 @@ class Au_Foil_Data(object):
             return P(t) - self.decay_constant * N
 
         # solve the differential equation over the time domain
-        N_t = odeint(N_prime, y0=0, t=full_times)
+        N_t = odeint(N_prime, y0=0, t=full_times)[:, 0]
 
         # convert the number of atoms to activities
         self.activity_profile = N_t * self.decay_constant
@@ -223,7 +223,6 @@ class Au_Foil_Data(object):
             # the foil ids are one indexed, so they need to be shifted to
             # grab the mass
             self.atoms[i] = (self.masses[int(foil_id) - 1] * N_A) / self.M
-            print(self.masses[int(foil_id) - 1])
 
         # divide the saturation activities by the number of atoms in the sample
         self.a_sat_atom = self.a_sat / self.atoms

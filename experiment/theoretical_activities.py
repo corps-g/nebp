@@ -22,9 +22,6 @@ class Au_Foil_Theoretical(object):
         # calculate the theoretical saturation activities
         self.calc_a_sat()
 
-        # calculate saturation per atom
-        self.calc_a_sat_atom()
-
         return
 
     def calc_a_sat(self):
@@ -47,11 +44,11 @@ class Au_Foil_Theoretical(object):
                 response_functions.append(response.int)
         response_functions = np.array(response_functions)
 
-        # fold the rfs and the flux together, convert to uCi
-        self.a_sat = np.sum(response_functions * flux, axis=1) * (1 / 3.7E4)
+        # fold the rfs and the flux together, convert to uCi / atom
+        a_sat_atom = np.sum(response_functions * flux, axis=1) * (1 / 3.7E4)
 
-        # calculate saturation activities per atom
-        self.a_sat_atom / self.experiment.atoms
+        # only care about the ones that match the experiment
+        self.a_sat_atom = a_sat_atom[:self.experiment.n]
 
         return
 

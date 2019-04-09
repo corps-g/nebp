@@ -36,7 +36,7 @@ def grab_tally(name, scaling_factor):
         filename = name + '{}.out'.format(i)
 
         # open the file
-        with open('mcnp/' + filename) as F:
+        with open(paths.main_path + '/response/mcnp/' + filename) as F:
             output = F.read()
 
         tallies_txt = output.split('1tally')[1:-3]
