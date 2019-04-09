@@ -1,6 +1,6 @@
 import numpy as np
 import re
-import matplotlib.pyplot as plt
+from scipy.constants import N_A
 from scipy.integrate import odeint
 from scipy.interpolate import interp1d
 
@@ -22,8 +22,24 @@ class Au_Foil_Data(object):
         self.decay_constant = np.log(2) / self.halflife
         self.intensity = 0.9562
 
+        # molar mass (g/mol)
+        # source: https://www-nds.iaea.org/amdc/ame2016/mass16.txt
+        self.M = 196.966570114
+
+        # density (g/cm3)
+        # source: Brown, Theodore L. and Lemay Jr., H. Eugene,
+        #         Chemistry: The Central Science. Prentice Hall Inc,
+        #         Englewood, New Jersey, 1985: 10.
+        self.rho = 19.32
+
         # number of foils used in the analysis
         self.n = 5
+
+        # the foils used in the experiment
+        self.foil_ids = ('2', '13', '4', '5', '6')
+
+        # foil masses (g)
+        self.masses = np.loadtxt('4_5_19/masses.txt', skiprows=1)
 
         # the nominal power level in W(th), 100 kW(th)
         self.P = 1E5
@@ -39,6 +55,9 @@ class Au_Foil_Data(object):
 
         # calculate the saturation activities
         self.calc_a_sat()
+
+        # calculate saturation per atom
+        self.calc_a_sat_atom()
 
         return
 
@@ -64,15 +83,12 @@ class Au_Foil_Data(object):
         """A utility to read the .RPT files from the Genie2K software and
         extract the irradiation times and measured activities."""
 
-        # name foils to be used
-        foil_ids = ('2', '13', '4', '5', '6')
-
         # a data structure to store the irradiation information
         # 4 is the number of values to be extracted from each file
-        foil_activities = np.zeros((len(foil_ids), 4))
+        foil_activities = np.zeros((len(self.foil_ids), 4))
 
         # grab info for each foil
-        for i, foil_id in enumerate(foil_ids):
+        for i, foil_id in enumerate(self.foil_ids):
 
             # create filename
             filename = '4_5_19/au' + foil_id + '.RPT'
@@ -190,6 +206,27 @@ class Au_Foil_Data(object):
         # divide each foil by the saturation ratio, which is the ratio of the
         # counting activity to the saturation activity
         self.a_sat = np.array([self.a_c[i] / self.activity_profile[int(self.t_c[i])] for i in range(self.n)])
+
+        return
+
+    def calc_a_sat_atom(self):
+        """This utility normalizes the saturation activities to activity per
+        sample atom."""
+
+        # initialize a structure to house the number of atoms in the samples
+        self.atoms = np.empty(len(self.foil_ids))
+
+        # calculate for each foil
+        for i, foil_id in enumerate(self.foil_ids):
+
+            # calculate the number of atoms for the foil
+            # the foil ids are one indexed, so they need to be shifted to
+            # grab the mass
+            self.atoms[i] = (self.masses[int(foil_id) - 1] * N_A) / self.M
+            print(self.masses[int(foil_id) - 1])
+
+        # divide the saturation activities by the number of atoms in the sample
+        self.a_sat_atom = self.a_sat / self.atoms
 
         return
 
