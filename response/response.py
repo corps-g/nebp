@@ -86,7 +86,7 @@ def response_data():
     erg_struct = energy_groups('scale252')
 
     # the gold foil tube ------------------------------------------------------
-    scaling_factor = (19.32 * N_A * 1E-24 * 252 * 1.65803E-03) / (197 * 45)
+    scaling_factor = 1E-24 * 252
     gold_tallys = grab_tally('ft_au', scaling_factor)
 
     # loop through the gold tally
@@ -145,6 +145,8 @@ def plot_response_data():
     ax = fig.add_subplot(111)
     ax.set_xscale('log')
     ax.set_yscale('log')
+    ax.set_xlabel('Energy $MeV$')
+    ax.set_ylabel('Response Function $cm^2$')
 
     # establish colormap
     color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
