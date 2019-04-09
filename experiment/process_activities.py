@@ -32,11 +32,11 @@ class Au_Foil_Data(object):
         #         Englewood, New Jersey, 1985: 10.
         self.rho = 19.32
 
-        # number of foils used in the analysis
-        self.n = 5
-
         # the foils used in the experiment
-        self.foil_ids = ('2', '13', '4', '5', '6')
+        self.foil_ids = ('2', '13', '4', '5', '6', '7')
+
+        # number of foils used in the analysis
+        self.n = len(self.foil_ids)
 
         # foil masses (g)
         self.masses = np.loadtxt('4_5_19/masses.txt', skiprows=1)

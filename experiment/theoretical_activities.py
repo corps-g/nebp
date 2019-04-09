@@ -31,8 +31,8 @@ class Au_Foil_Theoretical(object):
         # get the flux data at 100kW
         flux_data = extract_mcnp('n', self.experiment.P)
 
-        # sum to only energy dependent
-        flux = np.sum(flux_data[:, :, :, 0], axis=(0, 1))
+        # sum to only energy dependent (exclude the first cos group)
+        flux = np.sum(flux_data[:, 1:, :, 0], axis=(0, 1))
 
         # get response functions
         responses = response_data()
