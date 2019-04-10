@@ -154,7 +154,7 @@ class Au_Foil_Data(object):
 
             # power is in column 6 in units of percent of MW(th), so
             # convert power from percent of a MW(th) to W(th)
-            self.powers[i] = float(line[6]) * 0.01 * 1E6
+            self.powers[i] = float(line[9]) * 0.01 * 1E6
 
         # data contains some random zeros, so let's fix that
         for i, power in enumerate(self.powers):
