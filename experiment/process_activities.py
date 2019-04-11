@@ -33,7 +33,7 @@ class Au_Foil_Data(object):
         self.rho = 19.32
 
         # the foils used in the experiment
-        self.foil_ids = ('2', '13', '4', '5', '6', '7')
+        self.foil_ids = ('2', '13', '4', '5', '6', '7', '8')
 
         # number of foils used in the analysis
         self.n = len(self.foil_ids)
