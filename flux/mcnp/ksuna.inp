@@ -3356,7 +3356,7 @@ mt16300000  h/zr.10t zr/h.10t
 c
 c *** Problem Specification
 mode  n
-NPS 3.4286E10
+NPS 5.5E11
 NONU
 SDEF ERG=D1 RAD=D2  AXS=0 0 1  POS=D3  EXT=FPOS=D4 
 SP1  -3

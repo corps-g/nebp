@@ -34,7 +34,7 @@ def plot_raw_data():
     flux_erg = Spectrum(x, y, e)
 
     # setup plotting environment
-    fig = plt.figure(0)
+    fig = plt.figure(0, figsize=(10, 6))
     ax = fig.add_subplot(111)
     ax.set_xlabel('Energy $MeV$')
     ax.set_ylabel('$\Phi$')
@@ -63,7 +63,7 @@ def plot_raw_data():
     flux_cos = Spectrum(x, y, e)
 
     # setup plotting environment
-    fig = plt.figure(1)
+    fig = plt.figure(1, figsize=(10, 6))
     ax = fig.add_subplot(111)
     ax.set_xlabel('Cosine')
     ax.set_ylabel('$\Phi$')
@@ -97,7 +97,7 @@ def plot_raw_data():
     flux_rad = Spectrum(x, y, e)
 
     # setup plotting environment
-    fig = plt.figure(2)
+    fig = plt.figure(2, figsize=(10, 6))
     ax = fig.add_subplot(111)
     ax.set_xlabel('Radius $cm$')
     ax.set_ylabel('$\Phi$')
@@ -114,7 +114,7 @@ def plot_raw_data():
     # now, let's plot energy dependence of each spatial region
 
     # setup plotting environement
-    fig = plt.figure(3)
+    fig = plt.figure(3, figsize=(10, 6))
     ax = fig.add_subplot(111)
     ax.set_xlabel('Energy $MeV$')
     ax.set_ylabel('$\Phi$')
@@ -151,7 +151,7 @@ def plot_raw_data():
     # now, let's plot cosine dependence of each spatial region
 
     # setup plotting environement
-    fig = plt.figure(4)
+    fig = plt.figure(4, figsize=(10, 6))
     ax = fig.add_subplot(111)
     ax.set_xlabel('Cosine')
     ax.set_ylabel('$\Phi$')
