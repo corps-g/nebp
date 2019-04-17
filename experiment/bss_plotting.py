@@ -19,7 +19,7 @@ def plot_calibration():
     style = {'color': 'red', 'marker': 'x', 'markerfacecolor': 'None',
              'markeredgecolor': 'red', 'linestyle': 'None', 'label': 'Experimental',
              'mew': 0.5, 'ms': 6}
-    ax.plot(data.sizes, data.experiment, **style)
+    ax.plot(data.sizes[1:], data.corrected, **style)
     style = {'color': 'blue', 'marker': 'o', 'markerfacecolor': 'None',
              'markeredgecolor': 'blue', 'linestyle': 'None', 'label': 'Theoretical',
              'mew': 0.5, 'ms': 6}

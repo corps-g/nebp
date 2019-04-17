@@ -4,6 +4,7 @@ sys.path.insert(0, '../')
 import paths
 from cf252 import cf252_source
 from response import response_data
+import matplotlib.pyplot as plt
 
 
 class BSS_Calibration(object):
@@ -23,7 +24,7 @@ class BSS_Calibration(object):
         self.calc_responses()
 
         # compute the efficiency
-        self.efficiency = np.average(self.experiment / self.responses)
+        self.efficiency = np.average(self.experiment / self.responses[1:])
 
         # corrected
         self.corrected = self.experiment / self.efficiency
@@ -33,19 +34,32 @@ class BSS_Calibration(object):
     def process_experiment(self):
         """Docstring."""
 
-        # grab the data
-        data, bg = np.loadtxt('4_16_19/cf252_calibration.txt', skiprows=1, unpack=True)
+        # LLD channel
+        lld = 450
 
-        # convert to rate
-        t = 5 * 60
-        t_bg = 30 * 60
-        data /= t
-        bg /= t_bg
+        # initialize array
+        counts = np.zeros(len(self.sizes[1:]))
 
-        # TODO: subtract background
-        data -= bg
+        # loop through each size
+        for i, size in enumerate(self.sizes[1:]):
 
-        return data
+            #
+            filename = '4_17_19/cf' + str(size) + '.Spe'
+
+            # grab the data
+            with open(filename, 'r') as F:
+                lines = F.readlines()
+
+            # extract time
+            t = int(lines[1041])
+
+            # extract channel data
+            data = np.array([int(l) for l in lines[12:1036]])
+
+            # sum counts beyond lld, convert to rate, and store
+            counts[i] = np.sum(data[lld:]) / t
+
+        return counts
 
     def calc_responses(self):
         """Docstring."""
@@ -59,7 +73,7 @@ class BSS_Calibration(object):
         # this pulls only the rfs for the bonner spheres
         response_functions = []
         for name, response in responses.items():
-            if 'pbs' in name:
+            if 'bs' in name and 'p' not in name:
                 response_functions.append(response.int)
         response_functions = np.array(response_functions)
 

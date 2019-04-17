@@ -89,7 +89,6 @@ class Au_Foil_Data(object):
 
         # grab info for each foil
         for i, foil_id in enumerate(self.foil_ids):
-            print(foil_id)
 
             # create filename
             filename = '4_5_19/au' + foil_id + '.RPT'
@@ -115,7 +114,6 @@ class Au_Foil_Data(object):
             # pull the counting times
             pattern = re.compile(r'Acquisition Started             : \d/\d?\d/\d\d\d\d\s+\d?\d:\d\d:\d\d [AP]M')
             results = re.findall(pattern, output)
-            print(results)
 
             # split data into format accepted by self.convert_time
             t_c = results[0].split()[-3:]
