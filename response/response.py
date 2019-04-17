@@ -76,6 +76,41 @@ def grab_tally(name, scaling_factor):
     return tally
 
 
+def grab_pbs_tally(name, scaling_factor):
+    """Docstring."""
+
+    #
+    tally = {}
+
+    # name
+    filename = name + '.out'
+
+    # open the file
+    with open(paths.main_path + '/response/mcnp/' + filename) as F:
+        output = F.read()
+
+    #
+    #output = output.split('1tally')[1]
+
+    tally[name] = np.zeros((253, 2))
+
+    # use regular expression to grab all data
+    pattern = re.compile(r'                 \d.\d\d\d\d\dE[+-]\d\d \d.\d\d\d\d')
+    results = re.findall(pattern, output)[1:253]
+
+    for j, result in enumerate(results):
+
+        result = result.split()
+        val, err = float(result[0]), float(result[0]) * float(result[1])
+
+        val = val * scaling_factor
+        err = err * scaling_factor
+
+        tally[name][j + 1] += np.array([val, err])
+
+    return tally
+
+
 def response_data():
     """This function consolidates ALL of the response data in this repo."""
 
@@ -116,7 +151,10 @@ def response_data():
             response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
 
     # the bonner spheres ------------------------------------------------------
-    scaling_factor = 1  # TODO: needs updating
+    V = 5.02655E-02
+    rho = 3.84
+    M = 133.85
+    scaling_factor = (rho * N_A * 1E-24 * V * 252) / M
     for sphere_size in [0, 2, 3, 5, 8, 10, 12]:
         bs_tallys = grab_tally('bs{}_'.format(str(sphere_size)), scaling_factor)
 
@@ -130,6 +168,19 @@ def response_data():
                 new_name = 'bs{}'.format(str(sphere_size)) + str(((name - 4) // 10) - 13)
 
                 response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
+
+    # the point bonner spheres ------------------------------------------------
+    scaling_factor = (rho * N_A * 1E-24 * V * 252) / M
+    for sphere_size in [0, 2, 3, 5, 8, 10, 12]:
+        bs_tallys = grab_pbs_tally('pbs{}'.format(str(sphere_size)), scaling_factor)
+
+        # loop through the bs tally
+        for name, tally in bs_tallys.items():
+
+            # convert to name
+            new_name = 'pbs{}'.format(str(sphere_size))
+
+            response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
 
     return response_data
 
@@ -213,7 +264,7 @@ def plot_response_data():
         # parse out name and response
         name, response = item
 
-        if 'bs' not in name:
+        if 'bs' not in name or 'p' in name:
             continue
 
         # plot the integral response
@@ -226,6 +277,34 @@ def plot_response_data():
     fig.savefig('plot/bs.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
     fig.clear()
 
+    # plot response functions -------------------------------------------------
+    fig = plt.figure(3, figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+
+    # establish colormap
+    color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
+
+    # loop through integral responses
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
+
+        if 'pbs' not in name:
+            continue
+
+        # plot the integral response
+        ax.plot(*response.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+        ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
+
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/pbs.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+
     return
 
 
@@ -235,7 +314,7 @@ def plot_response_pdfs():
     # get the data
     responses = response_data()
 
-    for j, detector in enumerate(('ft_au', 'bs')):
+    for j, detector in enumerate(('ft_au', 'bs', 'pbs')):
         # plot response functions -------------------------------------------------
         fig = plt.figure(j + 3, figsize=(10, 6))
         ax = fig.add_subplot(111)
@@ -252,6 +331,9 @@ def plot_response_pdfs():
 
             # parse out name and response
             name, response = item
+
+            if detector is 'bs' and 'p' in name:
+                continue
 
             if detector not in name:
                 continue

@@ -34,14 +34,16 @@ class BSS_Calibration(object):
         """Docstring."""
 
         # grab the data
-        data = np.loadtxt('4_16_19/cf252_calibration.txt')
+        data, bg = np.loadtxt('4_16_19/cf252_calibration.txt', skiprows=1, unpack=True)
 
         # convert to rate
         t = 5 * 60
-        data = data / (t)
+        t_bg = 30 * 60
+        data /= t
+        bg /= t_bg
 
         # TODO: subtract background
-        pass
+        data -= bg
 
         return data
 
@@ -57,7 +59,7 @@ class BSS_Calibration(object):
         # this pulls only the rfs for the bonner spheres
         response_functions = []
         for name, response in responses.items():
-            if 'bs' in name:
+            if 'pbs' in name:
                 response_functions.append(response.int)
         response_functions = np.array(response_functions)
 

@@ -1,5 +1,5 @@
 import numpy as np
-from template import mcnp_template
+from template import mcnp_template, point_bonner_template
 import sys
 sys.path.insert(0, '../')
 import paths
@@ -163,12 +163,41 @@ def write_input(det, foil_type='in', foil_mass=2.1, bonner_size=12):
     return
 
 
+def write_point_bonner(size):
+    """Docstring."""
+
+    # name
+    fname = 'pbs{}.inp'.format(size)
+
+    # choose erg bin structure
+    erg_struct = 'scale252'
+    erg_bins = energy_groups(erg_struct)
+
+    # add the erg dependent distribution
+    source = card_writer('SI2 H', erg_bins, 4)
+
+    # mcnp requires the first bin in a distribution be zero
+    dist = np.ones(len(erg_bins))
+    dist[0] = 0
+    source += card_writer('SP2 D', dist, 4)
+
+    #
+    mcnp_input = point_bonner_template.format((size / 2) * 2.54, source)
+
+    # write to file
+    with open('mcnp/' + fname, 'w+') as F:
+        F.write(mcnp_input)
+
+    # bonner size
+
+
 def write_all_inputs():
     """A small utility used to test write_input()."""
 
     for bonner_size in [0, 2, 3, 5, 8, 10, 12]:
-        write_input('bs', bonner_size=bonner_size)
-    write_input('ft', 'au', 32.0)
+        #write_input('bs', bonner_size=bonner_size)
+        write_point_bonner(bonner_size)
+    #write_input('ft', 'au', 32.0)
 
 
 if __name__ == '__main__':

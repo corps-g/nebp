@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import cm
 from nebp_flux import extract_mcnp
+from cf252 import cf252_source
 from group_structures import energy_groups, cosine_groups, radial_groups
 import sys
 sys.path.insert(0, '../')
@@ -192,5 +193,31 @@ def plot_raw_data():
     return
 
 
+def plot_cf252():
+    """Docstring."""
+
+    # load data
+    flux = cf252_source()
+    eb = energy_groups('scale252')
+
+    # spectrum object for ease of plotting
+    spec = Spectrum(eb, flux, 0)
+
+    # setup plotting environment
+    fig = plt.figure(0)
+    ax = fig.add_subplot(111)
+    ax.set_xlim(0, 20)
+    #ax.set_yscale('log')
+    ax.set_xlabel('Energy $MeV$')
+    ax.set_ylabel('Spectrum')
+
+    # plot
+    ax.plot(*spec.plot('plot', 'diff'))
+
+    # save
+    fig.savefig('plot/cf252.png', dpi=300)
+
+
 if __name__ == '__main__':
-    plot_raw_data()
+    #plot_raw_data()
+    plot_cf252()
