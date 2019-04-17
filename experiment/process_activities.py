@@ -33,7 +33,7 @@ class Au_Foil_Data(object):
         self.rho = 19.32
 
         # the foils used in the experiment
-        self.foil_ids = ('2', '13', '4', '5', '6', '7', '8')
+        self.foil_ids = ('2', '13', '4', '5', '6', '7', '8', '9', '10')
 
         # number of foils used in the analysis
         self.n = len(self.foil_ids)
@@ -89,6 +89,7 @@ class Au_Foil_Data(object):
 
         # grab info for each foil
         for i, foil_id in enumerate(self.foil_ids):
+            print(foil_id)
 
             # create filename
             filename = '4_5_19/au' + foil_id + '.RPT'
@@ -112,8 +113,9 @@ class Au_Foil_Data(object):
             live_time = float(results[0].split()[-2])
 
             # pull the counting times
-            pattern = re.compile(r'Acquisition Started             : \d/\d/\d\d\d\d\s+\d?\d:\d\d:\d\d [AP]M')
+            pattern = re.compile(r'Acquisition Started             : \d/\d?\d/\d\d\d\d\s+\d?\d:\d\d:\d\d [AP]M')
             results = re.findall(pattern, output)
+            print(results)
 
             # split data into format accepted by self.convert_time
             t_c = results[0].split()[-3:]
