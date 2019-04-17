@@ -24,7 +24,8 @@ class BSS_Calibration(object):
         self.calc_responses()
 
         # compute the efficiency
-        self.efficiency = np.average(self.experiment / self.responses[1:])
+        self.correction_factors = self.experiment / self.responses[1:]
+        self.efficiency = np.average(self.experiment[-3:] / self.responses[-3:])
 
         # corrected
         self.corrected = self.experiment / self.efficiency
@@ -35,7 +36,7 @@ class BSS_Calibration(object):
         """Docstring."""
 
         # LLD channel
-        lld = 450
+        lld = 300
 
         # initialize array
         counts = np.zeros(len(self.sizes[1:]))
@@ -73,7 +74,7 @@ class BSS_Calibration(object):
         # this pulls only the rfs for the bonner spheres
         response_functions = []
         for name, response in responses.items():
-            if 'bs' in name and 'p' not in name:
+            if 'pbs' in name:
                 response_functions.append(response.int)
         response_functions = np.array(response_functions)
 

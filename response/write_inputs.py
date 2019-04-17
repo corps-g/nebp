@@ -181,8 +181,11 @@ def write_point_bonner(size):
     dist[0] = 0
     source += card_writer('SP2 D', dist, 4)
 
-    #
-    mcnp_input = point_bonner_template.format((size / 2) * 2.54, source)
+    # get source distance (in)
+    source_distance = {0: 0.71374, 2: 1.5, 3: 1.625, 5: 2.875, 8: 4.5, 10: 5.625, 12: 6.75}
+
+    # format input
+    mcnp_input = point_bonner_template.format((size / 2) * 2.54, source_distance[size] * 2.54, source)
 
     # write to file
     with open('mcnp/' + fname, 'w+') as F:

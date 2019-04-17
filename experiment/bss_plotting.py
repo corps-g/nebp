@@ -8,6 +8,7 @@ def plot_calibration():
     # pull in calibration data
     data = BSS_Calibration()
 
+    # response comparison -----------------------------------------------------
     # set up plotting environment
     fig = plt.figure(100)
     ax = fig.add_subplot(111)
@@ -28,9 +29,31 @@ def plot_calibration():
     # add legend and save
     ax.legend()
     plt.savefig('plot/bss_calibration.png', dpi=300)
+    fig.clear()
 
     # print efficiency
     print('Efficiency: ', data.efficiency)
+
+    # correction factors ------------------------------------------------------
+    # set up plotting environment
+    fig = plt.figure(101)
+    ax = fig.add_subplot(111)
+    ax.set_xticks(data.sizes)
+    ax.set_xticklabels(['Bare'] + list(data.sizes[1:]))
+
+    # plot the data
+    style = {'color': 'green', 'marker': '^', 'markerfacecolor': 'None',
+             'markeredgecolor': 'green', 'linestyle': 'None', 'label': 'Correction Factors',
+             'mew': 0.5, 'ms': 6}
+    ax.plot(data.sizes[1:], data.correction_factors, **style)
+
+    # add legend and save
+    ax.legend()
+    plt.savefig('plot/bss_calibration_correction_factors.png', dpi=300)
+    fig.clear()
+
+    # print efficiency
+    print('Correction Factors: ', data.correction_factors)
 
     return
 
