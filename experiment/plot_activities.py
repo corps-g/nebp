@@ -11,6 +11,7 @@ def plot_activities():
     theoretical = Au_Foil_Theoretical(experimental)
 
     print((experimental.a_sat_atom / theoretical.a_sat_atom)**-1)
+    print('NEBP Fudge Factor', np.average(experimental.a_sat_atom / theoretical.a_sat_atom))
 
     # setup plotting environment
     fig = plt.figure(14, figsize=(10, 6))

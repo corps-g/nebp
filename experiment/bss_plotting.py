@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from bss_calibration import BSS_Calibration
+from bss_in_beam import BSS_Data
 
 
 def plot_calibration():
@@ -20,7 +21,7 @@ def plot_calibration():
     style = {'color': 'red', 'marker': 'x', 'markerfacecolor': 'None',
              'markeredgecolor': 'red', 'linestyle': 'None', 'label': 'Experimental',
              'mew': 0.5, 'ms': 6}
-    ax.plot(data.sizes[1:], data.corrected, **style)
+    ax.plot(data.sizes[1:], data.experiment, **style)
     style = {'color': 'blue', 'marker': 'o', 'markerfacecolor': 'None',
              'markeredgecolor': 'blue', 'linestyle': 'None', 'label': 'Theoretical',
              'mew': 0.5, 'ms': 6}
@@ -58,5 +59,39 @@ def plot_calibration():
     return
 
 
+def plot_experiment():
+    """Docstring."""
+
+    # pull in calibration data
+    data = BSS_Data()
+
+    # response comparison -----------------------------------------------------
+    # set up plotting environment
+    fig = plt.figure(103)
+    ax = fig.add_subplot(111)
+    ax.set_xticks(data.sizes)
+    ax.set_xticklabels(['Bare'] + list(data.sizes[1:]))
+    ax.set_yscale('log')
+
+    # plot the data
+    style = {'color': 'blue', 'marker': 'o', 'markerfacecolor': 'None',
+             'markeredgecolor': 'blue', 'linestyle': 'None', 'label': 'Theoretical',
+             'mew': 0.5, 'ms': 6}
+    ax.plot(data.sizes, data.responses, **style)
+
+    # add legend and save
+    ax.legend()
+    plt.savefig('plot/bss_response.png', dpi=300)
+    fig.clear()
+
+    # print time to get to statistics (m)
+    time = (10000 / data.responses) / 60
+    print('Time to Statistics: ', time)
+    print('Total Counting Time (m): ', sum(time))
+
+    return
+
+
 if __name__ == '__main__':
     plot_calibration()
+    plot_experiment()

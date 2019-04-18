@@ -22,6 +22,9 @@ class Au_Foil_Theoretical(object):
         # calculate the theoretical saturation activities
         self.calc_a_sat()
 
+        # calc fudge factor
+        self.nebp_fudge_factor = np.average(self.experiment.a_sat_atom / self.a_sat_atom)
+
         return
 
     def calc_a_sat(self):
