@@ -30,8 +30,8 @@
   | WOULD NOT INFRINGE PRIVATELY OWNED RIGHTS.                            !
   +-----------------------------------------------------------------------+
   
-1mcnp     version 6.mpi ld=01/21/19                     04/17/19 16:01:52 
- *************************************************************************                 probid =  04/17/19 16:01:52 
+1mcnp     version 6.mpi ld=01/21/19                     04/17/19 22:43:33 
+ *************************************************************************                 probid =  04/17/19 22:43:33 
  i=pbs2.inp o=pbs2.out
 
  
@@ -99,7 +99,7 @@
         61-       c ******************************************************************************
         62-       c                               DATA CARDS
         63-       c ******************************************************************************
-        64-       NPS 1e9
+        64-       NPS 7e10
         65-       c
         66-       c  -----------------------------------------------------------------------------
         67-       c                                                          Transformations
@@ -409,107 +409,527 @@
     0
 
           1 warning message so far.
- master starting     239 MPI slave tasks with       1 threads each  04/17/19 16:01:56 
- master set rendezvous nps =   100000000,  work chunks =   239    04/17/19 16:01:56 
- master set rendezvous nps =   200000000,  work chunks =   239    04/17/19 16:03:00 
- master set rendezvous nps =   300000000,  work chunks =   239    04/17/19 16:03:03 
- master set rendezvous nps =   400000000,  work chunks =   239    04/17/19 16:03:07 
- master set rendezvous nps =   500000000,  work chunks =   239    04/17/19 16:03:10 
- master set rendezvous nps =   600000000,  work chunks =   239    04/17/19 16:03:14 
- master set rendezvous nps =   700000000,  work chunks =   239    04/17/19 16:03:18 
- master set rendezvous nps =   800000000,  work chunks =   239    04/17/19 16:03:21 
- master set rendezvous nps =   900000000,  work chunks =   239    04/17/19 16:03:25 
- master set rendezvous nps =  1000000000,  work chunks =   239    04/17/19 16:03:28 
+ master starting     239 MPI slave tasks with       1 threads each  04/17/19 22:43:38 
+ master set rendezvous nps =  7000000000,  work chunks =   239    04/17/19 22:43:38 
+ master set rendezvous nps = 14000000000,  work chunks =   239    04/17/19 22:47:28 
+1     event log for lost particle no.   1          nps =  7783242161        ijk =      248930166928217                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -5.872-02 -8.661-01 -4.964-01 5.485-10 1.000+00   particle= neutron       5                  
+    sur  111 -9.508-02  2.408+00 -8.039-01 -5.872-02 -8.661-01 -4.964-01 5.485-10 1.000+00   surf=   101             5                  
+    sur  190  3.729-09  2.500+00 -4.475-01  6.917-01  6.932-01 -2.026-01 7.367-08 9.671-01   surf=   101             56                 
+    sur  190  9.600+00  1.212+01 -3.260+00  6.917-01  6.932-01 -2.026-01 7.367-08 9.671-01   surf=   117             56                 
+1   lost particle no. 1     no cell found in subroutine newcel     history no. -806692431                                               
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    1.21219E+01   -3.26000E+00                                                                  
+ u,v,w direction cosines:    6.91657E-01    6.93218E-01   -2.02631E-01                                                                  
+ energy = 7.36667E-08    weight = 9.67061E-01    time = 9.09139E+03                                                                     
+ sqrt(y**2+z**2) = 1.25526E+01                                                                                                          
+ the distance to surface       117   from the last event is 1.38797E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 5.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+ master set rendezvous nps = 21000000000,  work chunks =   239    04/17/19 22:51:19 
+1     event log for lost particle no.   2          nps = 14332757213        ijk =      105400137101321                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -8.640-02 -9.779-01 -1.903-01 4.689-07 1.000+00   particle= neutron       5                  
+    sur  111 -1.135-01  2.525+00 -2.500-01 -8.640-02 -9.779-01 -1.903-01 4.689-07 1.000+00   surf=   101             5                  
+    sur  190 -6.623-09  2.439+00 -7.077-01  6.068-01  7.859-01  1.190-01 1.517-07 9.963-01   surf=   101             28                 
+    sur  190  9.600+00  1.487+01  1.176+00  6.068-01  7.859-01  1.190-01 1.517-07 9.963-01   surf=   117             28                 
+1   lost particle no. 2     no cell found in subroutine newcel     history no. 1447855325                                               
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    1.48740E+01    1.17570E+00                                                                  
+ u,v,w direction cosines:    6.06763E-01    7.85919E-01    1.19037E-01                                                                  
+ energy = 1.51711E-07    weight = 9.96299E-01    time = 3.24217E+03                                                                     
+ sqrt(y**2+z**2) = 1.49204E+01                                                                                                          
+ the distance to surface       117   from the last event is 1.58217E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 2.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+1     event log for lost particle no.   2          nps = 16947261751        ijk =      169624130895441                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -2.177-01 -9.689-01  1.180-01 7.800-07 1.000+00   particle= neutron       3                  
+    sur  111 -2.902-01  2.518+00  1.573-01 -2.177-01 -9.689-01  1.180-01 7.800-07 1.000+00   surf=   101             3                  
+    sur  190 -2.717-08  2.329+00  1.013+00  4.251-01  4.311-01  7.959-01 2.310-07 9.934-01   surf=   101             20                 
+    sur  190  9.600+00  1.206+01  1.898+01  4.251-01  4.311-01  7.959-01 2.310-07 9.934-01   surf=   117             20                 
+1   lost particle no. 2     no cell found in subroutine newcel     history no. -232607433                                               
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    1.20641E+01    1.89841E+01                                                                  
+ u,v,w direction cosines:    4.25145E-01    4.31117E-01    7.95858E-01                                                                  
+ energy = 2.30956E-07    weight = 9.93416E-01    time = 3.66329E+03                                                                     
+ sqrt(y**2+z**2) = 2.24930E+01                                                                                                          
+ the distance to surface       117   from the last event is 2.25806E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 2.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+ master set rendezvous nps = 28000000000,  work chunks =   239    04/17/19 22:55:08 
+1     event log for lost particle no.   4          nps = 24008659982        ijk =      195397561636021                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -3.418-02 -9.705-01 -2.386-01 8.828-10 1.000+00   particle= neutron       3                  
+    sur  111 -4.544-02  2.520+00 -3.173-01 -3.418-02 -9.705-01 -2.386-01 8.828-10 1.000+00   surf=   101             3                  
+    sur  190 -2.246-08  2.419+00 -7.745-01  4.489-01  6.162-01 -6.472-01 1.633-08 9.119-01   surf=   101             76                 
+    sur  190  9.600+00  1.560+01 -1.462+01  4.489-01  6.162-01 -6.472-01 1.633-08 9.119-01   surf=   117             76                 
+1   lost particle no. 4     no cell found in subroutine newcel     history no. -1761143794                                              
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    1.55964E+01   -1.46154E+01                                                                  
+ u,v,w direction cosines:    4.48886E-01    6.16160E-01   -6.47185E-01                                                                  
+ energy = 1.63338E-08    weight = 9.11890E-01    time = 1.68666E+04                                                                     
+ sqrt(y**2+z**2) = 2.13742E+01                                                                                                          
+ the distance to surface       117   from the last event is 2.13863E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 10.                                                                        
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+1     event log for lost particle no.   4          nps = 25063257304        ijk =      159694230435613                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -3.179-01 -8.667-01 -3.845-01 9.425-03 1.000+00   particle= neutron       3                  
+    sur  111 -5.141-01  2.408+00 -6.217-01 -3.179-01 -8.667-01 -3.845-01 9.425-03 1.000+00   surf=   101             3                  
+    sur  190  1.325-08  2.492+00 -4.917-01  8.126-01  4.774-01  3.343-01 6.958-03 1.000+00   surf=   101             11                 
+    sur  190  9.600+00  8.132+00  3.458+00  8.126-01  4.774-01  3.343-01 6.958-03 1.000+00   surf=   117             11                 
+1   lost particle no. 4     no cell found in subroutine newcel     history no. -706546472                                               
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    8.13211E+00    3.45825E+00                                                                  
+ u,v,w direction cosines:    8.12586E-01    4.77408E-01    3.34343E-01                                                                  
+ energy = 6.95815E-03    weight = 9.99998E-01    time = 1.23409E+01                                                                     
+ sqrt(y**2+z**2) = 8.83689E+00                                                                                                          
+ the distance to surface       117   from the last event is 1.18141E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 1.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+ master set rendezvous nps = 35000000000,  work chunks =   239    04/17/19 22:58:58 
+1     event log for lost particle no.   6          nps = 29317104881        ijk =      162295731939417                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00  1.161-01 -9.809-01 -1.561-01 3.455-08 1.000+00   particle= neutron       3                  
+    sur  111  1.518-01  2.527+00 -2.042-01  1.161-01 -9.809-01 -1.561-01 3.455-08 1.000+00   surf=   101             3                  
+    sur  190  7.791-09  2.540+00 -9.320-03  2.128-01  8.102-01 -5.462-01 7.439-08 8.193-01   surf=   101             228                
+    sur  190  9.600+00  3.908+01 -2.464+01  2.128-01  8.102-01 -5.462-01 7.439-08 8.193-01   surf=   117             228                
+1   lost particle no. 6     no cell found in subroutine newcel     history no. -747666191                                               
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    3.90803E+01   -2.46448E+01                                                                  
+ u,v,w direction cosines:    2.12847E-01    8.10157E-01   -5.46207E-01                                                                  
+ energy = 7.43896E-08    weight = 8.19265E-01    time = 1.52005E+04                                                                     
+ sqrt(y**2+z**2) = 4.62021E+01                                                                                                          
+ the distance to surface       117   from the last event is 4.51028E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 31.                                                                        
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+1     event log for lost particle no.   6          nps = 30916998453        ijk =      257529800680553                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -3.827-01 -7.921-01  4.754-01 9.078-01 1.000+00   particle= neutron       5                  
+    sur  111 -7.639-01  2.229+00  9.491-01 -3.827-01 -7.921-01  4.754-01 9.078-01 1.000+00   surf=   101             5                  
+    sur  190 -4.156-08  1.684+00  1.901+00  6.224-01  3.212-01  7.137-01 1.075-02 9.999-01   surf=   101             122                
+    sur  190  9.600+00  6.638+00  1.291+01  6.224-01  3.212-01  7.137-01 1.075-02 9.999-01   surf=   117             122                
+1   lost particle no. 6     no cell found in subroutine newcel     history no. 852227381                                                
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    6.63775E+00    1.29091E+01                                                                  
+ u,v,w direction cosines:    6.22444E-01    3.21161E-01    7.13736E-01                                                                  
+ energy = 1.07522E-02    weight = 9.99925E-01    time = 1.27190E+01                                                                     
+ sqrt(y**2+z**2) = 1.45157E+01                                                                                                          
+ the distance to surface       117   from the last event is 1.54231E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 8.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+1     event log for lost particle no.   6          nps = 32959665273        ijk =      278834932508025                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00  2.364-01 -9.111-01  3.377-01 2.227-07 1.000+00   particle= neutron       3                  
+    sur  111  3.487-01  2.466+00  4.982-01  2.364-01 -9.111-01  3.377-01 2.227-07 1.000+00   surf=   101             3                  
+    sur  190  2.295-08  2.414+00 -7.898-01  3.686-01  5.379-01 -7.581-01 5.228-08 8.985-01   surf=   101             185                
+    sur  190  9.600+00  1.642+01 -2.053+01  3.686-01  5.379-01 -7.581-01 5.228-08 8.985-01   surf=   117             185                
+1   lost particle no. 6     no cell found in subroutine newcel     history no. -1400073095                                              
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    1.64221E+01   -2.05319E+01                                                                  
+ u,v,w direction cosines:    3.68649E-01    5.37921E-01   -7.58115E-01                                                                  
+ energy = 5.22793E-08    weight = 8.98466E-01    time = 1.04312E+04                                                                     
+ sqrt(y**2+z**2) = 2.62915E+01                                                                                                          
+ the distance to surface       117   from the last event is 2.60411E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 23.                                                                        
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+1     event log for lost particle no.   6          nps = 34637841576        ijk =      187783998680413                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00  2.243-01 -9.687-01  1.062-01 1.036-05 1.000+00   particle= neutron       3                  
+    sur  111  2.990-01  2.518+00  1.417-01  2.243-01 -9.687-01  1.062-01 1.036-05 1.000+00   surf=   101             3                  
+    sur  190 -4.550-09  2.525+00  2.794-01  2.319-01  8.655-01  4.440-01 4.555-08 9.906-01   surf=   101             37                 
+    sur  190  9.600+00  3.836+01  1.866+01  2.319-01  8.655-01  4.440-01 4.555-08 9.906-01   surf=   117             37                 
+1   lost particle no. 6     no cell found in subroutine newcel     history no. 278103208                                                
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    3.83611E+01    1.86631E+01                                                                  
+ u,v,w direction cosines:    2.31856E-01    8.65512E-01    4.43996E-01                                                                  
+ energy = 4.55533E-08    weight = 9.90646E-01    time = 1.41806E+04                                                                     
+ sqrt(y**2+z**2) = 4.26601E+01                                                                                                          
+ the distance to surface       117   from the last event is 4.14050E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 3.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+ master set rendezvous nps = 42000000000,  work chunks =   239    04/17/19 23:02:47 
+1     event log for lost particle no.  10          nps = 36850905584        ijk =       49991203331581                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -1.012-02 -8.760-01  4.821-01 5.349-09 1.000+00   particle= neutron       3                  
+    sur  111 -1.602-02  2.422+00  7.637-01 -1.012-02 -8.760-01  4.821-01 5.349-09 1.000+00   surf=   101             3                  
+    sur  190 -5.939-09  2.392+00  8.540-01  9.189-01  3.943-01  1.296-02 5.349-09 9.829-01   surf=   101             20                 
+    sur  190  9.600+00  6.511+00  9.895-01  9.189-01  3.943-01  1.296-02 5.349-09 9.829-01   surf=   117             20                 
+1   lost particle no. 10     no cell found in subroutine newcel     history no. -1803800080                                             
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    6.51098E+00    9.89468E-01                                                                  
+ u,v,w direction cosines:    9.18909E-01    3.94257E-01    1.29631E-02                                                                  
+ energy = 5.34887E-09    weight = 9.82870E-01    time = 1.21233E+04                                                                     
+ sqrt(y**2+z**2) = 6.58574E+00                                                                                                          
+ the distance to surface       117   from the last event is 1.04472E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 2.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+1     event log for lost particle no.  10          nps = 39673311122        ijk =      241126166203781                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00  3.708-02 -9.069-01 -4.197-01 3.476-05 1.000+00   particle= neutron       3                  
+    sur  111  5.513-02  2.462+00 -6.240-01  3.708-02 -9.069-01 -4.197-01 3.476-05 1.000+00   surf=   101             3                  
+    sur  190 -3.089-08  1.578+00 -1.991+00  2.709-01  1.102-01 -9.563-01 3.879-07 9.826-01   surf=   101             79                 
+    sur  190  9.600+00  5.482+00 -3.588+01  2.709-01  1.102-01 -9.563-01 3.879-07 9.826-01   surf=   117             79                 
+1   lost particle no. 10     no cell found in subroutine newcel     history no. 1018605458                                              
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    5.48186E+00   -3.58804E+01                                                                  
+ u,v,w direction cosines:    2.70888E-01    1.10164E-01   -9.56287E-01                                                                  
+ energy = 3.87869E-07    weight = 9.82620E-01    time = 4.27068E+03                                                                     
+ sqrt(y**2+z**2) = 3.62968E+01                                                                                                          
+ the distance to surface       117   from the last event is 3.54391E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 8.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+1     event log for lost particle no.  10          nps = 40244864531        ijk =       57380275676225                                  
+                                                                                                                                        
+        cell     x         y         z         u         v         w       erg      wgt                          nch nrn                
+                                                                                                                                        
+ source  190  0.000+00  3.810+00  0.000+00 -3.884-01 -8.942-01 -2.225-01 7.097-03 1.000+00   particle= neutron       3                  
+    sur  111 -5.922-01  2.447+00 -3.393-01 -3.884-01 -8.942-01 -2.225-01 7.097-03 1.000+00   surf=   101             3                  
+    sur  190  1.406-08  4.416-01  2.501+00  2.367-01  5.829-01  7.773-01 5.432-06 9.991-01   surf=   101             110                
+    sur  190  9.600+00  2.408+01  3.403+01  2.367-01  5.829-01  7.773-01 5.432-06 9.991-01   surf=   117             110                
+1   lost particle no. 10     no cell found in subroutine newcel     history no. 1590158867                                              
+                                                                                                                                        
+ the neutron  currently being tracked has reached surface       117  ; there                                                            
+ appears to be no cell on the other side of the surface from cell 190                                                                   
+ at that point.                                                                                                                         
+                                                                                                                                        
+ the neutron  is in cell 190.                                                                                                           
+                                                                                                                                        
+ x,y,z coordinates:          9.60000E+00    2.40839E+01    3.40305E+01                                                                  
+ u,v,w direction cosines:    2.36680E-01    5.82881E-01    7.77324E-01                                                                  
+ energy = 5.43242E-06    weight = 9.99110E-01    time = 1.30186E+03                                                                     
+ sqrt(y**2+z**2) = 4.16906E+01                                                                                                          
+ the distance to surface       117   from the last event is 4.05612E+01                                                                 
+ the distance to collision from the last event is 1.00000E+36                                                                           
+ the number of neutron  collisions so far in this history is 7.                                                                         
+                                                                                                                                        
+ the cells so far found on the other side of surface       117   of cell 190                                                            
+ (and the surface with respect to which the point x,y,z had the wrong sense) are:                                                       
+ (see chapter 5 of the user manual.)                                                                                                    
+                                                                                                                                        
+      124                                                                                                                               
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                        
+ master set rendezvous nps = 49000000000,  work chunks =   239    04/17/19 23:06:36 
 1problem summary                                                                                                           
 
-      run terminated when  1000000000  particle histories were done.
-+                                                                                                    04/17/19 16:03:32 
+      run terminated because  12 particles got lost.
++                                                                                                    04/17/19 23:06:37 
 
- =====>   37659.01 M histories/hr    (based on wall-clock time in mcrun)
+ =====>  127876.40 M histories/hr    (based on wall-clock time in mcrun)
 
 
-      Bonner Sphere Template     probid =  04/17/19 16:01:52 
+      Bonner Sphere Template     probid =  04/17/19 22:43:33 
 
  neutron creation    tracks      weight        energy            neutron loss        tracks      weight        energy
                                  (per source particle)                                           (per source particle)
 
- source          1000000000    1.0000E+00    5.9526E-01          escape           998967075    9.9337E-01    5.7718E-01
+ source         41936445267    8.5636E-01    5.9520E-01          escape         41893113755    8.5068E-01    5.7714E-01
  nucl. interaction        0    0.            0.                  energy cutoff            0    0.            0.        
  particle decay           0    0.            0.                  time cutoff              0    0.            0.        
  weight window            0    0.            0.                  weight window            0    0.            0.        
  cell importance          0    0.            0.                  cell importance          0    0.            0.        
- weight cutoff            0    5.1958E-06    2.5524E-10          weight cutoff      1035990    5.1797E-06    2.6418E-10
+ weight cutoff            0    4.3919E-06    3.9436E-10          weight cutoff     43461104    4.3969E-06    2.5201E-10
  e or t importance        0    0.            0.                  e or t importance        0    0.            0.        
  dxtran                   0    0.            0.                  dxtran                   0    0.            0.        
  forced collisions        0    0.            0.                  forced collisions        0    0.            0.        
  exp. transform           0    0.            0.                  exp. transform           0    0.            0.        
- upscattering             0    0.            5.1902E-09          downscattering           0    0.            1.7152E-02
- photonuclear             0    0.            0.                  capture                  0    6.6337E-03    8.9544E-04
- (n,xn)                6130    5.5381E-06    8.2364E-06          loss to (n,xn)        3065    2.7690E-06    4.7444E-05
+ upscattering             0    0.            5.1882E-09          downscattering           0    0.            1.7135E-02
+ photonuclear             0    0.            0.                  capture                  0    5.6796E-03    8.9268E-04
+ (n,xn)              259121    4.7803E-06    8.3339E-06          loss to (n,xn)      129505    2.3890E-06    4.7812E-05
  prompt fission           0    0.            0.                  loss to fission          0    0.            0.        
  delayed fission          0    0.            0.                  nucl. interaction        0    0.            0.        
  prompt photofis          0    0.            0.                  particle decay           0    0.            0.        
  tabular boundary         0    0.            0.                  tabular boundary         0    0.            0.        
  tabular sampling         0    0.            0.                  elastic scatter          0    0.            0.        
-     total       1000006130    1.0000E+00    5.9527E-01              total       1000006130    1.0000E+00    5.9527E-01
+     total      41936704388    8.5637E-01    5.9521E-01              total      41936704364    8.5637E-01    5.9521E-01
 
-   number of neutrons banked                    3065        average time of (shakes)              cutoffs
-   neutron tracks per source particle     1.0000E+00          escape            8.6435E+03          tco   1.0000E+33
-   neutron collisions per source particle 1.3867E+00          capture           3.1978E+03          eco   0.0000E+00
-   total neutron collisions               1386727112          capture or escape 8.6074E+03          wc1  -5.0000E-01
-   net multiplication              1.0000E+00 0.0000          any termination   8.6074E+03          wc2  -2.5000E-01
+   number of neutrons banked                  129616        average time of (shakes)              cutoffs
+   neutron tracks per source particle     8.5636E-01          escape            8.6433E+03          tco   1.0000E+33
+   neutron collisions per source particle 1.1872E+00          capture           3.1981E+03          eco   0.0000E+00
+   total neutron collisions              58137863427          capture or escape 8.6071E+03          wc1  -5.0000E-01
+   net multiplication              1.0000E+00 0.0000          any termination   8.6071E+03          wc2  -2.5000E-01
 
- computer time so far in this run   361.50 minutes            maximum number ever in bank         1
- computer time in mcrun             125.50 minutes            bank overflows to backup file       0
- source particles per minute            7.9678E+06
- random numbers generated              16646074054            most random numbers used was        3502 in history    91268426
+ computer time so far in this run  5512.22 minutes            maximum number ever in bank         2
+ computer time in mcrun            5293.39 minutes            bank overflows to backup file       0
+ source particles per minute            9.2513E+06
+ random numbers generated             697906900347            most random numbers used was        4209 in history 23298480768
  
   warning.  random number period exceeded.  decrease stride.
 
  range of sampled source weights = 1.0000E+00 to 1.0000E+00
 
+     12 particles got lost.
+  warning.         12 particles got lost
+
  number of histories processed by each MPI task
-           0     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184110     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184110     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184110     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184110     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184110     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184110     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184110     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184110     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184110     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100
-     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184100     4184110
+           0   175732212   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732212   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732212
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732212   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732212   175732218   175732218
+   175732218   175732218   175732218   175732218   152160815   175732218   175732218   175732218   175732218   175732218
+   175732218   175732212   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732212   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732212
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732212   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732212   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732212   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732212   175732218   175732218   175732218   175732218
+   162850872   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732212
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   148630222   175732218   175732218   175732212   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732212   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732212   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732212   175732218   175732218   175732218   175732218
+   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218   175732218
 1neutron  activity in each cell                                                                         print table 126
 
                        tracks     population   collisions   collisions     number        flux        average      average
               cell    entering                               * weight     weighted     weighted   track weight   track mfp
                                                           (per history)    energy       energy     (relative)      (cm)
 
-        1      111   155132407    127586532   1313693682    1.1928E+00   7.8258E-05   4.5065E-01   9.4049E-01   7.8733E-01
-        2      121     1611286      1588417      1059278    9.1443E-04   2.1507E-04   7.3484E-01   9.4708E-01   2.6450E+00
-        3      122     9634946      7222371            0    0.0000E+00   5.4555E-05   3.8369E-01   9.0498E-01   0.0000E+00
-        4      123    21485295     17965483     64551003    5.9229E-02   9.8733E-05   5.5257E-01   9.3668E-01   5.7038E-01
-        5      124    89038644     42971947      7423149    7.1782E-03   1.0534E-04   5.1243E-01   9.6344E-01   1.0329E+01
-        6      125     8138971      7864010            0    0.0000E+00   1.4761E-04   5.8309E-01   9.9221E-01   0.0000E+00
-        7      190  1153113530   1000003065            0    0.0000E+00   1.1164E-04   5.8117E-01   9.9455E-01   0.0000E+00
+        1      111  6503794550   5349501888  55076951636    1.0213E+00   7.8250E-05   4.5058E-01   9.4051E-01   7.8728E-01
+        2      121    67585389     66619356     44434231    7.8325E-04   2.1374E-04   7.3073E-01   9.4701E-01   2.6391E+00
+        3      122   403798626    302649293            0    0.0000E+00   5.4653E-05   3.8411E-01   9.0507E-01   0.0000E+00
+        4      123   900506089    752995683   2705446433    5.0691E-02   9.8636E-05   5.5206E-01   9.3666E-01   5.7014E-01
+        5      124  3732423275   1801637980    311031331    6.1419E-03   1.0539E-04   5.1258E-01   9.6348E-01   1.0330E+01
+        6      125   341445575    329888982            0    0.0000E+00   1.4690E-04   5.8084E-01   9.9222E-01   0.0000E+00
+        7      190 48356399427  41936574864            0    0.0000E+00   1.1164E-04   5.8113E-01   9.9455E-01   0.0000E+00
 
-           total    1438155079   1205201825   1386727112    1.2602E+00
+           total   60305952931  50539868046  58137863631    1.0789E+00
 
-1tally      124        nps =  1000000000
+1tally      124        nps = 48970711297
            tally type 4    track length estimate of particle flux.                             
            particle(s): neutrons 
            this tally is modified by   ft  scx
@@ -520,1015 +940,1015 @@
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.06179E-04 0.0343
+                 5.14518E-04 0.0053
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.51212E-04 0.0330
+                 5.63665E-04 0.0051
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.74745E-04 0.0323
+                 5.91868E-04 0.0050
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.09361E-04 0.0320
+                 6.00130E-04 0.0049
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.21586E-04 0.0328
+                 6.15866E-04 0.0049
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.32343E-04 0.0318
+                 6.22964E-04 0.0049
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.49820E-04 0.0310
+                 6.34618E-04 0.0048
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.32622E-04 0.0307
+                 6.53437E-04 0.0047
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.69882E-04 0.0305
+                 6.73461E-04 0.0047
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.35290E-04 0.0299
+                 6.94964E-04 0.0046
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.37935E-04 0.0294
+                 7.20595E-04 0.0045
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.72676E-04 0.0290
+                 7.75657E-04 0.0044
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 9.65881E-04 0.0279
+                 8.31696E-04 0.0043
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.16570E-03 0.0260
+                 9.89474E-04 0.0039
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.26436E-03 0.0238
+                 1.10302E-03 0.0037
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.33207E-03 0.0232
+                 1.19074E-03 0.0036
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.47885E-03 0.0226
+                 1.28169E-03 0.0035
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.60048E-03 0.0220
+                 1.37118E-03 0.0034
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.72560E-03 0.0210
+                 1.46722E-03 0.0033
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.78133E-03 0.0205
+                 1.56367E-03 0.0032
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.89009E-03 0.0204
+                 1.64174E-03 0.0031
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.02131E-03 0.0196
+                 1.73055E-03 0.0030
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.16917E-03 0.0191
+                 1.84762E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.32137E-03 0.0183
+                 1.99396E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.43213E-03 0.0179
+                 2.07470E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.53390E-03 0.0176
+                 2.12178E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.52212E-03 0.0176
+                 2.15333E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.62348E-03 0.0174
+                 2.20541E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.54443E-03 0.0172
+                 2.23245E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.64204E-03 0.0170
+                 2.28323E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.71067E-03 0.0169
+                 2.31673E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.77699E-03 0.0166
+                 2.36034E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.72749E-03 0.0166
+                 2.36815E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.77013E-03 0.0167
+                 2.38527E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.70900E-03 0.0168
+                 2.41040E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.87628E-03 0.0164
+                 2.43780E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.88962E-03 0.0163
+                 2.46508E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.91146E-03 0.0162
+                 2.48149E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.92492E-03 0.0164
+                 2.49449E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.86863E-03 0.0163
+                 2.49828E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.97288E-03 0.0162
+                 2.50224E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.90005E-03 0.0163
+                 2.51623E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.99283E-03 0.0160
+                 2.53236E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.89967E-03 0.0162
+                 2.53068E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98941E-03 0.0159
+                 2.53214E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.94598E-03 0.0160
+                 2.53729E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98257E-03 0.0159
+                 2.54325E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.94719E-03 0.0161
+                 2.54675E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.92953E-03 0.0160
+                 2.55670E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98861E-03 0.0158
+                 2.54798E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98896E-03 0.0160
+                 2.55393E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.05587E-03 0.0160
+                 2.55343E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.95233E-03 0.0159
+                 2.56386E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.95504E-03 0.0158
+                 2.54655E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98998E-03 0.0160
+                 2.56173E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.00231E-03 0.0158
+                 2.56313E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98864E-03 0.0158
+                 2.55460E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.94048E-03 0.0161
+                 2.55558E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.00146E-03 0.0158
+                 2.55690E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.91867E-03 0.0158
+                 2.54679E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98916E-03 0.0161
+                 2.56320E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.03066E-03 0.0158
+                 2.55878E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.99060E-03 0.0158
+                 2.56909E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.96157E-03 0.0159
+                 2.55246E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.93866E-03 0.0162
+                 2.55832E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.01830E-03 0.0160
+                 2.56017E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.97264E-03 0.0159
+                 2.56637E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.05669E-03 0.0158
+                 2.55319E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.00445E-03 0.0159
+                 2.56254E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.96653E-03 0.0157
+                 2.55956E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.02378E-03 0.0160
+                 2.55718E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.99545E-03 0.0159
+                 2.57078E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.00887E-03 0.0158
+                 2.55831E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98873E-03 0.0160
+                 2.56064E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.93386E-03 0.0158
+                 2.55293E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98148E-03 0.0158
+                 2.57148E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.99539E-03 0.0157
+                 2.56447E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98388E-03 0.0158
+                 2.57282E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.03565E-03 0.0157
+                 2.57839E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.00370E-03 0.0157
+                 2.55993E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.01455E-03 0.0155
+                 2.55513E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.89384E-03 0.0158
+                 2.54879E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.01139E-03 0.0157
+                 2.56592E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.06812E-03 0.0160
+                 2.56160E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.86439E-03 0.0160
+                 2.55037E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.97945E-03 0.0158
+                 2.54812E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.97222E-03 0.0158
+                 2.54088E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.91822E-03 0.0159
+                 2.55119E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.00186E-03 0.0157
+                 2.54031E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.98024E-03 0.0158
+                 2.53782E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.90738E-03 0.0160
+                 2.53782E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.95229E-03 0.0159
+                 2.54712E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.95569E-03 0.0157
+                 2.52421E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.85254E-03 0.0160
+                 2.51241E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.90556E-03 0.0159
+                 2.51122E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.99904E-03 0.0157
+                 2.50660E-03 0.0024
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.91303E-03 0.0159
+                 2.48065E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.90082E-03 0.0159
+                 2.46810E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.93291E-03 0.0158
+                 2.45764E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.82779E-03 0.0160
+                 2.44321E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.78669E-03 0.0161
+                 2.45083E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.77245E-03 0.0162
+                 2.42652E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.81239E-03 0.0161
+                 2.41587E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.77733E-03 0.0160
+                 2.42344E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.91541E-03 0.0159
+                 2.42521E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.84476E-03 0.0159
+                 2.39991E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.80396E-03 0.0162
+                 2.37784E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.74460E-03 0.0161
+                 2.37339E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.72581E-03 0.0162
+                 2.35649E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.78706E-03 0.0162
+                 2.34348E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.72507E-03 0.0163
+                 2.31073E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.63342E-03 0.0165
+                 2.30448E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.61829E-03 0.0166
+                 2.28180E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.62797E-03 0.0165
+                 2.27053E-03 0.0025
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.51918E-03 0.0167
+                 2.23667E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.58966E-03 0.0165
+                 2.22265E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.62211E-03 0.0165
+                 2.20846E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.57696E-03 0.0168
+                 2.20359E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.52948E-03 0.0167
+                 2.20053E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.61932E-03 0.0166
+                 2.19366E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.55922E-03 0.0169
+                 2.17897E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.57661E-03 0.0168
+                 2.17381E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.43374E-03 0.0171
+                 2.12780E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.42849E-03 0.0171
+                 2.11202E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.39524E-03 0.0170
+                 2.08858E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.33206E-03 0.0172
+                 2.09282E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.43056E-03 0.0171
+                 2.08033E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.45248E-03 0.0171
+                 2.08074E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.40698E-03 0.0172
+                 2.06376E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.43260E-03 0.0170
+                 2.05817E-03 0.0026
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.35514E-03 0.0170
+                 2.06492E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.36331E-03 0.0171
+                 2.04433E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.42024E-03 0.0171
+                 2.04105E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.33219E-03 0.0173
+                 2.04297E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.32705E-03 0.0172
+                 2.04174E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.37496E-03 0.0174
+                 2.03222E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.41606E-03 0.0174
+                 2.03165E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.35554E-03 0.0172
+                 2.03432E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.38867E-03 0.0174
+                 2.02220E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.31847E-03 0.0172
+                 2.02611E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.36168E-03 0.0171
+                 2.01436E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.38428E-03 0.0174
+                 2.00770E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.35486E-03 0.0175
+                 1.99084E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.35173E-03 0.0176
+                 1.98666E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.34623E-03 0.0175
+                 1.95757E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.29800E-03 0.0175
+                 1.94689E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.20896E-03 0.0177
+                 1.92770E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.17684E-03 0.0176
+                 1.91513E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.26056E-03 0.0179
+                 1.91209E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.21976E-03 0.0180
+                 1.90148E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.30180E-03 0.0175
+                 1.88702E-03 0.0027
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.11148E-03 0.0179
+                 1.87433E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.13173E-03 0.0179
+                 1.86093E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.13885E-03 0.0181
+                 1.84722E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.15921E-03 0.0182
+                 1.82780E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.15934E-03 0.0180
+                 1.81238E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.01147E-03 0.0182
+                 1.79742E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.15287E-03 0.0183
+                 1.79333E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.05256E-03 0.0182
+                 1.78034E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.01005E-03 0.0185
+                 1.76430E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.09506E-03 0.0185
+                 1.75560E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.02636E-03 0.0184
+                 1.75433E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.07624E-03 0.0186
+                 1.74871E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.98950E-03 0.0186
+                 1.74562E-03 0.0028
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.03125E-03 0.0183
+                 1.71559E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.91584E-03 0.0188
+                 1.66622E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.99901E-03 0.0189
+                 1.65103E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.89695E-03 0.0193
+                 1.63885E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.93248E-03 0.0188
+                 1.63270E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.81791E-03 0.0193
+                 1.63663E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.84294E-03 0.0189
+                 1.63188E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.91642E-03 0.0192
+                 1.60895E-03 0.0029
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.82696E-03 0.0194
+                 1.61051E-03 0.0030
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.84251E-03 0.0192
+                 1.60316E-03 0.0030
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.91797E-03 0.0187
+                 1.59952E-03 0.0030
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.82990E-03 0.0195
+                 1.57839E-03 0.0030
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.80395E-03 0.0193
+                 1.55491E-03 0.0030
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.75960E-03 0.0198
+                 1.52775E-03 0.0030
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.65655E-03 0.0206
+                 1.44175E-03 0.0031
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.58021E-03 0.0208
+                 1.36694E-03 0.0032
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.45961E-03 0.0209
+                 1.32571E-03 0.0032
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.50368E-03 0.0210
+                 1.29044E-03 0.0033
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.48469E-03 0.0212
+                 1.23911E-03 0.0033
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.37981E-03 0.0224
+                 1.19210E-03 0.0034
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.37689E-03 0.0219
+                 1.17344E-03 0.0034
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.34790E-03 0.0221
+                 1.15552E-03 0.0035
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.33258E-03 0.0224
+                 1.11761E-03 0.0035
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.32386E-03 0.0224
+                 1.09912E-03 0.0035
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.25236E-03 0.0231
+                 1.08884E-03 0.0035
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.24893E-03 0.0236
+                 1.05459E-03 0.0036
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.20708E-03 0.0240
+                 1.02246E-03 0.0037
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.19569E-03 0.0234
+                 9.96945E-04 0.0037
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.10513E-03 0.0244
+                 9.54583E-04 0.0038
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.04983E-03 0.0255
+                 8.98280E-04 0.0039
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.02435E-03 0.0255
+                 8.54913E-04 0.0040
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 9.49752E-04 0.0264
+                 8.18630E-04 0.0041
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.95576E-04 0.0271
+                 7.70830E-04 0.0042
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.78542E-04 0.0282
+                 7.39340E-04 0.0043
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.02610E-04 0.0287
+                 6.99813E-04 0.0044
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.51047E-04 0.0303
+                 6.42023E-04 0.0046
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.95709E-04 0.0314
+                 6.04077E-04 0.0047
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.73372E-04 0.0310
+                 5.92230E-04 0.0048
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.57262E-04 0.0312
+                 5.80493E-04 0.0048
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.59466E-04 0.0319
+                 5.54944E-04 0.0049
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.13386E-04 0.0337
+                 5.34492E-04 0.0050
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.13557E-04 0.0320
+                 5.31591E-04 0.0050
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.04700E-04 0.0328
+                 5.21147E-04 0.0051
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.10834E-04 0.0332
+                 5.06482E-04 0.0051
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 5.44999E-04 0.0347
+                 4.70601E-04 0.0053
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 5.20707E-04 0.0347
+                 4.38854E-04 0.0055
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 4.46220E-04 0.0384
+                 4.00359E-04 0.0058
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 4.06391E-04 0.0400
+                 3.53900E-04 0.0060
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.66927E-04 0.0425
+                 3.18855E-04 0.0065
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.40797E-04 0.0433
+                 2.78249E-04 0.0069
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.10030E-04 0.0442
+                 2.62296E-04 0.0070
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.86849E-04 0.0471
+                 2.49391E-04 0.0072
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.86068E-04 0.0476
+                 2.43450E-04 0.0073
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.91320E-04 0.0461
+                 2.36121E-04 0.0075
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.82549E-04 0.0498
+                 2.19837E-04 0.0077
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.29358E-04 0.0498
+                 2.08965E-04 0.0078
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.41938E-04 0.0522
+                 1.99847E-04 0.0080
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.35027E-04 0.0528
+                 1.91353E-04 0.0083
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.01678E-04 0.0533
+                 1.82378E-04 0.0085
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.96574E-04 0.0565
+                 1.72253E-04 0.0087
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.00950E-04 0.0592
+                 1.61577E-04 0.0089
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.79054E-04 0.0603
+                 1.53584E-04 0.0092
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.77066E-04 0.0628
+                 1.48638E-04 0.0094
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.67777E-04 0.0612
+                 1.44696E-04 0.0094
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.79975E-04 0.0632
+                 1.41527E-04 0.0095
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.62201E-04 0.0615
+                 1.38944E-04 0.0098
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.56923E-04 0.0607
+                 1.25940E-04 0.0101
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.32064E-04 0.0699
+                 1.13623E-04 0.0105
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.14046E-04 0.0684
+                 1.09166E-04 0.0108
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.15050E-04 0.0701
+                 1.04981E-04 0.0109
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.03720E-04 0.0755
+                 9.98904E-05 0.0112
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.09014E-04 0.0729
+                 9.73869E-05 0.0114
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.03115E-04 0.0749
+                 9.38268E-05 0.0118
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.99658E-05 0.0763
+                 8.16934E-05 0.0125
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.40683E-05 0.0838
+                 6.40924E-05 0.0140
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.43394E-05 0.0982
+                 5.48773E-05 0.0150
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 5.89014E-05 0.1029
+                 4.70881E-05 0.0162
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.65176E-05 0.1229
+                 3.50434E-05 0.0189
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 3.33597E-05 0.1588
+                 2.59901E-05 0.0214
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 2.14616E-05 0.1395
+                 2.17292E-05 0.0242
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.88308E-05 0.1767
+                 1.43058E-05 0.0289
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 1.34674E-05 0.2144
+                 1.03886E-05 0.0350
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.60942E-06 0.2446
+                 9.13057E-06 0.0371
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 5.24569E-06 0.2869
+                 7.22511E-06 0.0407
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 6.62926E-06 0.2859
+                 7.09250E-06 0.0399
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 5.34415E-06 0.2908
+                 6.89155E-06 0.0408
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 8.41779E-06 0.2614
+                 6.73215E-06 0.0427
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 7.45202E-06 0.2737
+                 5.52043E-06 0.0445
  
  cell  121                                                                                                                             
  multiplier bin:   1.00000E+00        11         105                                                                                   
-                 4.70488E-01 0.0012
+                 4.03762E-01 0.0002
 
 
  ===================================================================================================================================
@@ -1539,128 +1959,134 @@
  behavior    behavior      value   decrease   decrease rate      value   decrease   decrease rate       value     behavior     slope
 
  desired      random       <0.10      yes      1/sqrt(nps)       <0.10      yes        1/nps           constant    random      >3.00
- observed     random        0.00      yes          yes            0.00      yes         yes            constant   decrease     10.00
- passed?        yes          yes      yes          yes             yes      yes         yes               yes         no         yes
+ observed     random        0.00      yes           no            0.00      yes         yes            constant    random       8.71
+ passed?        yes          yes      yes           no             yes      yes         yes               yes        yes         yes
 
  ===================================================================================================================================
 
 
  warning.  the tally in the tally fluctuation chart bin did not pass  1 of the 10 statistical checks.
 
-1analysis of the results in the tally fluctuation chart bin (tfc) for tally 124 with nps = 1000000000        print table 160
+1analysis of the results in the tally fluctuation chart bin (tfc) for tally 124 with nps = 48970711297       print table 160
 
 
- normed average tally per history  = 4.70488E-01          unnormed average tally per history  = 2.36493E-02
- estimated tally relative error    = 0.0012               estimated variance of the variance  = 0.0000
- relative error from zero tallies  = 0.0008               relative error from nonzero scores  = 0.0010
+ normed average tally per history  = 4.03762E-01          unnormed average tally per history  = 2.02953E-02
+ estimated tally relative error    = 0.0002               estimated variance of the variance  = 0.0000
+ relative error from zero tallies  = 0.0001               relative error from nonzero scores  = 0.0001
 
- number of nonzero history tallies =     1588260          efficiency for the nonzero tallies  = 0.0016
- history number of largest  tally  =   564747390          largest  unnormalized history tally = 2.69614E+02
- (largest  tally)/(average tally)  = 1.14005E+04          (largest  tally)/(avg nonzero tally)= 1.81070E+01
+ number of nonzero history tallies =    66612852          efficiency for the nonzero tallies  = 0.0014
+ history number of largest  tally  = 38019635241          largest  unnormalized history tally = 4.13942E+02
+ (largest  tally)/(average tally)  = 2.03959E+04          (largest  tally)/(avg nonzero tally)= 2.77438E+01
 
- (confidence interval shift)/mean  = 0.0000               shifted confidence interval center  = 4.70488E-01
+ (confidence interval shift)/mean  = 0.0000               shifted confidence interval center  = 4.03762E-01
 
 
  if the largest  history score sampled so far were to occur on the next history, the tfc bin quantities would change as follows:
 
       estimated quantities           value at nps           value at nps+1           value(nps+1)/value(nps)-1.
 
-      mean                            4.70488E-01             4.70493E-01                     0.000011
-      relative error                  1.24340E-03             1.24344E-03                     0.000031
-      variance of the variance        4.71775E-06             4.72402E-06                     0.001329
-      shifted center                  4.70488E-01             4.70488E-01                     0.000000
-      figure of merit                 5.15368E+03             5.15336E+03                    -0.000061
+      mean                            4.03762E-01             4.03762E-01                     0.000000
+      relative error                  1.91861E-04             1.91862E-04                     0.000002
+      variance of the variance        1.11908E-07             1.11929E-07                     0.000189
+      shifted center                  4.03762E-01             4.03762E-01                     0.000000
+      figure of merit                 5.13206E+03             5.13204E+03                    -0.000004
 
- the estimated slope of the 200 largest  tallies starting at  1.58918E+02 appears to be decreasing at least exponentially.
+ the estimated inverse power slope of the 198 largest  tallies starting at 2.28237E+02 is 8.7110
  the large score tail of the empirical history score probability density function appears to have no unsampled regions.
 
- fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (7.968E+06)*( 2.543E-02)**2 = (7.968E+06)*(6.468E-04) = 5.154E+03
+ fom = (histories/minute)*(f(x) signal-to-noise ratio)**2 = (9.251E+06)*( 2.355E-02)**2 = (9.251E+06)*(5.547E-04) = 5.132E+03
 
-1unnormed tally density for tally 124          nonzero tally mean(m) = 1.489E+01   nps = 1000000000          print table 161
+1unnormed tally density for tally 124          nonzero tally mean(m) = 1.492E+01   nps = 48970711297         print table 161
 
- abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope=10.0)
-  tally  number num den log den:d-----------d------------d-------------d------------d------------d------------d------------d--------
- 3.16-06      2 1.71-03  -2.766 ************|************|*************|************|************|************|************|*       
- 5.01-06      1 5.41-04  -3.267 ************|************|*************|************|************|************|*******     |        
- 7.94-06      7 2.39-03  -2.622 ************|************|*************|************|************|************|************|***     
- 1.26-05      5 1.08-03  -2.968 ************|************|*************|************|************|************|*********** |        
- 2.00-05     15 2.04-03  -2.691 ************|************|*************|************|************|************|************|**      
- 3.16-05     10 8.57-04  -3.067 ************|************|*************|************|************|************|**********  |        
- 5.01-05     14 7.57-04  -3.121 ************|************|*************|************|************|************|*********   |        
- 7.94-05     26 8.87-04  -3.052 ************|************|*************|************|************|************|**********  |        
- 1.26-04     66 1.42-03  -2.848 ************|************|*************|************|************|************|************|        
- 2.00-04    118 1.60-03  -2.795 ************|************|*************|************|************|************|************|        
- 3.16-04    173 1.48-03  -2.829 ************|************|*************|************|************|************|************|        
- 5.01-04    320 1.73-03  -2.762 ************|************|*************|************|************|************|************|*       
- 7.94-04    561 1.91-03  -2.718 ************|************|*************|************|************|************|************|**      
- 1.26-03   1021 2.20-03  -2.658 ************|************|*************|************|************|************|************|**      
- 2.00-03   2087 2.83-03  -2.548 ************|************|*************|************|************|************|************|****    
- 3.16-03   4450 3.81-03  -2.419 ************|************|*************|************|************|************|************|*****   
- 5.01-03  10970 5.93-03  -2.227 ************|************|*************|************|************|************|************|********
- 7.94-03  10113 3.45-03  -2.462 ************|************|*************|************|************|************|************|*****   
- 1.26-02   9347 2.01-03  -2.696 ************|************|*************|************|************|************|************|**      
- 2.00-02  11545 1.57-03  -2.805 ************|************|*************|************|************|************|************|        
- 3.16-02  16183 1.39-03  -2.858 ************|************|*************|************|************|************|************|        
- 5.01-02  35021 1.89-03  -2.723 ************|************|*************|************|************|************|************|*       
- 7.94-02  27016 9.22-04  -3.035 ************|************|*************|************|************|************|**********  |        
- 1.26-01  24349 5.24-04  -3.281 ************|************|*************|************|************|************|*******     |        
- 2.00-01  31552 4.28-04  -3.368 ************|************|*************|************|************|************|******      |        
- 3.16-01  27980 2.40-04  -3.620 ************|************|*************|************|************|************|***         |        
- 5.01-01  31560 1.71-04  -3.768 ************|************|*************|************|************|************|*           |        
- 7.94-01  38302 1.31-04  -3.884 ************|************|*************|************|************|************|            |        
- 1.26+00  47351 1.02-04  -3.992 ************|************|*************|************|************|*********** |            |        
- 2.00+00  64459 8.75-05  -4.058 ************|************|*************|************|************|**********  |            |        
- 3.16+00  89734 7.69-05  -4.114 ************|************|*************|************|************|*********   |            |        
- 5.01+00 120683 6.52-05  -4.185 ************|************|*************|************|************|********    |            |        
- 7.94+00 157430 5.37-05  -4.270 ************|************|*************|************|************|*******     |            |        
- 1.26+01 191189 4.12-05  -4.386 ************|************|*************|************|************|*****       |            |        
- 2.00+01 210099 2.85-05  -4.545 mmmmmmmmmmmm|mmmmmmmmmmmm|mmmmmmmmmmmmm|mmmmmmmmmmmm|mmmmmmmmmmmm|mmm         |            |        
- 3.16+01 197341 1.69-05  -4.772 ************|************|*************|************|************|            |            |        
- 5.01+01 142216 7.69-06  -5.114 ************|************|*************|************|*********   |            |            |        
- 7.94+01  67249 2.29-06  -5.639 ************|************|*************|************|**          |            |            |        
- 1.26+02  16344 3.52-07  -6.454 ************|************|*************|****        |            |            |            |        
- 2.00+02   1329 1.80-08  -7.744 ************|************|*            |            |            |            |            |        
- 3.16+02     22 1.89-10  -9.725 *           |            |             |            |            |            |            |        
-  total 1588260 1.59-03         d-----------d------------d-------------d------------d------------d------------d------------d--------
+ abscissa              ordinate   log plot of tally probability density function in tally fluctuation chart bin(d=decade,slope= 8.7)
+  tally  number num den log den:d--------d--------d---------d--------d---------d--------d---------d--------d---------d---------d----
+ 6.31-08      1 8.77-04  -3.057 *********|********|*********|********|*********|********|*********|********|*********|*******  |    
+ 1.00-07      2 1.11-03  -2.956 *********|********|*********|********|*********|********|*********|********|*********|******** |    
+ 1.58-07      5 1.75-03  -2.758 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 2.51-07      7 1.54-03  -2.812 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 3.98-07      7 9.73-04  -3.012 *********|********|*********|********|*********|********|*********|********|*********|******** |    
+ 6.31-07     19 1.67-03  -2.778 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 1.00-06     22 1.22-03  -2.915 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 1.58-06     39 1.36-03  -2.866 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 2.51-06     59 1.30-03  -2.886 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 3.98-06     80 1.11-03  -2.954 *********|********|*********|********|*********|********|*********|********|*********|******** |    
+ 6.31-06    152 1.33-03  -2.875 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 1.00-05    198 1.10-03  -2.960 *********|********|*********|********|*********|********|*********|********|*********|******** |    
+ 1.58-05    337 1.18-03  -2.929 *********|********|*********|********|*********|********|*********|********|*********|******** |    
+ 2.51-05    546 1.20-03  -2.920 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 3.98-05    892 1.24-03  -2.907 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 6.31-05   1333 1.17-03  -2.932 *********|********|*********|********|*********|********|*********|********|*********|******** |    
+ 1.00-04   2221 1.23-03  -2.910 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 1.58-04   3651 1.27-03  -2.895 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 2.51-04   5918 1.30-03  -2.885 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 3.98-04  10357 1.44-03  -2.842 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 6.31-04  17677 1.55-03  -2.810 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 1.00-03  31854 1.76-03  -2.754 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 1.58-03  60870 2.13-03  -2.673 *********|********|*********|********|*********|********|*********|********|*********|*********|*   
+ 2.51-03 125057 2.75-03  -2.560 *********|********|*********|********|*********|********|*********|********|*********|*********|**  
+ 3.98-03 306130 4.25-03  -2.371 *********|********|*********|********|*********|********|*********|********|*********|*********|****
+ 6.31-03 514439 4.51-03  -2.346 *********|********|*********|********|*********|********|*********|********|*********|*********|****
+ 1.00-02 360336 1.99-03  -2.700 *********|********|*********|********|*********|********|*********|********|*********|*********|*   
+ 1.58-02 416083 1.45-03  -2.838 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 2.51-02 571639 1.26-03  -2.900 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 3.98-02 925386 1.29-03  -2.891 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 6.31-02 1.6+06 1.38-03  -2.860 *********|********|*********|********|*********|********|*********|********|*********|*********|    
+ 1.00-01 961011 5.32-04  -3.274 *********|********|*********|********|*********|********|*********|********|*********|*****    |    
+ 1.58-01 1.2+06 4.31-04  -3.366 *********|********|*********|********|*********|********|*********|********|*********|****     |    
+ 2.51-01 1.2+06 2.64-04  -3.578 *********|********|*********|********|*********|********|*********|********|*********|**       |    
+ 3.98-01 1.2+06 1.72-04  -3.766 *********|********|*********|********|*********|********|*********|********|*********|         |    
+ 6.31-01 1.5+06 1.28-04  -3.894 *********|********|*********|********|*********|********|*********|********|*********|         |    
+ 1.00+00 1.8+06 9.76-05  -4.011 *********|********|*********|********|*********|********|*********|********|******** |         |    
+ 1.58+00 2.3+06 8.02-05  -4.096 *********|********|*********|********|*********|********|*********|********|*******  |         |    
+ 2.51+00 3.2+06 7.01-05  -4.154 *********|********|*********|********|*********|********|*********|********|*******  |         |    
+ 3.98+00 4.4+06 6.09-05  -4.215 *********|********|*********|********|*********|********|*********|********|******   |         |    
+ 6.31+00 5.8+06 5.08-05  -4.294 *********|********|*********|********|*********|********|*********|********|*****    |         |    
+ 1.00+01 7.3+06 4.06-05  -4.391 *********|********|*********|********|*********|********|*********|********|****     |         |    
+ 1.58+01 8.5+06 2.98-05  -4.526 mmmmmmmmm|mmmmmmmm|mmmmmmmmm|mmmmmmmm|mmmmmmmmm|mmmmmmmm|mmmmmmmmm|mmmmmmmm|mmm      |         |    
+ 2.51+01 8.8+06 1.93-05  -4.714 *********|********|*********|********|*********|********|*********|********|*        |         |    
+ 3.98+01 7.3+06 1.02-05  -4.991 *********|********|*********|********|*********|********|*********|********|         |         |    
+ 6.31+01 4.4+06 3.85-06  -5.414 *********|********|*********|********|*********|********|*********|****    |         |         |    
+ 1.00+02 1.6+06 8.64-07  -6.064 *********|********|*********|********|*********|********|*******  |        |         |         |    
+ 1.58+02 226924 7.92-08  -7.101 *********|********|*********|********|*********|******* |         |        |         |         |    
+ 2.51+02   8547 1.88-09  -8.725 *********|********|*********|********|*        |s       |         |        |         |         |    
+ 3.98+02     64 8.90-12 -11.051 *********|******* |         |        s         |        |         |        |         |         |    
+ 5.01+02      1 1.98-13 -12.703 *        |        |         s        |         |        |         |        |         |         |    
+  total 6.66+07 1.36-03         d--------d--------d---------d--------d---------d--------d---------d--------d---------d---------d----
 
 1status of the statistical checks used to form confidence intervals for the mean for each tally bin
 
 
  tally   result of statistical checks for the tfc bin (the first check not passed is listed) and error magnitude check for all bins
 
-      124   missed  1 of 10 tfc bin checks: the figure of merit has a trend during the last half of the problem                       
-         missed all bin error check:   253 tally bins had     0 bins with zeros and    12 bins with relative errors exceeding 0.10
+      124   missed  1 of 10 tfc bin checks: the relative error appears not to decrease as 1/sqrt(nps) for last half of problem        
+         passed all bin error check:   253 tally bins all have relative errors less than 0.10 with no zero bins
 
 
  the 10 statistical checks are only for the tally fluctuation chart bin and do not apply to other tally bins.
 
  warning.       1 of the     1 tally fluctuation chart bins did not pass all 10 statistical checks.
- warning.       1 of the     1 tallies had bins with relative errors greater than recommended.
 1tally fluctuation charts                              
 
                             tally      124
           nps      mean     error   vov  slope    fom
-    100000000   4.7143E-01 0.0039 0.0000 10.0    5317
-    200000000   4.7081E-01 0.0028 0.0000 10.0    5235
-    300000000   4.7093E-01 0.0023 0.0000 10.0    5204
-    400000000   4.7112E-01 0.0020 0.0000 10.0    5192
-    500000000   4.7122E-01 0.0018 0.0000 10.0    5173
-    600000000   4.7091E-01 0.0016 0.0000 10.0    5165
-    700000000   4.7112E-01 0.0015 0.0000 10.0    5162
-    800000000   4.7073E-01 0.0014 0.0000 10.0    5159
-    900000000   4.7064E-01 0.0013 0.0000 10.0    5155
-   1000000000   4.7049E-01 0.0012 0.0000 10.0    5154
+   7000000000   4.7128E-01 0.0005 0.0000 10.0    5135
+  14000000000   4.7147E-01 0.0003 0.0000 10.0    5135
+  21000000000   4.7144E-01 0.0003 0.0000 10.0    5134
+  28000000000   4.7151E-01 0.0002 0.0000 10.0    5133
+  35000000000   4.7146E-01 0.0002 0.0000 10.0    5132
+  42000000000   4.7077E-01 0.0002 0.0000  8.7    5133
+  48970711297   4.0376E-01 0.0002 0.0000  8.7    5132
 
  ***********************************************************************************************************************
 
- dump no.    2 on file runtpe     nps =  1000000000     coll =     1386727112     ctm =      125.50   nrn =      
- 16646074054
+ dump no.    2 on file runtpe     nps = 48970711297     coll =    58137863427     ctm =     5293.39   nrn =     
+ 697906900347
 
          5 warning messages so far.
 
 
- run terminated when  1000000000  particle histories were done.
+ run terminated because  12 particles got lost.
 
- computer time =  361.55 minutes
+ computer time = 5512.27 minutes
 
- mcnp     version 6.mpi 01/21/19                     04/17/19 16:03:34                     probid =  04/17/19 16:01:52 
+ mcnp     version 6.mpi 01/21/19                     04/17/19 23:06:39                     probid =  04/17/19 22:43:33 

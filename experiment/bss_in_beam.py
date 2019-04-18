@@ -17,7 +17,7 @@ class BSS_Data(object):
         """Docstring."""
 
         # nominal power level kW(th)
-        self.P = 1000
+        self.P = 1E5
 
         # sizes
         self.sizes = np.array([0, 2, 3, 5, 8, 10, 12])
