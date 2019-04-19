@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 from process_activities import Au_Foil_Data
 from theoretical_activities import Au_Foil_Theoretical

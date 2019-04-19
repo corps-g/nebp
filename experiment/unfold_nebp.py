@@ -19,7 +19,7 @@ class Unfold_NEBP(object):
         self.P = 1E5
 
         # unfolding parameters
-        self.params = {'tol': 1E-4, 'max_iter': 30}
+        self.params = {'tol': 1E-20, 'max_iter': 300}
 
         # number of foils used
         self.num_foils = 9
