@@ -17,7 +17,7 @@ class BSS_Data(object):
         """Docstring."""
 
         # nominal power level kW(th)
-        self.P = 1E5
+        self.P = 1000
 
         # sizes
         self.sizes = np.array([0, 2, 3, 5, 8, 10, 12])
@@ -40,7 +40,32 @@ class BSS_Data(object):
 
     def process_experiment(self):
         """Implement after experiment."""
-        pass
+        # LLD channel
+        lld = 400
+
+        # initialize array
+        counts = np.zeros(len(self.sizes))
+
+        # loop through each size
+        for i, size in enumerate(self.sizes):
+
+            #
+            filename = '4_18_19/bss' + str(size) + '.Spe'
+
+            # grab the data
+            with open(filename, 'r') as F:
+                lines = F.readlines()
+
+            # extract time
+            t = int(lines[1041])
+
+            # extract channel data
+            data = np.array([int(l) for l in lines[12:1036]])
+
+            # sum counts beyond lld, convert to rate, and store
+            counts[i] = np.sum(data[lld:]) / t
+
+        return counts
 
     def calc_responses(self):
         """Docstring."""

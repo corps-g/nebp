@@ -36,7 +36,7 @@ class BSS_Calibration(object):
         """Docstring."""
 
         # LLD channel
-        lld = 300
+        lld = 400
 
         # initialize array
         counts = np.zeros(len(self.sizes[1:]))

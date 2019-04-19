@@ -74,6 +74,11 @@ def plot_experiment():
     ax.set_yscale('log')
 
     # plot the data
+    # plot the data
+    style = {'color': 'red', 'marker': 'x', 'markerfacecolor': 'None',
+             'markeredgecolor': 'red', 'linestyle': 'None', 'label': 'Experimental',
+             'mew': 0.5, 'ms': 6}
+    ax.plot(data.sizes, data.experiment, **style)
     style = {'color': 'blue', 'marker': 'o', 'markerfacecolor': 'None',
              'markeredgecolor': 'blue', 'linestyle': 'None', 'label': 'Theoretical',
              'mew': 0.5, 'ms': 6}
@@ -83,11 +88,6 @@ def plot_experiment():
     ax.legend()
     plt.savefig('plot/bss_response.png', dpi=300)
     fig.clear()
-
-    # print time to get to statistics (m)
-    time = (10000 / data.responses) / 60
-    print('Time to Statistics: ', time)
-    print('Total Counting Time (m): ', sum(time))
 
     return
 
