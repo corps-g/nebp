@@ -16,6 +16,8 @@ def plot_calibration():
     ax.set_xticks(data.sizes)
     ax.set_xticklabels(['Bare'] + list(data.sizes[1:]))
     ax.set_yscale('log')
+    ax.set_xlabel('Sphere $in$')
+    ax.set_ylabel('Response $s^{-1}$')
 
     # plot the data
     style = {'color': 'red', 'marker': 'x', 'markerfacecolor': 'None',
@@ -72,6 +74,8 @@ def plot_experiment():
     ax.set_xticks(data.sizes)
     ax.set_xticklabels(['Bare'] + list(data.sizes[1:]))
     ax.set_yscale('log')
+    ax.set_xlabel('Sphere $in$')
+    ax.set_ylabel('Response $s^{-1}$')
 
     # plot the data
     # plot the data

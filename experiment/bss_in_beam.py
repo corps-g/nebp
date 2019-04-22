@@ -92,6 +92,9 @@ class BSS_Data(object):
             fig.savefig('plot/bs{}_spectrum.png'.format(i), dpi=300)
             fig.clear()
 
+        # correct for calibration efficiency
+        counts /= self.calibration.efficiency
+
         return counts
 
     def calc_responses(self):
@@ -115,9 +118,6 @@ class BSS_Data(object):
 
         # fold the rfs and the flux together, convert to uCi / atom
         self.responses = np.sum(response_functions * flux, axis=1)
-
-        # apply calibration efficiency
-        self.responses *= self.calibration.efficiency
 
         return
 

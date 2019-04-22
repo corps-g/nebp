@@ -1,4 +1,5 @@
 import numpy as np
+import scipy as sp
 import sys
 sys.path.insert(0, '../')
 import paths
@@ -41,6 +42,11 @@ class BSS_Calibration(object):
         # initialize array
         counts = np.zeros(len(self.sizes[1:]))
 
+        # model
+        def model(x, A, B, C, D, E):
+            """Docstring."""
+            return A * np.exp(-B * x) + C * (1 / np.sqrt(2 * np.pi * D**2)) * np.exp(-(x - E)**2 / (2 * D**2))
+
         # loop through each size
         for i, size in enumerate(self.sizes[1:]):
 
@@ -55,10 +61,34 @@ class BSS_Calibration(object):
             t = int(lines[1041])
 
             # extract channel data
-            data = np.array([int(l) for l in lines[12:1036]])
+            ydata = np.array([int(l) for l in lines[12:1036]])
+
+            # trim up to lld
+            ydata = ydata[lld:]
+            ydata = ydata[:600]
+
+            #
+            xdata = range(len(ydata))
+
+            # fit the curve
+            popt, pcov = sp.optimize.curve_fit(model, xdata, ydata, p0=[1, 1, 1, 1, 300])
 
             # sum counts beyond lld, convert to rate, and store
-            counts[i] = np.sum(data[lld:]) / t
+            counts[i] = popt[2] / t
+
+            # plot fit
+            fig = plt.figure(i + 300)
+            ax = fig.add_subplot(111)
+            ax.set_xlabel('Channel')
+            ax.set_ylabel('Counts')
+            ax.plot(xdata, ydata, color='navy', ls='None', marker='.', markersize=0.3, label='Data')
+            ax.plot(xdata, model(xdata, *popt), color='seagreen', label='Model')
+            ax.legend()
+            fig.savefig('plot/bs{}_calibration_spectrum.png'.format(i + 1), dpi=300)
+            fig.clear()
+
+            # sum counts beyond lld, convert to rate, and store
+            counts[i] = popt[2] / t
 
         return counts
 
