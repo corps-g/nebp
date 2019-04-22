@@ -35,7 +35,7 @@ class Au_Foil_Theoretical(object):
         flux_data = extract_mcnp('n', self.experiment.P)
 
         # sum to only energy dependent (exclude the first cos group)
-        flux = np.sum(flux_data[:, 1:, :, 0], axis=(0, 1))
+        flux = np.sum(flux_data[:, 1:, 1:, 0], axis=(0, 1))
 
         # get response functions
         responses = response_data()

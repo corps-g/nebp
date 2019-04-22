@@ -79,7 +79,7 @@ class BSS_Calibration(object):
         response_functions = np.array(response_functions)
 
         # fold the rfs and the flux together, convert to uCi / atom
-        self.responses = np.sum(response_functions * flux, axis=1)
+        self.responses = np.sum(response_functions * flux[1:], axis=1)
 
         return
 

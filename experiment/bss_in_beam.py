@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import sys
 sys.path.insert(0, '../')
 import paths
@@ -43,8 +44,18 @@ class BSS_Data(object):
         # LLD channel
         lld = 400
 
+        # channels surrounding peak
+        L = 1000
+        R = 1800
+        w = 10
+
         # initialize array
         counts = np.zeros(len(self.sizes))
+
+        # model
+        def model(x, A, B, C, D, E):
+            """Docstring."""
+            return A * np.exp(-B * x) + C * (1 / np.sqrt(2 * np.pi * D**2)) * np.exp(-(x - E)**2 / (2 * D**2))
 
         # loop through each size
         for i, size in enumerate(self.sizes):
@@ -57,13 +68,25 @@ class BSS_Data(object):
                 lines = F.readlines()
 
             # extract time
-            t = int(lines[1041])
+            t = int(lines[2065])
 
             # extract channel data
-            data = np.array([int(l) for l in lines[12:1036]])
+            data = np.array([int(l) for l in lines[12:2059]])
+
+            # get average backgrounds
+            L_avg = np.average(data[L - w // 2:L + w // 2])
+            R_avg = np.average(data[R - w // 2:R + w // 2])
+
+            # compute bg area
+            bg = (R - L) * (min([L_avg, R_avg]) + 0.5 * (max([L_avg, R_avg]) - min([L_avg, R_avg])))
 
             # sum counts beyond lld, convert to rate, and store
-            counts[i] = np.sum(data[lld:]) / t
+            counts[i] = (np.sum(data[L:R]) - bg) / t
+
+            plt.figure(i)
+            plt.plot(data)
+            plt.plot([L, R], [L_avg, R_avg])
+            #plt.yscale('log')
 
         return counts
 
@@ -74,7 +97,7 @@ class BSS_Data(object):
         flux_data = extract_mcnp('n', self.P)
 
         # sum to only energy dependent (exclude the first cos group)
-        flux = np.sum(flux_data[:, 1:, :, 0], axis=(0, 1))
+        flux = np.sum(flux_data[:, 1:, 1:, 0], axis=(0, 1))
 
         # get response functions
         responses = response_data()
@@ -91,9 +114,6 @@ class BSS_Data(object):
 
         # apply calibration efficiency
         self.responses *= self.calibration.efficiency
-
-        # apply nebp fudge factor
-        self.responses *= self.nebp_fudge_factor
 
         return
 
