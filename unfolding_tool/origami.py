@@ -47,6 +47,10 @@ def Gravel(N, sigma2, R, f_def, params):
     # begin iteration
     while iteration < max_iter and norm(N0 - N, ord=2) > tol:
 
+        # print info
+        message = 'Iteration {}: Error {}'.format(iteration, norm(N0 - N, ord=2))
+        print(message)
+
         # break down equations into simpler terms
         a = (R * f)
         b = np.sum(R * f, axis=1)
@@ -66,6 +70,10 @@ def Gravel(N, sigma2, R, f_def, params):
         # update f
         N0 = np.sum(R * f, axis=1)
         iteration += 1
+
+    # print info
+    message = 'Final Iteration {}: Error {}'.format(iteration, norm(N0 - N, ord=2))
+    print(message)
 
     return f
 

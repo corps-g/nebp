@@ -19,7 +19,7 @@ class Unfold_NEBP(object):
         self.P = 1E5
 
         # unfolding parameters
-        self.params = {'tol': 1E-20, 'max_iter': 300}
+        self.params = {'tol': 1E-22, 'max_iter': 500}
 
         # number of foils used
         self.num_foils = 9
@@ -45,7 +45,7 @@ class Unfold_NEBP(object):
         flux_data = extract_mcnp('n', self.P)
 
         # sum to only energy dependent (exclude the first cos group)
-        flux = np.sum(flux_data[:, 1:, :, 0], axis=(0, 1))
+        flux = np.sum(flux_data[:, 1:, :, 0], axis=(0, 1))[1:]
 
         return flux
 
@@ -64,7 +64,7 @@ class Unfold_NEBP(object):
         response_functions = np.array(response_functions)
 
         #
-        response_functions = response_functions[:self.num_foils]
+        response_functions = response_functions[:self.num_foils, 1:]
 
         return response_functions, eb
 
