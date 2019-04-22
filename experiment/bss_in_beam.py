@@ -1,4 +1,5 @@
 import numpy as np
+import scipy as sp
 import matplotlib.pyplot as plt
 import sys
 sys.path.insert(0, '../')
@@ -44,11 +45,6 @@ class BSS_Data(object):
         # LLD channel
         lld = 400
 
-        # channels surrounding peak
-        L = 1000
-        R = 1800
-        w = 10
-
         # initialize array
         counts = np.zeros(len(self.sizes))
 
@@ -71,22 +67,30 @@ class BSS_Data(object):
             t = int(lines[2065])
 
             # extract channel data
-            data = np.array([int(l) for l in lines[12:2059]])
+            ydata = np.array([int(l) for l in lines[12:2059]])
 
-            # get average backgrounds
-            L_avg = np.average(data[L - w // 2:L + w // 2])
-            R_avg = np.average(data[R - w // 2:R + w // 2])
+            # trim up to lld
+            ydata = ydata[lld:1900]
 
-            # compute bg area
-            bg = (R - L) * (min([L_avg, R_avg]) + 0.5 * (max([L_avg, R_avg]) - min([L_avg, R_avg])))
+            #
+            xdata = range(len(ydata))
+
+            # fit the curve
+            popt, pcov = sp.optimize.curve_fit(model, xdata, ydata, p0=[1, 1, 1, 1, 1000])
 
             # sum counts beyond lld, convert to rate, and store
-            counts[i] = (np.sum(data[L:R]) - bg) / t
+            counts[i] = popt[2] / t
 
-            plt.figure(i)
-            plt.plot(data)
-            plt.plot([L, R], [L_avg, R_avg])
-            #plt.yscale('log')
+            # plot fit
+            fig = plt.figure(i + 200)
+            ax = fig.add_subplot(111)
+            ax.set_xlabel('Channel')
+            ax.set_ylabel('Counts')
+            ax.plot(xdata, ydata, color='navy', ls='None', marker='.', markersize=0.3, label='Data')
+            ax.plot(xdata, model(xdata, *popt), color='seagreen', label='Model')
+            ax.legend()
+            fig.savefig('plot/bs{}_spectrum.png'.format(i), dpi=300)
+            fig.clear()
 
         return counts
 
