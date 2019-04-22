@@ -133,7 +133,7 @@ def response_data():
             # convert to name
             new_name = 'ft_au' + str(((name - 4) // 10) - 13)
 
-            response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
+            response_data[new_name] = Spectrum(erg_struct, tally[1:, 0], tally[1:, 1])
 
     # the indium foil tube ------------------------------------------------------
     scaling_factor = (7.31 * N_A * 1E-24 * 252) / (115 * 20)
@@ -148,7 +148,7 @@ def response_data():
             # convert to name
             new_name = 'ft_in' + str(((name - 4) // 10) - 13)
 
-            response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
+            response_data[new_name] = Spectrum(erg_struct, tally[1:, 0], tally[1:, 1])
 
     # the bonner spheres ------------------------------------------------------
     V = 5.02655E-02
@@ -167,7 +167,7 @@ def response_data():
                 # convert to name
                 new_name = 'bs{}'.format(str(sphere_size)) + str(((name - 4) // 10) - 13)
 
-                response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
+                response_data[new_name] = Spectrum(erg_struct, tally[1:, 0], tally[1:, 1])
 
     # the point bonner spheres ------------------------------------------------
     scaling_factor = (rho * N_A * 1E-24 * V * 252) / M
@@ -180,7 +180,7 @@ def response_data():
             # convert to name
             new_name = 'pbs{}'.format(str(sphere_size))
 
-            response_data[new_name] = Spectrum(erg_struct, tally[:, 0], tally[:, 1])
+            response_data[new_name] = Spectrum(erg_struct, tally[1:, 0], tally[1:, 1])
 
     return response_data
 
@@ -200,7 +200,8 @@ def plot_response_data():
     ax.set_ylabel('Response Function $cm^2$')
 
     # establish colormap
-    color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
+    num_au = [1 if 'ft_au' in name else 0 for name in responses.keys()].count(1)
+    color = plt.cm.terrain(np.linspace(0, 1, num_au))
 
     # loop through integral responses
     for i, item in enumerate(responses.items()):
@@ -360,7 +361,7 @@ def plot_response_cdfs():
     # get the data
     responses = response_data()
     flux_data = extract_mcnp('n', 1)
-    flux = flux_data[:, :, :, 0]
+    flux = flux_data[:, :, 1:, 0]
     flux_erg = np.sum(flux, axis=(0, 1))
 
     # plot response functions -------------------------------------------------

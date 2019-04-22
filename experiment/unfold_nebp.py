@@ -19,7 +19,7 @@ class Unfold_NEBP(object):
         self.P = 1E5
 
         # unfolding parameters
-        self.params = {'tol': 1E-22, 'max_iter': 500}
+        self.params = {'tol': 0, 'max_iter': 100, 'Omega': 9, 'evolution': True, 'scale': True}
 
         # number of foils used
         self.num_foils = 9
@@ -34,7 +34,7 @@ class Unfold_NEBP(object):
         self.N = self.prepare_responses()
 
         # unfold
-        self.sol = self.unfold()
+        self.sol_gravel, self.evolution, self.sol_maxed = self.unfold()
 
         return
 
@@ -64,7 +64,7 @@ class Unfold_NEBP(object):
         response_functions = np.array(response_functions)
 
         #
-        response_functions = response_functions[:self.num_foils, 1:]
+        response_functions = response_functions[:self.num_foils]
 
         return response_functions, eb
 
@@ -83,9 +83,10 @@ class Unfold_NEBP(object):
         """Docstring."""
 
         # unfold
-        solution = unfold(self.N, self.N * 0.05, self.R, self.ds, method='Gravel', params=self.params)
+        grv_solution, evolution = unfold(self.N, self.N * 0.05, self.R, self.ds, method='Gravel', params=self.params)
+        max_solution = unfold(self.N, self.N * 0.05, self.R, self.ds, method='MAXED', params=self.params)
 
-        return solution
+        return grv_solution, evolution, max_solution
 
 if __name__ == '__main__':
     unfolded_nebp = Unfold_NEBP()

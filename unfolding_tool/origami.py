@@ -3,6 +3,22 @@ from numpy.linalg import norm
 from scipy.optimize import basinhopping
 
 
+def preprocess(N, sigma2, R, f_def, params):
+    """Apply any preprocessing steps to the data."""
+
+    #
+    if 'scale' in params:
+        if params['scale']:
+
+            #
+            N0 = np.sum(R * f_def, axis=1)
+
+            #
+            f_def *= np.average(N / N0)
+
+    return N, sigma2, R, f_def, params
+
+
 def MAXED(N, sigma2, R, f_def, params):
     """The MAXED unfolding algorithm."""
 
@@ -39,6 +55,11 @@ def Gravel(N, sigma2, R, f_def, params):
     max_iter = params['max_iter']
     tol = params['tol']
 
+    # evolution
+    if 'evolution' in params:
+        evolution = params['evolution']
+        evolution_list = []
+
     # initalize
     iteration = 0
     f = f_def
@@ -50,6 +71,10 @@ def Gravel(N, sigma2, R, f_def, params):
         # print info
         message = 'Iteration {}: Error {}'.format(iteration, norm(N0 - N, ord=2))
         print(message)
+
+        # add evolution
+        if evolution:
+            evolution_list.append(f)
 
         # break down equations into simpler terms
         a = (R * f)
@@ -75,6 +100,11 @@ def Gravel(N, sigma2, R, f_def, params):
     message = 'Final Iteration {}: Error {}'.format(iteration, norm(N0 - N, ord=2))
     print(message)
 
+    # add evolution
+    if evolution:
+        evolution_list.append(f)
+        return f, evolution_list
+
     return f
 
 
@@ -87,6 +117,9 @@ def unfold(N, sigma2, R, f_def, method='MAXED', params={}):
     assert method in available_methods, 'method must by literal in {}'.format(available_methods)
     assert len(N) == len(sigma2), 'N and sigma2 must be the same length.'
     assert R.shape == (len(N), len(f_def)), 'Shape of R must be consistent with other inputs.'
+
+    # preprocess the data
+    N, sigma2, R, f_def, params = preprocess(N, sigma2, R, f_def, params)
 
     # unfold with MAXED
     if method == 'MAXED':
