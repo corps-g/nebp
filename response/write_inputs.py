@@ -198,7 +198,7 @@ def write_all_inputs():
     """A small utility used to test write_input()."""
 
     for bonner_size in [0, 2, 3, 5, 8, 10, 12]:
-        #write_input('bs', bonner_size=bonner_size)
+        write_input('bs', bonner_size=bonner_size)
         write_point_bonner(bonner_size)
     #write_input('ft', 'au', 32.0)
 
