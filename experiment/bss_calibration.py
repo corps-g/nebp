@@ -51,7 +51,7 @@ class BSS_Calibration(object):
         for i, size in enumerate(self.sizes[1:]):
 
             #
-            filename = '4_17_19/cf' + str(size) + '.Spe'
+            filename = paths.main_path + '/experiment/4_17_19/cf' + str(size) + '.Spe'
 
             # grab the data
             with open(filename, 'r') as F:

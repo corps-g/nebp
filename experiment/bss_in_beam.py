@@ -57,7 +57,7 @@ class BSS_Data(object):
         for i, size in enumerate(self.sizes):
 
             #
-            filename = '4_18_19/bss' + str(size) + '.Spe'
+            filename = paths.main_path + '/experiment/4_18_19/bss' + str(size) + '.Spe'
 
             # grab the data
             with open(filename, 'r') as F:

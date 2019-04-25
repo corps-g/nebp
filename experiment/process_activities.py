@@ -1,5 +1,8 @@
 import numpy as np
 import re
+import sys
+sys.path.insert(0, '../')
+import paths
 from scipy.constants import N_A
 from scipy.integrate import odeint
 from scipy.interpolate import interp1d
@@ -39,7 +42,7 @@ class Au_Foil_Data(object):
         self.n = len(self.foil_ids)
 
         # foil masses (g)
-        self.masses = np.loadtxt('4_5_19/masses.txt', skiprows=1)
+        self.masses = np.loadtxt(paths.main_path + '/experiment/4_5_19/masses.txt', skiprows=1)
 
         # the nominal power level in W(th), 100 kW(th)
         self.P = 1E5
@@ -91,7 +94,7 @@ class Au_Foil_Data(object):
         for i, foil_id in enumerate(self.foil_ids):
 
             # create filename
-            filename = '4_5_19/au' + foil_id + '.RPT'
+            filename = paths.main_path + '/experiment/4_5_19/au' + foil_id + '.RPT'
 
             # read the file
             with open(filename, 'r') as F:
@@ -135,7 +138,7 @@ class Au_Foil_Data(object):
         those values by the nominal power."""
 
         # read the file, slicing off the last 2000 lines, as they are unneeded
-        with open('4_5_19/5APR2019.txt', 'r') as F:
+        with open(paths.main_path + '/experiment/4_5_19/5APR2019.txt', 'r') as F:
             lines = F.readlines()[:-2000]
 
         # create structures to house the data
