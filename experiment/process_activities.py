@@ -56,6 +56,9 @@ class Au_Foil_Data(object):
         # reset the absolute time so irradiation begins at 0s.
         self.shift_times()
 
+        # correct for the decay during measurement
+        self.correct_a_c()
+
         # calculate the saturation activities
         self.calc_a_sat()
 
@@ -87,8 +90,8 @@ class Au_Foil_Data(object):
         extract the irradiation times and measured activities."""
 
         # a data structure to store the irradiation information
-        # 4 is the number of values to be extracted from each file
-        foil_activities = np.zeros((len(self.foil_ids), 4))
+        # 5 is the number of values to be extracted from each file
+        foil_activities = np.zeros((len(self.foil_ids), 5))
 
         # grab info for each foil
         for i, foil_id in enumerate(self.foil_ids):
@@ -114,6 +117,13 @@ class Au_Foil_Data(object):
             # convert live times to floats
             live_time = float(results[0].split()[-2])
 
+            # pull the detector real times
+            pattern = re.compile(r'Real Time                       :\s+\d+.\d seconds')
+            results = re.findall(pattern, output)
+
+            # convert live times to floats
+            real_time = float(results[0].split()[-2])
+
             # pull the counting times
             pattern = re.compile(r'Acquisition Started             : \d/\d?\d/\d\d\d\d\s+\d?\d:\d\d:\d\d [AP]M')
             results = re.findall(pattern, output)
@@ -125,10 +135,10 @@ class Au_Foil_Data(object):
             t_c = self.convert_time(*t_c)
 
             # store data in structure
-            foil_activities[i] = act, err, live_time, t_c
+            foil_activities[i] = act, err, live_time, real_time, t_c
 
         # unpack the columns into arrays stored by the object
-        self.a_c, self.a_c_error, self.live, self.t_c = foil_activities.T
+        self.a_c, self.a_c_error, self.live, self.real, self.t_c = foil_activities.T
 
         return
 
@@ -184,6 +194,17 @@ class Au_Foil_Data(object):
         # shift every absolute temporal value
         self.times -= shift
         self.t_c -= shift
+
+        return
+
+    def correct_a_c(self):
+        """A utility that corrects the measured activity to represent the ----------------------------------------------
+        activity at the beginning of the measurement, not an average value."""
+
+        # calculate the new activity
+        lt = self.real * self.decay_constant
+        measurement_bias = lt / (1 - np.exp(-lt))
+        self.a_c = self.a_c * measurement_bias
 
         return
 

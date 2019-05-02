@@ -181,8 +181,8 @@ def plot_au_rfs_and_unfolded():
 def plot_all():
     """A utility that calls every plotting function in this file."""
 
-    #plot_activities()
-    plot_au_rfs_and_unfolded()
+    plot_activities()
+    #plot_au_rfs_and_unfolded()
 
     return
 
