@@ -24,7 +24,16 @@ class Plotting_Tool():
 
     def __init__(self):
         """Initializes the object with some default parameters set."""
+        self.set_cmap()
         self.set_au_parameters()
+
+    def set_cmap(self):
+        """This sets the colormaps that will be used throughout the thesis."""
+
+        # set a colormap
+        self.cmap = 'inferno'
+
+        return
 
     def set_au_parameters(self):
         """This includes all of the gold foils used in the experiment and the
@@ -58,7 +67,8 @@ class Plotting_Tool():
 
 
 def plotting_environment(fig_num, xlabel, ylabel, xscale='linear', yscale='linear',
-                         xticks=None, xticklabels=None, figsize=(10, 6)):
+                         xticks=None, xticklabels=None, yticks=None, yticklabels=None,
+                         figsize=(10, 6)):
     """Sets up a plotting environment using matplotlib."""
 
     # create the figure
@@ -75,11 +85,15 @@ def plotting_environment(fig_num, xlabel, ylabel, xscale='linear', yscale='linea
     ax.set_xscale(xscale)
     ax.set_yscale(yscale)
 
-    # set the xticks and their labels
+    # set the ticks and their labels
     if xticks:
         ax.set_xticks(xticks)
     if xticklabels:
         ax.set_xticklabels(xticklabels)
+    if yticks:
+        ax.set_yticks(yticks)
+    if yticklabels:
+        ax.set_yticklabels(yticklabels)
 
     # return both the figure and the axes
     return fig, ax
@@ -108,26 +122,36 @@ def mirror_element(rr_density):
 def plot_fission_rates():
     """A utility to visualize the fission data from the ksu-triga core."""
 
+    # plotting parameters
+    tool = Plotting_Tool()
+
+    # set values to poster defaults
+    tool.set_poster_defaults()
+
     # grab data
     core = extract_fission_data()
 
+    # -------------------------------------------------------------------------
+    #                                                            single element
     # plot a heatmap of the in-element fission rate densities
-    # initalize plotting environment
-    fig = plt.figure(0, figsize=(2, 10))
-
     # grab an element
     element = core.fuel['201']
 
+    # initalize plotting environment
+    fig, ax = plotting_environment(0, '$r$', '$z$', figsize=(3, 10),
+                                   xticks=[10], xticklabels=[10], yticks=[20], yticklabels=[20])
+
     # plot the reaction rate density map
-    ax = fig.add_subplot(111)
-    ext = [*element.rad_dims, *element.ax_dims]
+    ext = [-element.rad_dims[1], element.rad_dims[1], *element.ax_dims]
     ax.imshow(mirror_element(element.rr_density), vmin=core.min_rr_density,
-              vmax=core.max_rr_density, extent=ext, cmap='viridis')
+              vmax=core.max_rr_density, extent=ext, cmap=tool.cmap)
 
     # save the elements plot
     fig.savefig('plot/rr_dist_B1.png', dpi=300)
     plt.close(fig)
 
+    # -------------------------------------------------------------------------
+    #                                                                    others
     # plot the axial and radial distributions for each ring
     # loop through each ring
     rr_dens = []
