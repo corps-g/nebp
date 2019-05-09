@@ -5,6 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc, rcParams
 from matplotlib.pyplot import cm
+from group_structures import energy_groups
+from fission import extract_fission_data
 from process_activities import Au_Foil_Data
 from theoretical_activities import Au_Foil_Theoretical
 from bss_calibration import BSS_Calibration
@@ -81,6 +83,91 @@ def plotting_environment(fig_num, xlabel, ylabel, xscale='linear', yscale='linea
 
     # return both the figure and the axes
     return fig, ax
+
+
+def mirror_element(rr_density):
+    """Given a fission rate density map, creates a symmetric mirror with an empty
+    middle channel to more closely resemble an actual element."""
+
+    # grab the shape of the matrix
+    n_ax, n_rad = rr_density.shape
+
+    # create an new, appropriately sized matrix
+    new_map = np.zeros((n_ax, n_rad * 2 + 1))
+
+    # flip the existing data onto the 'left' side of the new matrix
+    new_map[:, 0:n_rad] = rr_density[:, ::-1]
+
+    # fill the 'right' side of the new matrix with the existing data
+    new_map[:, n_rad + 1:] = rr_density[:, ]
+
+    # return this new matrix, noting the 'hole' of zeros in the center column
+    return new_map
+
+
+def plot_fission_rates():
+    """A utility to visualize the fission data from the ksu-triga core."""
+
+    # plotting parameters
+    tool = Plotting_Tool()
+
+    # set values to poster defaults
+    tool.set_poster_defaults()
+
+    # grab data
+    core = extract_fission_data()
+
+    # ---------------------------------- plot a heatmap of the in-element fission rate densities
+    # initalize plotting environment
+    fig = plt.figure(0, figsize=(2, 10))
+
+    # grab an element
+    element = core.fuel['201']
+
+    # plot the reaction rate density map
+    ax = fig.add_subplot(111)
+    ext = [*element.rad_dims, *element.ax_dims]
+    ax.imshow(mirror_element(element.rr_density), vmin=core.min_rr_density, vmax=core.max_rr_density, extent=ext, cmap='viridis')
+
+    # save the elements plot
+    fig.savefig('plot/rr_dist_B1.png', dpi=300)
+    plt.close(fig)
+
+    # ---------------------------------- plot the axial and radial distributions for each ring
+    # loop through each ring
+    for i in range(2, 7):
+
+        # make a list of each element in that ring
+        ring_elements = []
+        for element_id in core.fuel.keys():
+            if str(i) == element_id[0]:
+                ring_elements.append(element_id)
+
+        # set up plotting environment
+        fig0 = plt.figure(i, figsize=(3, 10))
+        ax0 = fig0.add_subplot(111)
+        fig1 = plt.figure(i + 10, figsize=(8, 6))
+        ax1 = fig1.add_subplot(111)
+
+        # now loop through the elements in a given ring
+        for element_id in ring_elements:
+
+            # grab the individual element
+            element = core.fuel[element_id]
+
+            # plot the axial and radial reaction rate
+            ax0.plot(element.rr_density_ax, element.ax_mps, label=element_id)
+            ax1.plot(element.rad_mps, element.rr_density_rad, label=element_id)
+
+        # add a legend and save the figure
+        ax0.legend()
+        ax1.legend()
+        fig0.savefig('plot/axial_rr_density_{}'.format(i), dpi=300)
+        fig1.savefig('plot/radial_rr_density_{}'.format(i), dpi=300)
+        plt.close(fig0)
+        plt.close(fig1)
+
+    return
 
 
 def plot_activities():
@@ -181,7 +268,8 @@ def plot_au_rfs_and_unfolded():
 def plot_all():
     """A utility that calls every plotting function in this file."""
 
-    plot_activities()
+    plot_fission_rates()
+    #plot_activities()
     #plot_au_rfs_and_unfolded()
 
     return
