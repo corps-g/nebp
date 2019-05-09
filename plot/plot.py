@@ -108,16 +108,10 @@ def mirror_element(rr_density):
 def plot_fission_rates():
     """A utility to visualize the fission data from the ksu-triga core."""
 
-    # plotting parameters
-    tool = Plotting_Tool()
-
-    # set values to poster defaults
-    tool.set_poster_defaults()
-
     # grab data
     core = extract_fission_data()
 
-    # ---------------------------------- plot a heatmap of the in-element fission rate densities
+    # plot a heatmap of the in-element fission rate densities
     # initalize plotting environment
     fig = plt.figure(0, figsize=(2, 10))
 
@@ -127,14 +121,20 @@ def plot_fission_rates():
     # plot the reaction rate density map
     ax = fig.add_subplot(111)
     ext = [*element.rad_dims, *element.ax_dims]
-    ax.imshow(mirror_element(element.rr_density), vmin=core.min_rr_density, vmax=core.max_rr_density, extent=ext, cmap='viridis')
+    ax.imshow(mirror_element(element.rr_density), vmin=core.min_rr_density,
+              vmax=core.max_rr_density, extent=ext, cmap='viridis')
 
     # save the elements plot
     fig.savefig('plot/rr_dist_B1.png', dpi=300)
     plt.close(fig)
 
-    # ---------------------------------- plot the axial and radial distributions for each ring
+    # plot the axial and radial distributions for each ring
     # loop through each ring
+    rr_dens = []
+    rr_totals = []
+    rr_densax = []
+    rr_abstotals = []
+    rings = ['A', 'B', 'C', 'D', 'E', 'F']
     for i in range(2, 7):
 
         # make a list of each element in that ring
@@ -144,29 +144,103 @@ def plot_fission_rates():
                 ring_elements.append(element_id)
 
         # set up plotting environment
-        fig0 = plt.figure(i, figsize=(3, 10))
+        fig0 = plt.figure(i, figsize=(4, 10))
         ax0 = fig0.add_subplot(111)
+        ax0.set_xlabel('Fission Rate')
+        ax0.set_ylabel('$z$ (cm)')
         fig1 = plt.figure(i + 10, figsize=(8, 6))
         ax1 = fig1.add_subplot(111)
+        ax1.set_xlabel('r (cm)')
+        ax1.set_ylabel('Fission Rate')
+
+        color = cm.rainbow(np.linspace(0, 1, len(ring_elements)))
+
+        rr_den = 0
+        rr_total = 0
+        rr_denax = 0
+
+        ring = []
 
         # now loop through the elements in a given ring
-        for element_id in ring_elements:
+        for j, element_id in enumerate(ring_elements):
+
+            rr_den += element.rr_density_rad/len(ring_elements)
+
+            rr_denax += element.rr_density_ax/len(ring_elements)
+
+            rr_total += element.total_fission_rate/len(ring_elements)
+
+            ring.append(element.total_fission_rate)
 
             # grab the individual element
             element = core.fuel[element_id]
 
-            # plot the axial and radial reaction rate
-            ax0.plot(element.rr_density_ax, element.ax_mps, label=element_id)
-            ax1.plot(element.rad_mps, element.rr_density_rad, label=element_id)
+            # plot the axial and radial reaction
+            ax0.plot(element.rr_density_ax, element.ax_mps,
+                     color=color[j], label=element_id)
+            ax1.plot(element.rad_mps, element.rr_density_rad,
+                     color=color[j], label=element_id)
+
+        rr_abstotals.append(ring)
+        rr_totals.append(rr_total)
+        rr_dens.append(rr_den)
+        rr_densax.append(rr_denax)
 
         # add a legend and save the figure
-        ax0.legend()
-        ax1.legend()
-        fig0.savefig('plot/axial_rr_density_{}'.format(i), dpi=300)
-        fig1.savefig('plot/radial_rr_density_{}'.format(i), dpi=300)
+        leg0 = ax0.legend(loc='center right', bbox_to_anchor=(
+            1.4, 0.5), ncol=1, fancybox=True, framealpha=1.0,
+            shadow=True, edgecolor='k', facecolor='white')
+        leg1 = ax1.legend(loc='center right', bbox_to_anchor=(
+            1.2, 0.5), ncol=1, fancybox=True, framealpha=1.0,
+            shadow=True, edgecolor='k', facecolor='white')
+        fig0.savefig('plot/axial_rr_density_{}'.format(i), dpi=300,
+                     bbox_extra_artists=(leg0,), bbox_inches='tight')
+        fig1.savefig('plot/radial_rr_density_{}'.format(i), dpi=300,
+                     bbox_extra_artists=(leg1,), bbox_inches='tight')
         plt.close(fig0)
         plt.close(fig1)
 
+    rr_abstotals[1].insert(6, 0)
+    rr_abstotals[2].insert(3, 0)
+    rr_abstotals[2].insert(15, 0)
+    rr_abstotals[3].insert(0, 0)
+    rr_abstotals[4].insert(9, 0)
+
+    fig5 = plt.figure(100, figsize=(10, 10))
+    ax5 = fig5.add_subplot(111)
+    for i in range(len(rr_abstotals)):
+        azi = np.linspace(0, 2*np.pi, len(rr_abstotals[i]))
+        ax5.plot(azi, rr_abstotals[i], ls='None', marker='o')
+    fig5.savefig('plot/totals_azi')
+    plt.close(fig5)
+
+    fig2 = plt.figure(100, figsize=(10, 10))
+    ax2 = fig2.add_subplot(111)
+    ax2.plot(np.linspace(0, 1, len(rr_totals)), rr_totals)
+    fig2.savefig('plot/total_fr')
+    plt.close(fig2)
+
+    fig3 = plt.figure(100, figsize=(10, 10))
+    ax3 = fig3.add_subplot(111)
+    for i in range(len(rr_dens)):
+        ax3.plot(element.rad_mps, rr_dens[i], label=rings[i+1])
+    leg3 = ax3.legend(loc='center right', bbox_to_anchor=(1.4, 0.5), ncol=1,
+                      fancybox=True, framealpha=1.0, shadow=True,
+                      edgecolor='k', facecolor='white')
+    fig3.savefig('plot/rr_dens', dpi=300,
+                 bbox_extra_artists=(leg3,), bbox_inches='tight')
+    plt.close(fig3)
+
+    fig4 = plt.figure(100, figsize=(10, 10))
+    ax4 = fig4.add_subplot(111)
+    for i in range(len(rr_densax)):
+        ax4.plot(rr_densax[i], element.ax_mps, label=rings[i+1])
+    leg4 = ax4.legend(loc='center right', bbox_to_anchor=(1.4, 0.5), ncol=1,
+                      fancybox=True, framealpha=1.0, shadow=True,
+                      edgecolor='k', facecolor='white')
+    fig4.savefig('plot/rr_densax', dpi=300,
+                 bbox_extra_artists=(leg4,), bbox_inches='tight')
+    plt.close(fig4)
     return
 
 
