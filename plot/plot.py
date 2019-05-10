@@ -181,7 +181,7 @@ def plot_fission_rates():
         ax.spines['right'].set_visible(False)
 
         # save and close the figure
-        fig.savefig('plot/axial_rr_density_{}'.format(ring), dpi=300,
+        fig.savefig('plot/axial_rr_density_{}.png'.format(ring), dpi=300,
                     bbox_extra_artists=(leg,), bbox_inches='tight')
         plt.close(fig)
 
@@ -215,11 +215,35 @@ def plot_fission_rates():
         ax.spines['right'].set_visible(False)
 
         # save and close the figure
-        fig.savefig('plot/radial_rr_density_{}'.format(ring), dpi=300,
+        fig.savefig('plot/radial_rr_density_{}.png'.format(ring), dpi=300,
                     bbox_extra_artists=(leg,), bbox_inches='tight')
         plt.close(fig)
+
+    # -------------------------------------------------------------------------
+    #                                                       total fission rates
+    # setup plotting environment
+    fig, ax = plotting_environment(1, r'$\phi$ (deg)', 'Fission Rate', figsize=(10, 8),
+                                   yticks=[10], yticklabels=[10])
+
+    # set up a color pallete
+    colors = seaborn.color_palette('hls', len(core.rings))
+
+    # loop through data and plot
+    for i in range(len(core.rr_totals)):
+
+        # plot the ring's total reaction rate
+        ax.plot(core.azis[i], core.rr_totals[i], marker='o', color=colors[i], label=core.rings[i])
+
+    # create a legend
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(
+                    0.5, 1.03), ncol=5, fancybox=True, framealpha=1.0,
+                    shadow=True, edgecolor='k', facecolor='white')
+
+    # save the figure and close
+    fig.savefig('plot/totals_azi.png')
+    plt.close(fig)
+
     return
-        
     # -------------------------------------------------------------------------
     #                                                                    others
     # plot the axial and radial distributions for each ring
@@ -271,13 +295,7 @@ def plot_fission_rates():
     rr_abstotals[3].insert(0, 0)
     rr_abstotals[4].insert(9, 0)
 
-    fig5 = plt.figure(100, figsize=(10, 10))
-    ax5 = fig5.add_subplot(111)
-    for i in range(len(rr_abstotals)):
-        azi = np.linspace(0, 2*np.pi, len(rr_abstotals[i]))
-        ax5.plot(azi, rr_abstotals[i], ls='None', marker='o')
-    fig5.savefig('plot/totals_azi')
-    plt.close(fig5)
+    
 
     fig2 = plt.figure(100, figsize=(10, 10))
     ax2 = fig2.add_subplot(111)

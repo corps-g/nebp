@@ -84,6 +84,7 @@ class Triga_Core(object):
         self.calc_extrema()
         self.calc_core_averages()
         self.pull_ring_ids()
+        self.consolidate_total_fission_rates()
 
     def calc_extrema(self):
         """Calculates the min and max rr densities"""
@@ -110,7 +111,7 @@ class Triga_Core(object):
         self.rings = ['B', 'C', 'D', 'E', 'F']
 
         # loop through each ring
-        for i in range(5):
+        for i in range(len(self.rings)):
 
             # open new structures for this ring
             ring_elements = []
@@ -128,6 +129,34 @@ class Triga_Core(object):
             # now append the ring's list to the main list
             self.ids.append(ring_elements)
             self.names.append(ring_names)
+        return
+
+    def consolidate_total_fission_rates(self):
+        """This puts the total fission rates in a structure that matches self.names."""
+
+        # initialize structures for total reaction rates and azimuthal angles
+        self.rr_totals = []
+        self.azis = []
+
+        # loop through each ring
+        for ring_ids in self.ids:
+
+            # initialize a structure for this ring
+            rr_totals = []
+
+            # then, loop through each element in the ring
+            for element_id in ring_ids:
+
+                # pull the element
+                element = self.fuel[element_id]
+
+                # append the appropriate info
+                rr_totals.append(element.total_fission_rate)
+
+            # append the ring azis and totals
+            self.rr_totals.append(rr_totals)
+            self.azis.append(np.linspace(0, 2 * np.pi, len(rr_totals)) * (180 / np.pi))
+
         return
 
 
