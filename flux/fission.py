@@ -107,10 +107,10 @@ class Triga_Core(object):
         self.names = []
 
         # the ring's letters
-        rings = ['A', 'B', 'C', 'D', 'E', 'F']
+        self.rings = ['B', 'C', 'D', 'E', 'F']
 
         # loop through each ring
-        for i in range(1, 6):
+        for i in range(5):
 
             # open new structures for this ring
             ring_elements = []
@@ -118,11 +118,11 @@ class Triga_Core(object):
 
             # loop through each element and if it's in the ring, append it
             for element_id in self.fuel.keys():
-                if str(i + 1) == element_id[0]:
+                if str(i + 2) == element_id[0]:
                     ring_elements.append(element_id)
 
                     # convert element_id to a name and append
-                    name = rings[int(element_id[0]) - 1] + (element_id[1:] if int(element_id[1]) else element_id[2:])
+                    name = self.rings[int(element_id[0]) - 2] + (element_id[1:] if int(element_id[1]) else element_id[2:])
                     ring_names.append(name)
 
             # now append the ring's list to the main list

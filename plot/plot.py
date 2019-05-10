@@ -151,6 +151,76 @@ def plot_fission_rates():
     plt.close(fig)
 
     # -------------------------------------------------------------------------
+    #                                                           axial/elemental
+    # loop for separate plot for each ring
+    for i, ring in enumerate(core.rings):
+
+        # set up plotting environment
+        fig, ax = plotting_environment(i + 10, 'Fission Rate', '$z$ (cm)', figsize=(6, 10),
+                                       xticks=[10], xticklabels=[10])
+
+        # create a color object
+        colors = cm.inferno(np.linspace(0, 1, len(core.ids[i])))
+
+        # loop through each element in the ring
+        for j, element_id in enumerate(core.ids[i]):
+
+            # pull the particular element
+            element = core.fuel[element_id]
+
+            # plot the axial rr density from that element
+            ax.plot(element.rr_density_ax, element.ax_mps, color=colors[j], label=core.names[i][j])
+
+        # create a fancy legend
+        leg = ax.legend(loc='center right', bbox_to_anchor=(1.4, 0.5), ncol=1,
+                        fancybox=True, framealpha=1.0, shadow=True,
+                        edgecolor='k', facecolor='white')
+
+        # get rid of right and top lines
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        # save and close the figure
+        fig.savefig('plot/axial_rr_density_{}'.format(ring), dpi=300,
+                    bbox_extra_artists=(leg,), bbox_inches='tight')
+        plt.close(fig)
+
+    # -------------------------------------------------------------------------
+    #                                                          radial/elemental
+    # loop for separate plot for each ring
+    for i, ring in enumerate(core.rings):
+
+        # set up plotting environment
+        fig, ax = plotting_environment(i + 20, 'r (cm)', 'Fission Rate', figsize=(8, 6), yticks=[10], yticklabels=[10])
+
+        # create a color object
+        colors = cm.inferno(np.linspace(0, 1, len(core.ids[i])))
+
+        # loop through each element in the ring
+        for j, element_id in enumerate(core.ids[i]):
+
+            # pull the particular element
+            element = core.fuel[element_id]
+
+            # plot the axial rr density from that element
+            ax.plot(element.rad_mps, element.rr_density_rad, color=colors[j], label=element_id)
+
+        # create a fancy legend
+        leg = ax.legend(loc='center right', bbox_to_anchor=(
+                        1.2, 0.5), ncol=1, fancybox=True, framealpha=1.0,
+                        shadow=True, edgecolor='k', facecolor='white')
+
+        # get rid of right and top lines
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+        # save and close the figure
+        fig.savefig('plot/radial_rr_density_{}'.format(ring), dpi=300,
+                    bbox_extra_artists=(leg,), bbox_inches='tight')
+        plt.close(fig)
+    return
+        
+    # -------------------------------------------------------------------------
     #                                                                    others
     # plot the axial and radial distributions for each ring
     # loop through each ring
@@ -166,16 +236,6 @@ def plot_fission_rates():
         for element_id in core.fuel.keys():
             if str(i) == element_id[0]:
                 ring_elements.append(element_id)
-
-        # set up plotting environment
-        fig0 = plt.figure(i, figsize=(4, 10))
-        ax0 = fig0.add_subplot(111)
-        ax0.set_xlabel('Fission Rate')
-        ax0.set_ylabel('$z$ (cm)')
-        fig1 = plt.figure(i + 10, figsize=(8, 6))
-        ax1 = fig1.add_subplot(111)
-        ax1.set_xlabel('r (cm)')
-        ax1.set_ylabel('Fission Rate')
 
         color = cm.rainbow(np.linspace(0, 1, len(ring_elements)))
 
@@ -199,30 +259,11 @@ def plot_fission_rates():
             # grab the individual element
             element = core.fuel[element_id]
 
-            # plot the axial and radial reaction
-            ax0.plot(element.rr_density_ax, element.ax_mps,
-                     color=color[j], label=element_id)
-            ax1.plot(element.rad_mps, element.rr_density_rad,
-                     color=color[j], label=element_id)
 
         rr_abstotals.append(ring)
         rr_totals.append(rr_total)
         rr_dens.append(rr_den)
         rr_densax.append(rr_denax)
-
-        # add a legend and save the figure
-        leg0 = ax0.legend(loc='center right', bbox_to_anchor=(
-            1.4, 0.5), ncol=1, fancybox=True, framealpha=1.0,
-            shadow=True, edgecolor='k', facecolor='white')
-        leg1 = ax1.legend(loc='center right', bbox_to_anchor=(
-            1.2, 0.5), ncol=1, fancybox=True, framealpha=1.0,
-            shadow=True, edgecolor='k', facecolor='white')
-        fig0.savefig('plot/axial_rr_density_{}'.format(i), dpi=300,
-                     bbox_extra_artists=(leg0,), bbox_inches='tight')
-        fig1.savefig('plot/radial_rr_density_{}'.format(i), dpi=300,
-                     bbox_extra_artists=(leg1,), bbox_inches='tight')
-        plt.close(fig0)
-        plt.close(fig1)
 
     rr_abstotals[1].insert(6, 0)
     rr_abstotals[2].insert(3, 0)
