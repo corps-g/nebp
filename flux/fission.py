@@ -83,6 +83,7 @@ class Triga_Core(object):
         self.fuel = fuel_data
         self.calc_extrema()
         self.calc_core_averages()
+        self.pull_ring_ids()
 
     def calc_extrema(self):
         """Calculates the min and max rr densities"""
@@ -96,6 +97,38 @@ class Triga_Core(object):
         for i, element in enumerate(self.fuel.values()):
             self.ax_avg += (element.rr_ax / (np.sum(element.rr_ax) * len(element.rr_ax)))
             self.rad_avg += (element.rr_rad / (np.sum(element.rr_rad) * len(element.rr_rad)))
+
+    def pull_ring_ids(self):
+        """Makes a list of lists contianing all the id numbers for each of the
+        elements in core."""
+
+        # initialize containers
+        self.ids = []
+        self.names = []
+
+        # the ring's letters
+        rings = ['A', 'B', 'C', 'D', 'E', 'F']
+
+        # loop through each ring
+        for i in range(1, 6):
+
+            # open new structures for this ring
+            ring_elements = []
+            ring_names = []
+
+            # loop through each element and if it's in the ring, append it
+            for element_id in self.fuel.keys():
+                if str(i + 1) == element_id[0]:
+                    ring_elements.append(element_id)
+
+                    # convert element_id to a name and append
+                    name = rings[int(element_id[0]) - 1] + (element_id[1:] if int(element_id[1]) else element_id[2:])
+                    ring_names.append(name)
+
+            # now append the ring's list to the main list
+            self.ids.append(ring_elements)
+            self.names.append(ring_names)
+        return
 
 
 def extract_fission_data():
@@ -281,4 +314,4 @@ def write_fission_sdef():
 
 
 if __name__ == '__main__':
-    pass
+    extract_fission_data()

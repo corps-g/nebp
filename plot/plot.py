@@ -188,11 +188,11 @@ def plot_fission_rates():
         # now loop through the elements in a given ring
         for j, element_id in enumerate(ring_elements):
 
-            rr_den += element.rr_density_rad/len(ring_elements)
+            rr_den += element.rr_density_rad / len(ring_elements)
 
-            rr_denax += element.rr_density_ax/len(ring_elements)
+            rr_denax += element.rr_density_ax / len(ring_elements)
 
-            rr_total += element.total_fission_rate/len(ring_elements)
+            rr_total += element.total_fission_rate / len(ring_elements)
 
             ring.append(element.total_fission_rate)
 
