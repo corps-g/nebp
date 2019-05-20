@@ -6,14 +6,13 @@ sys.path.insert(0, '../')
 import paths
 from nebp_flux import extract_mcnp
 from response import response_data
-from bss_calibration import BSS_Calibration
 from theoretical_activities import Au_Foil_Theoretical
 from process_activities import Au_Foil_Data
 
 
 class BSS_Data(object):
 
-    """Docstring."""
+    """Houses the Bonner Sphere experimental data."""
 
     def __init__(self):
         """Docstring."""
@@ -24,16 +23,8 @@ class BSS_Data(object):
         # sizes
         self.sizes = np.array([0, 2, 3, 5, 8, 10, 12])
 
-        # store calibration data
-        self.calibration = BSS_Calibration()
-
         # store the experiment that we're comparing with
         self.experiment = self.process_experiment()
-
-        # grab the fudge factor
-        foil_experiment = Au_Foil_Data()
-        foil_data = Au_Foil_Theoretical(foil_experiment)
-        self.nebp_fudge_factor = foil_data.nebp_fudge_factor
 
         # calculate the theoretical saturation activities
         self.calc_responses()
@@ -56,7 +47,7 @@ class BSS_Data(object):
         # loop through each size
         for i, size in enumerate(self.sizes):
 
-            #
+            # name of the file
             filename = paths.main_path + '/experiment/4_18_19/bss' + str(size) + '.Spe'
 
             # grab the data
@@ -91,9 +82,6 @@ class BSS_Data(object):
             ax.legend()
             fig.savefig('plot/bs{}_spectrum.png'.format(i), dpi=300)
             fig.clear()
-
-        # correct for calibration efficiency
-        counts /= self.calibration.efficiency
 
         return counts
 

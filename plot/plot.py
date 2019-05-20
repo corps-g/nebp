@@ -11,7 +11,7 @@ from process_activities import Au_Foil_Data
 from theoretical_activities import Au_Foil_Theoretical
 from bss_calibration import BSS_Calibration
 from bss_in_beam import BSS_Data
-from unfold_nebp import Unfold_NEBP
+from unfold_nebp import unfold_myriad
 from response import response_data
 from spectrum import Spectrum
 import seaborn
@@ -422,12 +422,49 @@ def plot_au_rfs_and_unfolded():
     return
 
 
+def plot_unfolded():
+    """This plot superimposes the spectra unfolded with the gold on top of the au response functions."""
+
+    # plotting parameters
+    tool = Plotting_Tool()
+
+    # set values to poster defaults
+    tool.set_poster_defaults()
+
+    # plotting environment
+    fig, ax = plotting_environment(7, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
+
+    # set up axes lims
+    ax.set_xlim(1E-11, 20)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    # get nebp data
+    unfolded_data = unfold_myriad()
+
+    # convert to spectrum object
+    ds = Spectrum(unfolded_data['eb'], unfolded_data['ds'], 0)
+    unfolded = Spectrum(unfolded_data['eb'], unfolded_data['all'], 0)
+
+    # plot the unfolded data
+    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
+    ax.plot(*unfolded.plot('plot', 'diff'), color='g', label='Gravel', lw=1.2)
+
+    # create a legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/unfolded_{}.png'.format('all'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+    return
+
+
 def plot_all():
     """A utility that calls every plotting function in this file."""
 
-    plot_fission_rates()
-    #plot_activities()
+    #plot_fission_rates()
+    plot_activities()
     #plot_au_rfs_and_unfolded()
+    plot_unfolded()
 
     return
 

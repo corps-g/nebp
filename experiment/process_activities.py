@@ -108,7 +108,7 @@ class Au_Foil_Data(object):
             results = re.findall(pattern, output)
 
             # convert those values to floats and store
-            act, err = [float(r) for r in results[-1].split()[2:]]
+            act, err = [float(r) * 3.7E4 for r in results[-1].split()[2:]]
 
             # pull the detector live times
             pattern = re.compile(r'Live Time                       :\s+\d+.\d seconds')

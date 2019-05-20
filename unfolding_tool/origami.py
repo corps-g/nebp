@@ -6,17 +6,20 @@ from scipy.optimize import basinhopping
 def preprocess(N, sigma2, R, f_def, params):
     """Apply any preprocessing steps to the data."""
 
-    #
+    # make a copy of f_def
+    f_def_new = f_def.copy()
+
+    # if scaling the values initially
     if 'scale' in params:
         if params['scale']:
 
-            #
+            # calculated responses
             N0 = np.sum(R * f_def, axis=1)
 
-            #
-            f_def *= np.average(N / N0)
+            # find the average ratio between measured and calculated responses
+            f_def_new *= np.average(N / N0)
 
-    return N, sigma2, R, f_def, params
+    return N, sigma2, R, f_def_new, params
 
 
 def MAXED(N, sigma2, R, f_def, params):
@@ -59,6 +62,8 @@ def Gravel(N, sigma2, R, f_def, params):
     if 'evolution' in params:
         evolution = params['evolution']
         evolution_list = []
+    else:
+        evolution = False
 
     # initalize
     iteration = 0

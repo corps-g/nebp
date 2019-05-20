@@ -48,7 +48,7 @@ class Au_Foil_Theoretical(object):
         response_functions = np.array(response_functions)
 
         # fold the rfs and the flux together, convert to uCi / atom
-        a_sat_atom = np.sum(response_functions * flux, axis=1) * (1 / 3.7E4)
+        a_sat_atom = np.sum(response_functions * flux, axis=1)
 
         # only care about the ones that match the experiment
         self.a_sat_atom = a_sat_atom[:self.experiment.n]
