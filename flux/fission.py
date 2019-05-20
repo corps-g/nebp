@@ -172,12 +172,18 @@ def extract_fission_data():
         output = F.read()
 
     # grab the chunk containing the tally data
-    chunk = output.split('1tally')[1].split('\n\n')[1].split('\n \n')[1:]
+    chunk = output.split('1tally')[2].split('\n\n')[1].split('\n \n')[1:]
 
     # loop through chunk and extract cell numbers and fission data
     for cell in chunk:
         cell = cell.split()
-        cell_data[cell[1]] = float(cell[-2]), float(cell[-1])
+
+        # sum the values and combine the errors
+        val = float(cell[-2]) + float(cell[-5])
+        err = np.sqrt((float(cell[-1]) * float(cell[-2]))**2 + (float(cell[-4]) * float(cell[-5]))**2) / val
+
+        # then, store
+        cell_data[cell[1]] = val, err
 
     # number of divisions
     n_axial = 40
