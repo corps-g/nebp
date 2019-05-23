@@ -34,7 +34,6 @@ class Unfold_NEBP(object):
 
         # get responses
         self.N = self.prepare_responses()
-        print(self.N)
 
         # unfold
         self.solution = self.unfold()
@@ -71,10 +70,6 @@ class Unfold_NEBP(object):
 
         # get response functions
         responses = response_data()
-
-        # print the keys
-        print(responses.keys())
-        print(rf_names)
 
         # this pulls only the rfs for the bonner spheres
         response_functions = []
@@ -128,9 +123,6 @@ class Unfold_NEBP(object):
         """This unfolds the spectrum"""
 
         # unfold the spectrum
-        print(self.N.shape)
-        print(self.R.shape)
-        print(self.ds.shape)
         sol = unfold(self.N, self.N * 0.05, self.R, self.ds, method=self.method, params=self.params)
 
         return sol
@@ -146,7 +138,7 @@ def unfold_myriad():
     solutions = {}
 
     # unfold with all data
-    unfolder = Unfold_NEBP('all', P, 'Gravel', {'tol': 0, 'max_iter': 100})
+    unfolder = Unfold_NEBP('ft_au', P, 'Gravel', {'tol': 0, 'max_iter': 100})
     solutions['eb'] = unfolder.eb
     solutions['ds'] = unfolder.ds
     solutions['all'] = unfolder.solution

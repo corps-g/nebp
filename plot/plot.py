@@ -462,7 +462,7 @@ def plot_all():
     """A utility that calls every plotting function in this file."""
 
     #plot_fission_rates()
-    plot_activities()
+    #plot_activities()
     #plot_au_rfs_and_unfolded()
     plot_unfolded()
 

@@ -349,4 +349,4 @@ def write_fission_sdef():
 
 
 if __name__ == '__main__':
-    extract_fission_data()
+    write_fission_sdef()
