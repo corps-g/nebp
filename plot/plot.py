@@ -7,6 +7,7 @@ from matplotlib import rc, rcParams
 from matplotlib.pyplot import cm
 from group_structures import energy_groups
 from fission import extract_fission_data
+from nebp_flux import extract_mcnp
 from process_activities import Au_Foil_Data
 from theoretical_activities import Au_Foil_Theoretical
 from bss_calibration import BSS_Calibration
@@ -444,18 +445,286 @@ def plot_unfolded():
 
     # convert to spectrum object
     ds = Spectrum(unfolded_data['eb'], unfolded_data['ds'], 0)
-    unfolded = Spectrum(unfolded_data['eb'], unfolded_data['all'], 0)
+    unfolded_all_gr = Spectrum(unfolded_data['eb'], unfolded_data['all_gr'], 0)
+    unfolded_ft_au_gr = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_gr'], 0)
+    unfolded_bs_gr = Spectrum(unfolded_data['eb'], unfolded_data['bs_gr'], 0)
 
     # plot the unfolded data
     ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
-    ax.plot(*unfolded.plot('plot', 'diff'), color='g', label='Gravel', lw=1.2)
+    ax.plot(*unfolded_all_gr.plot('plot', 'diff'), color='g', label='All Gravel', lw=1.2)
+    ax.plot(*unfolded_ft_au_gr.plot('plot', 'diff'), color='b', label='Foil Tube Gravel', lw=1.2)
+    ax.plot(*unfolded_bs_gr.plot('plot', 'diff'), color='r', label='BSS Gravel', lw=1.2)
 
     # create a legend and save
     leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
                     framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
-    fig.savefig('plot/unfolded_{}.png'.format('all'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.savefig('plot/unfolded_{}.png'.format('gr'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+    
+    # plotting environment
+    fig, ax = plotting_environment(8, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
+
+    # set up axes lims
+    ax.set_xlim(1E-11, 20)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    # repeat for maxed
+    unfolded_all_mx = Spectrum(unfolded_data['eb'], unfolded_data['all_mx'], 0)
+    unfolded_ft_au_mx = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_mx'], 0)
+    unfolded_bs_mx = Spectrum(unfolded_data['eb'], unfolded_data['bs_mx'], 0)
+
+    # plot the unfolded data
+    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
+    ax.plot(*unfolded_all_mx.plot('plot', 'diff'), color='g', label='All MAXED', lw=1.2)
+    ax.plot(*unfolded_ft_au_mx.plot('plot', 'diff'), color='b', label='Foil Tube MAXED', lw=1.2)
+    ax.plot(*unfolded_bs_mx.plot('plot', 'diff'), color='r', label='BSS MAXED', lw=1.2)
+
+    # create a legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/unfolded_{}.png'.format('mx'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+    
+    # plotting environment
+    fig, ax = plotting_environment(8, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
+
+    # set up axes lims
+    ax.set_xlim(1E-11, 20)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+
+    # repeat for maxed
+    unfolded_all_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['all_mx_sc'], 0)
+    unfolded_ft_au_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_mx_sc'], 0)
+    unfolded_bs_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['bs_mx_sc'], 0)
+
+    # plot the unfolded data
+    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
+    ax.plot(*unfolded_all_mx_sc.plot('plot', 'diff'), color='g', label='All MAXED', lw=1.2)
+    ax.plot(*unfolded_ft_au_mx_sc.plot('plot', 'diff'), color='b', label='Foil Tube MAXED', lw=1.2)
+    ax.plot(*unfolded_bs_mx_sc.plot('plot', 'diff'), color='r', label='BSS MAXED', lw=1.2)
+
+    # create a legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/unfolded_{}.png'.format('mx_sc'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
     fig.clear()
     return
+
+
+def plot_response_data():
+    """Pretty straight-forward."""
+
+    # get the data
+    responses = response_data()
+
+    # plot response functions -------------------------------------------------
+    fig, ax = plotting_environment(9, 'Energy $MeV$', 'Response Function $cm^2$', xscale='log', yscale='log', figsize=(12, 8))
+
+    # establish colormap
+    num_au = [1 if 'ft_au' in name else 0 for name in responses.keys()].count(1)
+    color = plt.cm.rainbow(np.linspace(0, 1, num_au))
+
+    # loop through integral responses
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
+
+        if 'ft_au' not in name:
+            continue
+
+        # plot the integral response
+        ax.plot(*response.plot('plot', 'int'), label=name, color=color[i], lw=1.2)
+        ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
+
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/ft_au.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+
+    # plot response functions -------------------------------------------------
+    fig = plt.figure(1, figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+
+    # establish colormap
+    color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
+
+    # loop through integral responses
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
+
+        if 'ft_in' not in name:
+            continue
+
+        # plot the integral response
+        ax.plot(*response.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+        #ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
+
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/ft_in.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+
+    # plot response functions -------------------------------------------------
+    fig, ax = plotting_environment(11, 'Energy $MeV$', 'Response Function $cm^2$', xscale='log', yscale='log', figsize=(12, 8))
+
+    # establish colormap
+    sizes = ['Bare', '2"', '3"', '5"', '8"', '10"', '12"']
+    color = plt.cm.rainbow(np.linspace(0, 1, len(sizes)))
+
+    # loop through integral responses
+    bs_responses = {}
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
+
+        if 'bs' not in name or 'p' in name:
+            continue
+        
+        # append the response to a new list
+        bs_responses[name] = response
+    
+    for i, item in enumerate(bs_responses.items()):
+        
+        # parse out name and response
+        name, response = item
+
+        # plot the integral response
+        ax.plot(*response.plot('plot', 'int'), label=sizes[i], color=color[i], lw=1.2)
+        ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
+
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/bs.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+
+    # plot response functions -------------------------------------------------
+    fig = plt.figure(3, figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+
+    # establish colormap
+    color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
+
+    # loop through integral responses
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
+
+        if 'pbs' not in name:
+            continue
+
+        # plot the integral response
+        ax.plot(*response.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+        ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
+
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/pbs.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
+
+    return
+
+
+def plot_response_pdfs():
+    """plot_response_pdfs"""
+
+    # get the data
+    responses = response_data()
+
+    for j, detector in enumerate(('ft_au', 'bs', 'pbs')):
+        # plot response functions -------------------------------------------------
+        fig = plt.figure(j + 3, figsize=(10, 6))
+        ax = fig.add_subplot(111)
+        ax.set_xscale('log')
+        ax.set_yscale('log')
+        ax.set_xlabel('Energy $MeV$')
+        ax.set_ylabel('pdf')
+
+        # establish colormap
+        color = plt.cm.rainbow(np.linspace(0, 1, len(responses)))
+
+        # loop through integral responses
+        for i, item in enumerate(responses.items()):
+
+            # parse out name and response
+            name, response = item
+
+            if detector is 'bs' and 'p' in name:
+                continue
+
+            if detector not in name:
+                continue
+
+            # normalize responses
+            response_pdf = Spectrum(response.edges, response.int / np.sum(response.int), response.int_error / np.sum(response.int))
+
+            # plot the integral response
+            ax.plot(*response_pdf.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+            ax.errorbar(*response_pdf.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
+
+        # add legend and save
+        leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                        framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+        fig.savefig('plot/{}_pdf.png'.format(detector), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+        fig.clear()
+
+    return
+
+
+def plot_response_cdfs():
+    """plot_response_pdfs"""
+
+    # get the data
+    responses = response_data()
+    flux_data = extract_mcnp('n', 1)
+    flux = flux_data[:, :, 1:, 0]
+    flux_erg = np.sum(flux, axis=(0, 1))
+
+    # plot response functions -------------------------------------------------
+    fig = plt.figure(3, figsize=(10, 6))
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    ax.set_xlabel('Energy $MeV$')
+    ax.set_ylabel('cdf')
+
+    # establish colormap
+    color = plt.cm.rainbow(np.linspace(0, 1, 11))
+
+    # loop through integral responses
+    for i, item in enumerate(responses.items()):
+
+        # parse out name and response
+        name, response = item
+
+        if 'ft_au' not in name:
+            continue
+
+        # normalize responses
+        folded = response.int * flux_erg
+        folded_response = Spectrum(response.edges, np.cumsum(folded) / np.sum(folded), 0)
+
+        # plot the integral response
+        ax.plot(*folded_response.plot('plot', 'int'), label=name, color=color[i], lw=0.5)
+
+    # add legend and save
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+    fig.savefig('plot/ft_au_cdf.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.clear()
 
 
 def plot_all():
@@ -464,7 +733,10 @@ def plot_all():
     #plot_fission_rates()
     #plot_activities()
     #plot_au_rfs_and_unfolded()
-    plot_unfolded()
+    plot_response_data()
+    #plot_response_pdfs()
+    #plot_response_cdfs()
+    #plot_unfolded()
 
     return
 

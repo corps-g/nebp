@@ -33,7 +33,7 @@ class Unfold_NEBP(object):
         self.R, self.eb = self.prepare_response_matrix()
 
         # get responses
-        self.N = self.prepare_responses()
+        self.N, self.err = self.prepare_responses()
 
         # unfold
         self.solution = self.unfold()
@@ -96,34 +96,39 @@ class Unfold_NEBP(object):
 
         # initialize a structure for the data
         responses = np.zeros(16)
+        errors = np.zeros(16)
 
         # first, do the gold
         experimental_data = Au_Foil_Data()
 
         # set the first part to the gold responses
         responses[:len(experimental_data.a_sat_atom)] = experimental_data.a_sat_atom * (self.P / 1E5)
+        errors[:len(experimental_data.a_sat_atom)] = experimental_data.a_sat_atom_error * (self.P / 1E5)
 
         # then do the bss
         experimental_data = BSS_Data()
 
         # set the second part to the bss responses
         responses[-len(experimental_data.experiment):] = experimental_data.experiment * (self.P / 1E3)
+        errors[-len(experimental_data.experiment):] = experimental_data.experiment_err * (self.P / 1E3)
 
         # then decide what portion to return
         if self.data_source == 'ft_au':
             responses = responses[:9]
+            errors = errors[:9]
         elif self.data_source == 'bs':
             responses = responses[9:]
+            errors = errors[9:]
         else:
             pass
 
-        return responses
+        return responses, errors
 
     def unfold(self):
         """This unfolds the spectrum"""
 
         # unfold the spectrum
-        sol = unfold(self.N, self.N * 0.05, self.R, self.ds, method=self.method, params=self.params)
+        sol = unfold(self.N, self.err, self.R, self.ds, method=self.method, params=self.params)
 
         return sol
 
@@ -138,10 +143,40 @@ def unfold_myriad():
     solutions = {}
 
     # unfold with all data
-    unfolder = Unfold_NEBP('ft_au', P, 'Gravel', {'tol': 0, 'max_iter': 100})
+    unfolder = Unfold_NEBP('ft_au', P, 'Gravel', {'tol': 0, 'max_iter': 50})
     solutions['eb'] = unfolder.eb
     solutions['ds'] = unfolder.ds
-    solutions['all'] = unfolder.solution
+    solutions['ft_au_gr'] = unfolder.solution
+    
+    # unfold with all data
+    unfolder = Unfold_NEBP('bs', P, 'Gravel', {'tol': 0, 'max_iter': 50})
+    solutions['bs_gr'] = unfolder.solution
+    
+    # unfold with all data
+    unfolder = Unfold_NEBP('all', P, 'Gravel', {'tol': 0, 'max_iter': 50})
+    solutions['all_gr'] = unfolder.solution
+    
+    unfolder = Unfold_NEBP('ft_au', P, 'MAXED', {'Omega': 9})
+    solutions['ft_au_mx'] = unfolder.solution
+    
+    # unfold with all data
+    unfolder = Unfold_NEBP('bs', P, 'MAXED', {'Omega': 7})
+    solutions['bs_mx'] = unfolder.solution
+    
+    # unfold with all data
+    unfolder = Unfold_NEBP('all', P, 'MAXED', {'Omega': 7 + 9})
+    solutions['all_mx'] = unfolder.solution
+    
+    unfolder = Unfold_NEBP('ft_au', P, 'MAXED', {'Omega': 9, 'scale': True})
+    solutions['ft_au_mx_sc'] = unfolder.solution
+    
+    # unfold with all data
+    unfolder = Unfold_NEBP('bs', P, 'MAXED', {'Omega': 7, 'scale': True})
+    solutions['bs_mx_sc'] = unfolder.solution
+    
+    # unfold with all data
+    unfolder = Unfold_NEBP('all', P, 'MAXED', {'Omega': 7 + 9, 'scale': True})
+    solutions['all_mx_sc'] = unfolder.solution
 
     # finally, return all of the solutions
     return solutions

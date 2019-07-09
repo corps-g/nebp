@@ -24,7 +24,7 @@ class BSS_Data(object):
         self.sizes = np.array([0, 2, 3, 5, 8, 10, 12])
 
         # store the experiment that we're comparing with
-        self.experiment = self.process_experiment()
+        self.experiment, self.experiment_err = self.process_experiment()
 
         # calculate the theoretical saturation activities
         self.calc_responses()
@@ -38,6 +38,7 @@ class BSS_Data(object):
 
         # initialize array
         counts = np.zeros(len(self.sizes))
+        error = np.zeros(len(self.sizes))
 
         # model
         def model(x, A, B, C, D, E):
@@ -71,6 +72,8 @@ class BSS_Data(object):
 
             # sum counts beyond lld, convert to rate, and store
             counts[i] = popt[2] / t
+            error[i] = np.sqrt(popt[2]) / t
+            print(counts[i])
 
             # plot fit
             fig = plt.figure(i + 200)
@@ -83,7 +86,7 @@ class BSS_Data(object):
             fig.savefig('plot/bs{}_spectrum.png'.format(i), dpi=300)
             fig.clear()
 
-        return counts
+        return counts, error
 
     def calc_responses(self):
         """Docstring."""
