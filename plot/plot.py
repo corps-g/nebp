@@ -16,6 +16,7 @@ from unfold_nebp import unfold_myriad
 from response import response_data
 from spectrum import Spectrum
 import seaborn
+seaborn.reset_orig()
 
 
 class Plotting_Tool():
