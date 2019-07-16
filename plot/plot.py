@@ -433,37 +433,97 @@ def plot_unfolded():
     # set values to poster defaults
     tool.set_poster_defaults()
 
-    # plotting environment
-    fig, ax = plotting_environment(7, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
-
-    # set up axes lims
-    ax.set_xlim(1E-11, 20)
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-
     # get nebp data
     unfolded_data = unfold_myriad()
 
-    # convert to spectrum object
+#    # -------------------------------------------------------------------------
+#    # plot gravel
+#    # plotting environment
+#    fig, ax = plotting_environment(7, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
+#
+#    # set up axes lims
+#    ax.set_xlim(1E-11, 20)
+#    ax.spines['top'].set_visible(False)
+#    ax.spines['right'].set_visible(False)
+#
+#    
+#
+#    # convert to spectrum object
     ds = Spectrum(unfolded_data['eb'], unfolded_data['ds'], 0)
-    unfolded_all_gr = Spectrum(unfolded_data['eb'], unfolded_data['all_gr'], 0)
-    unfolded_ft_au_gr = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_gr'], 0)
-    unfolded_bs_gr = Spectrum(unfolded_data['eb'], unfolded_data['bs_gr'], 0)
-
-    # plot the unfolded data
-    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
-    ax.plot(*unfolded_all_gr.plot('plot', 'diff'), color='g', label='All Gravel', lw=1.2)
-    ax.plot(*unfolded_ft_au_gr.plot('plot', 'diff'), color='b', label='Foil Tube Gravel', lw=1.2)
-    ax.plot(*unfolded_bs_gr.plot('plot', 'diff'), color='r', label='BSS Gravel', lw=1.2)
-
-    # create a legend and save
-    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
-                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
-    fig.savefig('plot/unfolded_{}.png'.format('gr'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
-    fig.clear()
+#    unfolded_all_gr = Spectrum(unfolded_data['eb'], unfolded_data['all_gr'], 0)
+#    unfolded_ft_au_gr = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_gr'], 0)
+#    unfolded_bs_gr = Spectrum(unfolded_data['eb'], unfolded_data['bs_gr'], 0)
+#
+#    # plot the unfolded data
+#    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
+#    ax.plot(*unfolded_all_gr.plot('plot', 'diff'), color='g', label='All Gravel', lw=1.2)
+#    ax.plot(*unfolded_ft_au_gr.plot('plot', 'diff'), color='b', label='Foil Tube Gravel', lw=1.2)
+#    ax.plot(*unfolded_bs_gr.plot('plot', 'diff'), color='r', label='BSS Gravel', lw=1.2)
+#
+#    # create a legend and save
+#    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
+#                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+#    fig.savefig('plot/unfolded_{}.png'.format('gr'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+#    fig.clear()
+#    
+#    # -------------------------------------------------------------------------
+#    # plot maxed
+#    # plotting environment
+#    fig, ax = plotting_environment(8, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
+#
+#    # set up axes lims
+#    ax.set_xlim(1E-11, 20)
+#    ax.spines['top'].set_visible(False)
+#    ax.spines['right'].set_visible(False)
+#
+#    # repeat for maxed
+#    unfolded_all_mx = Spectrum(unfolded_data['eb'], unfolded_data['all_mx'], 0)
+#    unfolded_ft_au_mx = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_mx'], 0)
+#    unfolded_bs_mx = Spectrum(unfolded_data['eb'], unfolded_data['bs_mx'], 0)
+#
+#    # plot the unfolded data
+#    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
+#    ax.plot(*unfolded_all_mx.plot('plot', 'diff'), color='g', label='All MAXED', lw=1.2)
+#    ax.plot(*unfolded_ft_au_mx.plot('plot', 'diff'), color='b', label='Foil Tube MAXED', lw=1.2)
+#    ax.plot(*unfolded_bs_mx.plot('plot', 'diff'), color='r', label='BSS MAXED', lw=1.2)
+#
+#    # create a legend and save
+#    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
+#                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+#    fig.savefig('plot/unfolded_{}.png'.format('mx'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+#    fig.clear()
+#    
+#    # -------------------------------------------------------------------------
+#    # plot scaled maxed
+#    # plotting environment
+#    fig, ax = plotting_environment(9, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
+#
+#    # set up axes lims
+#    ax.set_xlim(1E-11, 20)
+#    ax.spines['top'].set_visible(False)
+#    ax.spines['right'].set_visible(False)
+#
+#    # repeat for maxed
+#    unfolded_all_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['all_mx_sc'], 0)
+#    unfolded_ft_au_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_mx_sc'], 0)
+#    unfolded_bs_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['bs_mx_sc'], 0)
+#
+#    # plot the unfolded data
+#    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
+#    ax.plot(*unfolded_all_mx_sc.plot('plot', 'diff'), color='g', label='All MAXED', lw=1.2)
+#    ax.plot(*unfolded_ft_au_mx_sc.plot('plot', 'diff'), color='b', label='Foil Tube MAXED', lw=1.2)
+#    ax.plot(*unfolded_bs_mx_sc.plot('plot', 'diff'), color='r', label='BSS MAXED', lw=1.2)
+#
+#    # create a legend and save
+#    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
+#                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
+#    fig.savefig('plot/unfolded_{}.png'.format('mx_sc'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+#    fig.clear()
     
+    # -------------------------------------------------------------------------
+    # plot doroshenko
     # plotting environment
-    fig, ax = plotting_environment(8, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
+    fig, ax = plotting_environment(10, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
 
     # set up axes lims
     ax.set_xlim(1E-11, 20)
@@ -471,45 +531,20 @@ def plot_unfolded():
     ax.spines['right'].set_visible(False)
 
     # repeat for maxed
-    unfolded_all_mx = Spectrum(unfolded_data['eb'], unfolded_data['all_mx'], 0)
-    unfolded_ft_au_mx = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_mx'], 0)
-    unfolded_bs_mx = Spectrum(unfolded_data['eb'], unfolded_data['bs_mx'], 0)
+    unfolded_all_do = Spectrum(unfolded_data['eb'], unfolded_data['all_do'], 0)
+    unfolded_ft_au_do = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_do'], 0)
+    unfolded_bs_do = Spectrum(unfolded_data['eb'], unfolded_data['bs_do'], 0)
 
     # plot the unfolded data
     ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
-    ax.plot(*unfolded_all_mx.plot('plot', 'diff'), color='g', label='All MAXED', lw=1.2)
-    ax.plot(*unfolded_ft_au_mx.plot('plot', 'diff'), color='b', label='Foil Tube MAXED', lw=1.2)
-    ax.plot(*unfolded_bs_mx.plot('plot', 'diff'), color='r', label='BSS MAXED', lw=1.2)
+    ax.plot(*unfolded_all_do.plot('plot', 'diff'), color='g', label='All Doroshenko', lw=1.2)
+    ax.plot(*unfolded_ft_au_do.plot('plot', 'diff'), color='b', label='Foil Tube Doroshenko', lw=1.2)
+    ax.plot(*unfolded_bs_do.plot('plot', 'diff'), color='r', label='BSS Doroshenko', lw=1.2)
 
     # create a legend and save
     leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
                     framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
-    fig.savefig('plot/unfolded_{}.png'.format('mx'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
-    fig.clear()
-    
-    # plotting environment
-    fig, ax = plotting_environment(8, 'Energy $MeV$', r'$\Phi$ ($cm^{-2}s^{-1}$)', xscale='log', yscale='log', figsize=(12, 8))
-
-    # set up axes lims
-    ax.set_xlim(1E-11, 20)
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-
-    # repeat for maxed
-    unfolded_all_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['all_mx_sc'], 0)
-    unfolded_ft_au_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['ft_au_mx_sc'], 0)
-    unfolded_bs_mx_sc = Spectrum(unfolded_data['eb'], unfolded_data['bs_mx_sc'], 0)
-
-    # plot the unfolded data
-    ax.plot(*ds.plot('plot', 'diff'), color='k', label='Default', lw=1.2)
-    ax.plot(*unfolded_all_mx_sc.plot('plot', 'diff'), color='g', label='All MAXED', lw=1.2)
-    ax.plot(*unfolded_ft_au_mx_sc.plot('plot', 'diff'), color='b', label='Foil Tube MAXED', lw=1.2)
-    ax.plot(*unfolded_bs_mx_sc.plot('plot', 'diff'), color='r', label='BSS MAXED', lw=1.2)
-
-    # create a legend and save
-    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.1), ncol=9, fancybox=True,
-                    framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
-    fig.savefig('plot/unfolded_{}.png'.format('mx_sc'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
+    fig.savefig('plot/unfolded_{}.png'.format('do'), dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
     fig.clear()
     return
 
@@ -734,10 +769,10 @@ def plot_all():
     #plot_fission_rates()
     #plot_activities()
     #plot_au_rfs_and_unfolded()
-    plot_response_data()
+    #plot_response_data()
     #plot_response_pdfs()
     #plot_response_cdfs()
-    #plot_unfolded()
+    plot_unfolded()
 
     return
 

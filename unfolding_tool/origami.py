@@ -113,12 +113,39 @@ def Gravel(N, sigma2, R, f_def, params):
     return f
 
 
+def Doroshenko(N, sigma2, R, f_def, params):
+    """Unfolds using the Doroshenko algorithm."""
+    
+    # pull algorithm specific parameters
+    max_iter = params['max_iter']
+    
+    # initialize
+    f = f_def
+
+    # begin the loop
+    for k in range(max_iter):
+        
+        # calculate responses
+        N_calc = np.sum(R * f, axis=1)
+
+        # the meat of the algorithm
+        top = np.sum((R.T / N_calc).T, axis=0)
+        bot = np.sum((R.T / N).T, axis=0)
+        S = top / bot
+        print(S)
+
+        # update f
+        f = f * S
+
+    return f
+
+
 def unfold(N, sigma2, R, f_def, method='MAXED', params={}):
     """A utility that deconvolutes (unfolds) neutron spectral data given
     typical inputs and a selection of unfolding algorithm."""
 
     # check input
-    available_methods = ('MAXED', 'Gravel')
+    available_methods = ('MAXED', 'Gravel', 'Doroshenko')
     assert method in available_methods, 'method must by literal in {}'.format(available_methods)
     assert len(N) == len(sigma2), 'N and sigma2 must be the same length.'
     assert R.shape == (len(N), len(f_def)), 'Shape of R must be consistent with other inputs.'
@@ -133,5 +160,9 @@ def unfold(N, sigma2, R, f_def, method='MAXED', params={}):
     # unfold with Gravel
     elif method == 'Gravel':
         return Gravel(N, sigma2, R, f_def, params)
+
+    # unfold with Doroshenko
+    elif method == 'Doroshenko':
+        return Doroshenko(N, sigma2, R, f_def, params)
 
     return

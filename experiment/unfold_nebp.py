@@ -142,41 +142,51 @@ def unfold_myriad():
     # initialize a structure to hold these solutions and the energy bins
     solutions = {}
 
-    # unfold with all data
+    # -------------------------------------------------------------------------
+#    # unfold with gravel
     unfolder = Unfold_NEBP('ft_au', P, 'Gravel', {'tol': 0, 'max_iter': 50})
     solutions['eb'] = unfolder.eb
     solutions['ds'] = unfolder.ds
-    solutions['ft_au_gr'] = unfolder.solution
+#    solutions['ft_au_gr'] = unfolder.solution
+#    
+#    unfolder = Unfold_NEBP('bs', P, 'Gravel', {'tol': 0, 'max_iter': 50})
+#    solutions['bs_gr'] = unfolder.solution
+#    
+#    unfolder = Unfold_NEBP('all', P, 'Gravel', {'tol': 0, 'max_iter': 50})
+#    solutions['all_gr'] = unfolder.solution
+#    
+#    # -------------------------------------------------------------------------
+#    # unfold with maxed
+#    unfolder = Unfold_NEBP('ft_au', P, 'MAXED', {'Omega': 9})
+#    solutions['ft_au_mx'] = unfolder.solution
+#    
+#    unfolder = Unfold_NEBP('bs', P, 'MAXED', {'Omega': 7})
+#    solutions['bs_mx'] = unfolder.solution
+#    
+#    unfolder = Unfold_NEBP('all', P, 'MAXED', {'Omega': 7 + 9})
+#    solutions['all_mx'] = unfolder.solution
+#    
+#    # -------------------------------------------------------------------------
+#    # unfold with scaled maxed
+#    unfolder = Unfold_NEBP('ft_au', P, 'MAXED', {'Omega': 9, 'scale': True})
+#    solutions['ft_au_mx_sc'] = unfolder.solution
+#    
+#    unfolder = Unfold_NEBP('bs', P, 'MAXED', {'Omega': 7, 'scale': True})
+#    solutions['bs_mx_sc'] = unfolder.solution
+#    
+#    unfolder = Unfold_NEBP('all', P, 'MAXED', {'Omega': 7 + 9, 'scale': True})
+#    solutions['all_mx_sc'] = unfolder.solution
     
-    # unfold with all data
-    unfolder = Unfold_NEBP('bs', P, 'Gravel', {'tol': 0, 'max_iter': 50})
-    solutions['bs_gr'] = unfolder.solution
+    # -------------------------------------------------------------------------
+    # unfolding with doroshenko
+    unfolder = Unfold_NEBP('ft_au', P, 'Doroshenko', {'max_iter': 50})
+    solutions['ft_au_do'] = unfolder.solution
     
-    # unfold with all data
-    unfolder = Unfold_NEBP('all', P, 'Gravel', {'tol': 0, 'max_iter': 50})
-    solutions['all_gr'] = unfolder.solution
+    unfolder = Unfold_NEBP('bs', P, 'Doroshenko', {'max_iter': 50})
+    solutions['bs_do'] = unfolder.solution
     
-    unfolder = Unfold_NEBP('ft_au', P, 'MAXED', {'Omega': 9})
-    solutions['ft_au_mx'] = unfolder.solution
-    
-    # unfold with all data
-    unfolder = Unfold_NEBP('bs', P, 'MAXED', {'Omega': 7})
-    solutions['bs_mx'] = unfolder.solution
-    
-    # unfold with all data
-    unfolder = Unfold_NEBP('all', P, 'MAXED', {'Omega': 7 + 9})
-    solutions['all_mx'] = unfolder.solution
-    
-    unfolder = Unfold_NEBP('ft_au', P, 'MAXED', {'Omega': 9, 'scale': True})
-    solutions['ft_au_mx_sc'] = unfolder.solution
-    
-    # unfold with all data
-    unfolder = Unfold_NEBP('bs', P, 'MAXED', {'Omega': 7, 'scale': True})
-    solutions['bs_mx_sc'] = unfolder.solution
-    
-    # unfold with all data
-    unfolder = Unfold_NEBP('all', P, 'MAXED', {'Omega': 7 + 9, 'scale': True})
-    solutions['all_mx_sc'] = unfolder.solution
+    unfolder = Unfold_NEBP('all', P, 'Doroshenko', {'max_iter': 50})
+    solutions['all_do'] = unfolder.solution
 
     # finally, return all of the solutions
     return solutions
