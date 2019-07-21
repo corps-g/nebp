@@ -556,7 +556,7 @@ def plot_response_data():
     responses = response_data()
 
     # plot response functions -------------------------------------------------
-    fig, ax = plotting_environment(9, 'Energy $MeV$', 'Response Function $cm^2$', xscale='log', yscale='log', figsize=(12, 8))
+    fig, ax = plotting_environment(9, 'Energy $MeV$', 'Response Function $cm^2$', xscale='log', yscale='log', figsize=(13, 8))
 
     # establish colormap
     num_au = [1 if 'ft_au' in name else 0 for name in responses.keys()].count(1)
@@ -572,11 +572,12 @@ def plot_response_data():
             continue
 
         # plot the integral response
-        ax.plot(*response.plot('plot', 'int'), label=name, color=color[i], lw=1.2)
+        lab = name[5:] + '"'
+        ax.plot(*response.plot('plot', 'int'), label=lab, color=color[i], lw=1.2)
         ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
 
     # add legend and save
-    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.02), ncol=11, fancybox=True,
                     framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
     fig.savefig('plot/ft_au.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
     fig.clear()
@@ -610,7 +611,7 @@ def plot_response_data():
     fig.clear()
 
     # plot response functions -------------------------------------------------
-    fig, ax = plotting_environment(11, 'Energy $MeV$', 'Response Function $cm^2$', xscale='log', yscale='log', figsize=(12, 8))
+    fig, ax = plotting_environment(11, 'Energy $MeV$', 'Response Function $cm^2$', xscale='log', yscale='log', figsize=(13, 8))
 
     # establish colormap
     sizes = ['Bare', '2"', '3"', '5"', '8"', '10"', '12"']
@@ -639,7 +640,7 @@ def plot_response_data():
         ax.errorbar(*response.plot('errorbar', 'int'), color=color[i], ls='None', lw=0.5)
 
     # add legend and save
-    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.15), ncol=4, fancybox=True,
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.02), ncol=7, fancybox=True,
                     framealpha=1.0, shadow=True, edgecolor='k', facecolor='white')
     fig.savefig('plot/bs.png', dpi=300, bbox_extra_artists=(leg,), bbox_inches='tight')
     fig.clear()
@@ -769,10 +770,10 @@ def plot_all():
     #plot_fission_rates()
     #plot_activities()
     #plot_au_rfs_and_unfolded()
-    #plot_response_data()
+    plot_response_data()
     #plot_response_pdfs()
     #plot_response_cdfs()
-    plot_unfolded()
+    #plot_unfolded()
 
     return
 
