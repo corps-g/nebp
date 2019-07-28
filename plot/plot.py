@@ -806,13 +806,13 @@ def plot_response_cdfs():
 def plot_all():
     """A utility that calls every plotting function in this file."""
 
-    #plot_fission_rates()
+    plot_fission_rates()
     plot_activities()
-    #plot_au_rfs_and_unfolded()
-    #plot_response_data()
-    #plot_response_pdfs()
-    #plot_response_cdfs()
-    #plot_unfolded()
+    plot_au_rfs_and_unfolded()
+    plot_response_data()
+    plot_response_pdfs()
+    plot_response_cdfs()
+    plot_unfolded()
 
     return
 
