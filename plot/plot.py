@@ -343,12 +343,13 @@ def plot_activities():
     theoretical = Au_Foil_Theoretical(experimental)
 
     # setup plotting environment
-    fig, ax = plotting_environment(14, 'Foil Position $In$', r'Activity per Atom $\frac{Bq}{atom}$', yscale='log',
-                                   xticks=range(experimental.n), xticklabels=range(experimental.n))
+    xticklabs = ['0"', '1"', '2"', '3"', '4"', '5"', '6"', '7"', '8"']
+    fig, ax = plotting_environment(14, 'Foil Position', r'Activity per Atom $\frac{Bq}{atom}$', yscale='log',
+                                   xticks=range(experimental.n), xticklabels=xticklabs)
 
     # plot the theoretical data
     style = {'color': 'blue', 'marker': 'o', 'markerfacecolor': 'None',
-             'markeredgecolor': 'blue', 'linestyle': 'None', 'label': 'Theoretical',
+             'markeredgecolor': 'blue', 'linestyle': 'None', 'label': 'Simulated',
              'mew': 1.2, 'ms': 10}
     ax.plot(range(experimental.n), theoretical.a_sat_atom, **style)
 
@@ -357,6 +358,10 @@ def plot_activities():
              'markeredgecolor': 'red', 'linestyle': 'None', 'label': 'Experimental',
              'mew': 1.2, 'ms': 10}
     ax.plot(range(experimental.n), experimental.a_sat_atom, **style)
+    style = {'color': 'red',
+             'markeredgecolor': 'red', 'linestyle': 'None',
+             'mew': 1.2, 'ms': 10}
+    ax.errorbar(range(experimental.n), experimental.a_sat_atom, experimental.a_sat_atom_error, **style)
 
     # add legend and save
     ax.legend()
@@ -365,6 +370,40 @@ def plot_activities():
     # clear the figure
     fig.clear()
 
+    # ---------------------------------------------------------------
+    # do the same for the bonner sphere responses
+
+    # load in the two datasets
+    experimental = BSS_Data()
+
+    # setup plotting environment
+    sizes = ['Bare', '2"', '3"', '5"', '8"', '10"', '12"']
+    fig, ax = plotting_environment(14, 'Sphere Size', r'Response $s^{-1}$', yscale='log',
+                                   xticks=range(len(experimental.experiment)), xticklabels=sizes)
+
+    # plot the theoretical data
+    style = {'color': 'blue', 'marker': 'o', 'markerfacecolor': 'None',
+             'markeredgecolor': 'blue', 'linestyle': 'None', 'label': 'Simulated',
+             'mew': 1.2, 'ms': 10}
+    ax.plot(range(len(experimental.experiment)), experimental.responses, **style)
+
+    # plot the experimental data
+    style = {'color': 'red', 'marker': 'x', 'markerfacecolor': 'None',
+             'markeredgecolor': 'red', 'linestyle': 'None', 'label': 'Experimental',
+             'mew': 1.2, 'ms': 10}
+    ax.plot(range(len(experimental.experiment)), experimental.experiment, **style)
+    style = {'color': 'red',
+             'markeredgecolor': 'red', 'linestyle': 'None',
+             'mew': 1.2, 'ms': 10}
+    ax.errorbar(range(len(experimental.experiment)), experimental.experiment, experimental.experiment_err, **style)
+
+    # add legend and save
+    ax.legend()
+    plt.savefig('plot/compare_countrates.png')
+
+    # clear the figure
+    fig.clear()
+    
     return
 
 
@@ -768,9 +807,9 @@ def plot_all():
     """A utility that calls every plotting function in this file."""
 
     #plot_fission_rates()
-    #plot_activities()
+    plot_activities()
     #plot_au_rfs_and_unfolded()
-    plot_response_data()
+    #plot_response_data()
     #plot_response_pdfs()
     #plot_response_cdfs()
     #plot_unfolded()

@@ -73,7 +73,7 @@ class BSS_Data(object):
             # sum counts beyond lld, convert to rate, and store
             counts[i] = popt[2] / t
             error[i] = np.sqrt(popt[2]) / t
-            print(counts[i])
+            print(counts[i], '+-', error[i])
 
             # plot fit
             fig = plt.figure(i + 200)
