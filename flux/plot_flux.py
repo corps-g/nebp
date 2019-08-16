@@ -37,7 +37,7 @@ def plot_raw_data():
     # setup plotting environment
     fig = plt.figure(0, figsize=(10, 6))
     ax = fig.add_subplot(111)
-    ax.set_xlabel('Energy $MeV$')
+    ax.set_xlabel('Energy MeV')
     ax.set_ylabel('$\Phi$')
     ax.set_xscale('log')
     ax.set_yscale('log')
@@ -100,7 +100,7 @@ def plot_raw_data():
     # setup plotting environment
     fig = plt.figure(2, figsize=(10, 6))
     ax = fig.add_subplot(111)
-    ax.set_xlabel('Radius $cm$')
+    ax.set_xlabel('Radius cm')
     ax.set_ylabel('$\Phi$')
     ax.set_yscale('log')
 
@@ -117,7 +117,7 @@ def plot_raw_data():
     # setup plotting environement
     fig = plt.figure(3, figsize=(10, 6))
     ax = fig.add_subplot(111)
-    ax.set_xlabel('Energy $MeV$')
+    ax.set_xlabel('Energy MeV')
     ax.set_ylabel('$\Phi$')
     ax.set_xscale('log')
     ax.set_yscale('log')

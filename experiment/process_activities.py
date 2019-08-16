@@ -140,6 +140,7 @@ class Au_Foil_Data(object):
         # unpack the columns into arrays stored by the object
         self.a_c, self.a_c_error, self.live, self.real, self.t_c = foil_activities.T
         print(self.a_c)
+        print(self.a_c_error / self.a_c)
 
         return
 
@@ -207,7 +208,6 @@ class Au_Foil_Data(object):
         measurement_bias = lt / (1 - np.exp(-lt))
         self.a_c = self.a_c * measurement_bias
         self.a_c_error = self.a_c_error * measurement_bias
-        print(measurement_bias)
 
         return
 
@@ -235,7 +235,6 @@ class Au_Foil_Data(object):
         self.a_sat = np.array([self.a_c[i] / self.activity_profile[int(self.t_c[i])] for i in range(self.n)])
         self.a_sat_error = np.array([self.a_c_error[i] / self.activity_profile[int(self.t_c[i])] for i in range(self.n)])
         r_sat = np.array([self.activity_profile[int(self.t_c[i])] for i in range(self.n)])
-        print(r_sat)
         print(self.a_sat)
         print('\n\n')
 
